@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — 360DigiLearning</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body { background: linear-gradient(140deg, #1e293b 0%, #0f172a 100%); min-height: 100vh; }
+.admin-login-outer {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 5%;
+}
+.admin-login-card {
+  background: #1e293b; border: 1px solid #334155;
+  border-radius: var(--radius-lg); padding: 44px 40px;
+  max-width: 400px; width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.admin-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.15rem;
+  margin-bottom: 8px; justify-content: center;
+}
+.admin-badge-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3);
+  color: #93c5fd; font-size: 0.76rem; font-weight: 700;
+  padding: 4px 12px; border-radius: 50px; margin-bottom: 22px;
+}
+.admin-login-card h2 { color: #fff; font-size: 1.3rem; text-align: center; margin-bottom: 5px; }
+.admin-login-card .sub { color: #94a3b8; font-size: 0.86rem; text-align: center; margin-bottom: 26px; }
+.admin-fg { margin-bottom: 15px; }
+.admin-fg label { display: block; font-size: 0.82rem; font-weight: 700; color: #94a3b8; margin-bottom: 5px; }
+.admin-input {
+  width: 100%; padding: 11px 14px;
+  background: #0f172a; border: 1.5px solid #334155;
+  border-radius: var(--radius-sm); font-size: 0.9rem;
+  font-family: 'Nunito', sans-serif; color: #fff; outline: none;
+  transition: border-color .2s;
+}
+.admin-input:focus { border-color: var(--blue-mid); }
+.admin-err { font-size: 0.78rem; color: #f87171; margin-top: 4px; display: none; font-weight: 600; }
+.admin-err.show { display: block; }
+.admin-login-hint { text-align: center; margin-top: 14px; font-size: 0.78rem; color: #475569; }
+</style>
+</head>
+<body>
+<div class="admin-login-outer">
+  <div class="admin-login-card">
+
+    <div style="text-align:center;margin-bottom:20px">
+      <div class="admin-logo">
+        <div class="logo-mark">360</div>
+        <span><span style="color:#93c5fd">Digi</span><span style="color:#fdba74">Learning</span></span>
+      </div>
+      <div style="display:flex;justify-content:center">
+        <div class="admin-badge-pill">🔒 Admin Portal</div>
+      </div>
+    </div>
+
+    <h2>Admin Login</h2>
+    <p class="sub">Secure access to submission management and analytics</p>
+
+    <form onsubmit="return false">
+      <div class="admin-fg">
+        <label for="a_user">Admin Username</label>
+        <input class="admin-input" id="a_user" type="text" placeholder="admin" autocomplete="username">
+        <div class="admin-err" id="a_user_err">Username is required.</div>
+      </div>
+      <div class="admin-fg">
+        <label for="a_pass">Password</label>
+        <input class="admin-input" id="a_pass" type="password" placeholder="Enter admin password" autocomplete="current-password">
+        <div class="admin-err" id="a_pass_err">Password is required.</div>
+      </div>
+      <div class="admin-err" id="a_cred_err" style="margin-bottom:10px;text-align:center">Invalid username or password.</div>
+
+      <button type="submit" class="btn btn-blue btn-full btn-lg" style="margin-top:6px" onclick="adminLogin()">
+        Access Admin Dashboard →
+      </button>
+    </form>
+   
+    <p style="text-align:center;margin-top:16px"><a href="index.html" style="color:#475569;font-size:0.8rem">← Back to main site</a></p>
+  </div>
+</div>
+
+<script src="common.js"></script>
+<script>
+function adminLogin() {
+  const u = document.getElementById('a_user').value.trim();
+  const p = document.getElementById('a_pass').value.trim();
+  let valid = true;
+
+  document.getElementById('a_user_err').classList.remove('show');
+  document.getElementById('a_pass_err').classList.remove('show');
+  document.getElementById('a_cred_err').classList.remove('show');
+
+  if (!u) { document.getElementById('a_user_err').classList.add('show'); valid = false; }
+  if (!p) { document.getElementById('a_pass_err').classList.add('show'); valid = false; }
+  if (!valid) return;
+
+  if (u === 'admin' && p === 'admin@360') {
+    sessionStorage.setItem('adminAuth', '1');
+    location.href = 'admin.html';
+  } else {
+    document.getElementById('a_cred_err').classList.add('show');
+    document.getElementById('a_pass').value = '';
+    document.getElementById('a_pass').focus();
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') adminLogin(); });
+</script>
+</body>
+</html>

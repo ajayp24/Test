@@ -3,1079 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>360 DigiLearning — Elevate Your Tech Career</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --blue: #3B82F6;
-    --blue-light: #60A5FA;
-    --blue-dark: #1D4ED8;
-    --blue-bg: #EFF6FF;
-    --orange: #F97316;
-    --orange-light: #FB923C;
-    --orange-dark: #EA580C;
-    --orange-bg: #FFF7ED;
-    --white: #FFFFFF;
-    --gray-50: #F8FAFC;
-    --gray-100: #F1F5F9;
-    --gray-200: #E2E8F0;
-    --gray-400: #94A3B8;
-    --gray-600: #475569;
-    --gray-800: #1E293B;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-    --shadow-md: 0 4px 16px rgba(59,130,246,0.12);
-    --shadow-lg: 0 12px 40px rgba(59,130,246,0.18);
-    --radius: 16px;
-    --radius-sm: 10px;
-  }
-
-  * { margin:0; padding:0; box-sizing:border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--white);
-    color: var(--gray-800);
-    overflow-x: hidden;
-  }
-
-  h1,h2,h3,h4,h5 { font-family: 'Sora', sans-serif; }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top:0; left:0; right:0; z-index:100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--gray-200);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5%;
-    height: 68px;
-  }
-  .nav-logo {
-    display: flex; align-items: center; gap: 10px;
-    font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.3rem;
-    color: var(--blue-dark);
-  }
-  .nav-logo span { color: var(--orange); }
-  .nav-logo .logo-icon {
-    width: 38px; height: 38px; border-radius: 10px;
-    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-    display: flex; align-items:center; justify-content:center;
-    color: white; font-weight:800; font-size:0.9rem; letter-spacing:-0.5px;
-  }
-  .nav-links { display:flex; gap:6px; }
-  .nav-links a {
-    text-decoration:none; color:var(--gray-600);
-    font-size:0.88rem; font-weight:500;
-    padding:6px 14px; border-radius:8px;
-    transition:all 0.2s;
-    cursor:pointer;
-  }
-  .nav-links a:hover, .nav-links a.active {
-    background:var(--blue-bg); color:var(--blue-dark);
-  }
-  .nav-cta {
-    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
-    color:white !important; border-radius:9px !important;
-    font-weight:600 !important;
-  }
-  .nav-cta:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(249,115,22,0.35) !important; background: linear-gradient(135deg, var(--orange), var(--orange-dark)) !important; }
-
-  /* ── PAGES ── */
-  .page { display:none; padding-top:68px; }
-  .page.active { display:block; }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: calc(100vh - 68px);
-    background: linear-gradient(145deg, #EFF6FF 0%, #FFF7ED 50%, #EFF6FF 100%);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding: 60px 5% 80px;
-    position:relative; overflow:hidden;
-  }
-  .hero::before {
-    content:''; position:absolute; width:600px; height:600px;
-    background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
-    top:-100px; left:-100px; pointer-events:none;
-  }
-  .hero::after {
-    content:''; position:absolute; width:500px; height:500px;
-    background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%);
-    bottom:-100px; right:-100px; pointer-events:none;
-  }
-  .hero-badge {
-    display:inline-flex; align-items:center; gap:8px;
-    background:white; border:1px solid var(--blue-light);
-    color:var(--blue-dark); font-size:0.82rem; font-weight:600;
-    padding:6px 16px; border-radius:50px; margin-bottom:28px;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-badge .dot { width:7px; height:7px; background:var(--orange); border-radius:50%; }
-  .hero h1 {
-    font-size:clamp(2.4rem, 5vw, 4rem); font-weight:800;
-    line-height:1.12; max-width:760px; margin-bottom:20px;
-    animation: fadeUp 0.7s ease 0.1s both;
-  }
-  .hero h1 .accent { color:var(--blue-dark); }
-  .hero h1 .accent2 { color:var(--orange); }
-  .hero p {
-    font-size:1.08rem; color:var(--gray-600); max-width:560px; line-height:1.7;
-    margin-bottom:40px; animation: fadeUp 0.7s ease 0.2s both;
-  }
-  .hero-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; animation: fadeUp 0.7s ease 0.3s both; }
-  .btn-primary {
-    background:linear-gradient(135deg, var(--blue), var(--blue-dark));
-    color:white; padding:14px 32px; border-radius:12px;
-    font-weight:700; font-size:0.95rem; border:none; cursor:pointer;
-    transition:all 0.2s; text-decoration:none;
-    box-shadow:0 4px 16px rgba(59,130,246,0.35);
-  }
-  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(59,130,246,0.45); }
-  .btn-secondary {
-    background:white; color:var(--blue-dark);
-    padding:14px 32px; border-radius:12px;
-    font-weight:600; font-size:0.95rem;
-    border:1.5px solid var(--blue-light); cursor:pointer;
-    transition:all 0.2s; text-decoration:none;
-  }
-  .btn-secondary:hover { background:var(--blue-bg); transform:translateY(-2px); }
-
-  /* STATS */
-  .stats-bar {
-    background:white; border-top:1px solid var(--gray-200); border-bottom:1px solid var(--gray-200);
-    display:flex; justify-content:center; gap:0;
-    padding: 0;
-  }
-  .stat-item {
-    flex:1; max-width:200px; text-align:center;
-    padding:28px 20px;
-    border-right:1px solid var(--gray-200);
-  }
-  .stat-item:last-child { border-right:none; }
-  .stat-num { font-family:'Sora',sans-serif; font-size:2rem; font-weight:800; color:var(--blue-dark); }
-  .stat-num span { color:var(--orange); }
-  .stat-label { font-size:0.82rem; color:var(--gray-400); font-weight:500; margin-top:4px; }
-
-  /* SECTION COMMON */
-  .section { padding:80px 5%; }
-  .section-tag {
-    display:inline-block; background:var(--blue-bg); color:var(--blue-dark);
-    font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:1px;
-    padding:5px 14px; border-radius:50px; margin-bottom:14px;
-  }
-  .section-tag.orange { background:var(--orange-bg); color:var(--orange-dark); }
-  .section h2 { font-size:clamp(1.8rem, 3vw, 2.6rem); font-weight:800; margin-bottom:14px; }
-  .section > p { color:var(--gray-600); font-size:1rem; max-width:580px; line-height:1.7; margin-bottom:48px; }
-
-  /* TOPICS GRID */
-  .topics-grid {
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
-    gap:20px;
-  }
-  .topic-card {
-    background:white; border:1.5px solid var(--gray-200);
-    border-radius:var(--radius); padding:28px;
-    transition:all 0.25s; cursor:pointer;
-    position:relative; overflow:hidden;
-  }
-  .topic-card::before {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg, var(--blue-bg), transparent);
-    opacity:0; transition:opacity 0.25s;
-  }
-  .topic-card:hover { border-color:var(--blue-light); transform:translateY(-4px); box-shadow:var(--shadow-lg); }
-  .topic-card:hover::before { opacity:1; }
-  .topic-icon {
-    width:52px; height:52px; border-radius:14px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.5rem; margin-bottom:18px;
-    background:var(--blue-bg);
-  }
-  .topic-icon.orange { background:var(--orange-bg); }
-  .topic-card h3 { font-size:1.05rem; font-weight:700; margin-bottom:8px; position:relative; }
-  .topic-card p { font-size:0.87rem; color:var(--gray-600); line-height:1.6; position:relative; }
-  .topic-card .card-tag {
-    display:inline-block; margin-top:14px;
-    font-size:0.75rem; font-weight:600; color:var(--blue-dark);
-    background:var(--blue-bg); padding:3px 10px; border-radius:50px; position:relative;
-  }
-  .topic-card .card-tag.orange { color:var(--orange-dark); background:var(--orange-bg); }
-
-  /* ── PRACTICE EXAM PAGE ── */
-  .exam-hero {
-    background:linear-gradient(135deg, var(--blue-bg), var(--orange-bg));
-    padding:60px 5% 40px; text-align:center;
-  }
-  .exam-hero h1 { font-size:2.4rem; font-weight:800; margin-bottom:12px; }
-  .exam-hero p { color:var(--gray-600); max-width:560px; margin:0 auto 30px; }
-
-  .exam-wrapper { max-width:780px; margin:0 auto; padding:40px 5% 80px; }
-
-  .question-card {
-    background:white; border:1.5px solid var(--gray-200);
-    border-radius:var(--radius); padding:30px; margin-bottom:22px;
-    box-shadow:var(--shadow-sm);
-  }
-  .q-number {
-    display:inline-flex; align-items:center; justify-content:center;
-    width:30px; height:30px; background:var(--blue-dark); color:white;
-    border-radius:8px; font-size:0.78rem; font-weight:700; margin-bottom:14px;
-  }
-  .question-card h4 { font-size:1rem; font-weight:600; margin-bottom:18px; line-height:1.5; }
-  .options { display:flex; flex-direction:column; gap:10px; }
-  .option {
-    display:flex; align-items:center; gap:12px;
-    padding:12px 16px; border:1.5px solid var(--gray-200);
-    border-radius:10px; cursor:pointer; transition:all 0.18s;
-    font-size:0.9rem;
-  }
-  .option:hover { border-color:var(--blue-light); background:var(--blue-bg); }
-  .option input[type=radio] { accent-color:var(--blue-dark); width:16px; height:16px; }
-  .option.selected { border-color:var(--blue-dark); background:var(--blue-bg); }
-
-  .exam-cta-box {
-    background:linear-gradient(135deg, var(--blue-dark), #1e3a8a);
-    border-radius:var(--radius); padding:40px; text-align:center; color:white;
-    margin-top:30px;
-  }
-  .exam-cta-box h3 { font-size:1.5rem; font-weight:800; margin-bottom:10px; }
-  .exam-cta-box p { opacity:0.85; margin-bottom:24px; }
-  .btn-white {
-    background:white; color:var(--blue-dark);
-    padding:13px 30px; border-radius:10px;
-    font-weight:700; border:none; cursor:pointer;
-    font-size:0.95rem; transition:all 0.2s;
-  }
-  .btn-white:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.2); }
-
-  /* ACCESS MODAL */
-  .modal-overlay {
-    display:none; position:fixed; inset:0;
-    background:rgba(0,0,0,0.4); backdrop-filter:blur(4px);
-    z-index:1000; align-items:center; justify-content:center;
-  }
-  .modal-overlay.open { display:flex; }
-  .modal {
-    background:white; border-radius:var(--radius); padding:40px;
-    max-width:460px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.2);
-    animation:modalIn 0.3s ease;
-  }
-  @keyframes modalIn { from{transform:scale(0.92);opacity:0} to{transform:scale(1);opacity:1} }
-  .modal h3 { font-size:1.4rem; font-weight:800; margin-bottom:8px; }
-  .modal p { color:var(--gray-600); margin-bottom:24px; font-size:0.9rem; }
-  .form-group { margin-bottom:16px; }
-  .form-group label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; color:var(--gray-800); }
-  .form-group input, .form-group select, .form-group textarea {
-    width:100%; padding:11px 14px; border:1.5px solid var(--gray-200);
-    border-radius:10px; font-size:0.9rem; font-family:inherit;
-    transition:border-color 0.2s; outline:none;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    border-color:var(--blue-light);
-  }
-  .modal-btns { display:flex; gap:12px; margin-top:8px; }
-  .btn-close-modal {
-    flex:1; padding:12px; border:1.5px solid var(--gray-200); background:white;
-    border-radius:10px; cursor:pointer; font-weight:600; font-family:inherit;
-  }
-
-  /* ── TRAINING PAGE ── */
-  .training-hero {
-    background:linear-gradient(135deg, #FFF7ED, #EFF6FF);
-    padding:60px 5% 40px; text-align:center;
-  }
-  .training-grid {
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
-    gap:20px; max-width:1100px; margin:0 auto; padding:40px 5% 80px;
-  }
-  .training-card {
-    background:white; border:1.5px solid var(--gray-200);
-    border-radius:var(--radius); padding:28px; transition:all 0.25s;
-    cursor:pointer;
-  }
-  .training-card:hover { border-color:var(--orange-light); transform:translateY(-4px); box-shadow:0 12px 40px rgba(249,115,22,0.15); }
-  .training-card .t-icon {
-    width:56px; height:56px; border-radius:16px;
-    background:var(--orange-bg); display:flex; align-items:center;
-    justify-content:center; font-size:1.6rem; margin-bottom:18px;
-  }
-  .training-card h3 { font-size:1.05rem; font-weight:700; margin-bottom:8px; }
-  .training-card p { color:var(--gray-600); font-size:0.87rem; line-height:1.6; margin-bottom:16px; }
-  .training-card .t-badge {
-    display:inline-flex; align-items:center; gap:6px;
-    background:var(--orange-bg); color:var(--orange-dark);
-    font-size:0.78rem; font-weight:600; padding:4px 12px; border-radius:50px;
-  }
-
-  /* ── REQUEST PAGE ── */
-  .request-wrapper {
-    max-width:680px; margin:0 auto; padding:60px 5% 80px;
-  }
-  .request-tabs { display:flex; gap:8px; margin-bottom:32px; }
-  .tab-btn {
-    padding:10px 22px; border-radius:10px; border:1.5px solid var(--gray-200);
-    background:white; cursor:pointer; font-weight:600; font-size:0.9rem;
-    font-family:inherit; transition:all 0.2s;
-  }
-  .tab-btn.active { background:var(--blue-dark); color:white; border-color:var(--blue-dark); }
-  .tab-btn:not(.active):hover { border-color:var(--blue-light); color:var(--blue-dark); }
-  .tab-content { display:none; }
-  .tab-content.active { display:block; }
-  .request-form { background:white; border:1.5px solid var(--gray-200); border-radius:var(--radius); padding:36px; box-shadow:var(--shadow-sm); }
-  .request-form h3 { font-size:1.3rem; font-weight:800; margin-bottom:6px; }
-  .request-form .sub { color:var(--gray-600); font-size:0.88rem; margin-bottom:28px; }
-  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .btn-submit {
-    width:100%; padding:14px; border-radius:12px;
-    background:linear-gradient(135deg, var(--orange), var(--orange-dark));
-    color:white; font-weight:700; font-size:1rem; border:none; cursor:pointer;
-    font-family:inherit; transition:all 0.2s; margin-top:8px;
-  }
-  .btn-submit:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(249,115,22,0.4); }
-  .success-msg {
-    display:none; text-align:center; padding:40px 20px;
-  }
-  .success-msg .check { font-size:3rem; margin-bottom:14px; }
-  .success-msg h3 { font-size:1.3rem; font-weight:800; color:var(--blue-dark); margin-bottom:8px; }
-  .success-msg p { color:var(--gray-600); }
-
-  /* ── LOGIN PAGE ── */
-  .login-wrapper {
-    min-height:calc(100vh - 68px);
-    display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(135deg, #EFF6FF, #FFF7ED);
-    padding:40px 5%;
-  }
-  .login-card {
-    background:white; border-radius:var(--radius); padding:44px;
-    max-width:420px; width:100%; box-shadow:var(--shadow-lg);
-    border:1.5px solid var(--gray-200);
-  }
-  .login-card .logo { text-align:center; margin-bottom:28px; }
-  .login-card h2 { font-size:1.5rem; font-weight:800; margin-bottom:6px; text-align:center; }
-  .login-card .sub-text { color:var(--gray-600); font-size:0.88rem; text-align:center; margin-bottom:28px; }
-  .login-info {
-    background:var(--blue-bg); border:1px solid var(--blue-light);
-    border-radius:10px; padding:14px; margin-bottom:22px; font-size:0.85rem;
-    color:var(--blue-dark);
-  }
-
-  /* FOOTER */
-  footer {
-    background:var(--gray-800); color:white; padding:60px 5% 30px;
-  }
-  .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
-  .footer-brand h3 { font-size:1.2rem; font-weight:800; margin-bottom:10px; }
-  .footer-brand h3 span { color:var(--orange); }
-  .footer-brand p { color:var(--gray-400); font-size:0.87rem; line-height:1.7; max-width:280px; }
-  .footer-col h4 { font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--gray-400); margin-bottom:16px; }
-  .footer-col a { display:block; color:var(--gray-400); font-size:0.87rem; margin-bottom:8px; text-decoration:none; cursor:pointer; transition:color 0.2s; }
-  .footer-col a:hover { color:var(--orange-light); }
-  .footer-bottom { border-top:1px solid #334155; padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-  .footer-bottom p { color:var(--gray-400); font-size:0.82rem; }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(20px); }
-    to { opacity:1; transform:translateY(0); }
-  }
-
-  /* RESPONSIVE */
-  @media(max-width:768px) {
-    .nav-links { display:none; }
-    .form-row { grid-template-columns:1fr; }
-    .footer-top { grid-template-columns:1fr 1fr; }
-    .stats-bar { flex-wrap:wrap; }
-  }
-</style>
+<title>360DigiLearning — Master Cloud, Code & System Design</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo" onclick="showPage('home')" style="cursor:pointer;">
-    <div class="logo-icon">360</div>
-    <span>Digi</span>Learning
-  </div>
-  <div class="nav-links">
-    <a onclick="showPage('home')" class="active" id="nav-home">Home</a>
-    <a onclick="showPage('programs')" id="nav-programs">Programs</a>
-    <a onclick="showPage('exam')" id="nav-exam">Practice Exam</a>
-    <a onclick="showPage('training')" id="nav-training">Training</a>
-    <a onclick="showPage('request')" id="nav-request">Request Session</a>
-    <a onclick="showPage('login')" id="nav-login">Login</a>
-    <a onclick="showPage('request')" class="nav-cta">Get Started</a>
-  </div>
-</nav>
+<div id="mainNav"></div>
 
-<!-- ══════════════════════ HOME PAGE ══════════════════════ -->
-<div class="page active" id="page-home">
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-badge"><span class="dot"></span>India's Premier Tech Learning Platform</div>
-    <h1>Master <span class="accent">Cloud, Code</span> &<br><span class="accent2">System Design</span> with Experts</h1>
-    <p>360 DigiLearning empowers engineers and architects with hands-on AWS training, programming mastery, practice exams, and 1-on-1 mentorship sessions.</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="showPage('programs')">Explore Programs</button>
-      <button class="btn-secondary" onclick="showPage('exam')">Try Practice Exam</button>
-    </div>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-bar">
-    <div class="stat-item"><div class="stat-num">5<span>K+</span></div><div class="stat-label">Learners Enrolled</div></div>
-    <div class="stat-item"><div class="stat-num">200<span>+</span></div><div class="stat-label">Practice Questions</div></div>
-    <div class="stat-item"><div class="stat-num">15<span>+</span></div><div class="stat-label">Expert Instructors</div></div>
-    <div class="stat-item"><div class="stat-num">98<span>%</span></div><div class="stat-label">Satisfaction Rate</div></div>
-    <div class="stat-item"><div class="stat-num">24<span>/7</span></div><div class="stat-label">Learning Access</div></div>
-  </div>
-
-  <!-- PROGRAMS OVERVIEW -->
-  <div class="section">
-    <div style="text-align:center; margin-bottom:12px;"><span class="section-tag">What We Offer</span></div>
-    <h2 style="text-align:center;">Comprehensive Learning Paths</h2>
-    <p style="text-align:center; margin:0 auto 48px;">Everything you need to go from beginner to professional in the most in-demand tech skills.</p>
-    <div class="topics-grid">
-      <div class="topic-card" onclick="showPage('programs')">
-        <div class="topic-icon">☁️</div>
-        <h3>AWS Cloud Solutions</h3>
-        <p>Deep-dive into AWS services, architecture patterns, and cloud deployments. Prepare for all major AWS certifications.</p>
-        <span class="card-tag">Beginner → Advanced</span>
-      </div>
-      <div class="topic-card" onclick="showPage('programs')">
-        <div class="topic-icon orange">⚙️</div>
-        <h3>System Design</h3>
-        <p>Learn to design scalable, fault-tolerant systems. Covers microservices, load balancing, caching, databases.</p>
-        <span class="card-tag orange">Architecture Focus</span>
-      </div>
-      <div class="topic-card" onclick="showPage('programs')">
-        <div class="topic-icon">💻</div>
-        <h3>Programming Languages</h3>
-        <p>Master Python, Java, .NET, C, and C++ with real-world projects and coding challenges.</p>
-        <span class="card-tag">5 Languages</span>
-      </div>
-      <div class="topic-card" onclick="showPage('programs')">
-        <div class="topic-icon orange">🧩</div>
-        <h3>Problem Solving & DSA</h3>
-        <p>Data structures, algorithms, and competitive programming techniques for interviews and real-world scenarios.</p>
-        <span class="card-tag orange">Interview Ready</span>
-      </div>
-      <div class="topic-card" onclick="showPage('exam')">
-        <div class="topic-icon">📝</div>
-        <h3>Practice Exams</h3>
-        <p>10 free sample questions, then unlock the full bank with an access key. Simulate real certification exams.</p>
-        <span class="card-tag">10 Free + Full Access</span>
-      </div>
-      <div class="topic-card" onclick="showPage('training')">
-        <div class="topic-icon orange">🎯</div>
-        <h3>1-on-1 Training</h3>
-        <p>Personalized sessions with expert instructors. Tailored curriculum, live doubt clearing, and project guidance.</p>
-        <span class="card-tag orange">Personal Mentorship</span>
-      </div>
-      <div class="topic-card" onclick="showPage('programs')">
-        <div class="topic-icon">🏗️</div>
-        <h3>Cloud Architecture</h3>
-        <p>Design production-grade cloud solutions. Learn Well-Architected Framework, IaC, DevOps pipelines.</p>
-        <span class="card-tag">Enterprise Grade</span>
-      </div>
-      <div class="topic-card" onclick="showPage('programs')">
-        <div class="topic-icon orange">🔬</div>
-        <h3>Solution Architect Path</h3>
-        <p>End-to-end architect learning path covering design principles, cloud patterns, and stakeholder communication.</p>
-        <span class="card-tag orange">Career Path</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA SECTION -->
-  <div style="background:linear-gradient(135deg,#1D4ED8,#1e3a8a); padding:80px 5%; text-align:center; color:white;">
-    <h2 style="font-size:2.2rem; margin-bottom:14px;">Ready to Elevate Your Career?</h2>
-    <p style="opacity:0.8; max-width:500px; margin:0 auto 32px; line-height:1.7;">Join thousands of engineers who've transformed their careers with 360 DigiLearning's expert-led programs.</p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn-white" onclick="showPage('request')">Request a Session</button>
-      <button style="background:transparent;color:white;padding:13px 30px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.4);cursor:pointer;font-weight:600;font-size:0.95rem;font-family:inherit;transition:all 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'" onclick="showPage('exam')">Try Free Exam</button>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-top">
-      <div class="footer-brand">
-        <h3>360 <span>Digi</span>Learning</h3>
-        <p>Empowering tech professionals with world-class education in cloud, programming, system design, and architecture.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Programs</h4>
-        <a onclick="showPage('programs')">AWS Cloud</a>
-        <a onclick="showPage('programs')">System Design</a>
-        <a onclick="showPage('programs')">Programming</a>
-        <a onclick="showPage('programs')">Architecture</a>
-      </div>
-      <div class="footer-col">
-        <h4>Resources</h4>
-        <a onclick="showPage('exam')">Practice Exam</a>
-        <a onclick="showPage('training')">1-on-1 Training</a>
-        <a onclick="showPage('request')">Request Access</a>
-        <a onclick="showPage('login')">Login</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a>About Us</a>
-        <a>Blog</a>
-        <a>Contact</a>
-        <a>Privacy Policy</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2024 360 DigiLearning. All rights reserved.</p>
-      <p style="color:#60A5FA;">Built for Learners, by Experts.</p>
-    </div>
-  </footer>
+<!-- PROMO BANNER -->
+<div id="promoBanner" class="promo-banner" style="margin-top:64px">
+  <p>🎉 <strong>Limited Time:</strong> Get 3 months FREE exam access with any training session booking!</p>
+  <button class="pb-cta" onclick="location.href='request.html?tab=session'">Claim Offer →</button>
+  <button class="pb-close" id="promoBannerClose" title="Close">✕</button>
 </div>
 
-<!-- ══════════════════════ PROGRAMS PAGE ══════════════════════ -->
-<div class="page" id="page-programs">
-  <div style="background:linear-gradient(135deg,#EFF6FF,#FFF7ED);padding:60px 5% 40px;text-align:center;">
-    <span class="section-tag">Our Programs</span>
-    <h1 style="font-size:2.5rem;font-weight:800;margin:10px 0;">Learn. Build. <span style="color:var(--orange);">Achieve.</span></h1>
-    <p style="color:var(--gray-600);max-width:540px;margin:0 auto;">Expert-designed curricula across cloud, programming, system design, and architecture domains.</p>
-  </div>
+<!-- HERO SLIDER -->
+<div class="hero-slider" style="margin-top:0; height:calc(100vh - 104px)">
 
-  <div class="section">
-    <div class="topics-grid" style="max-width:1100px;margin:0 auto;">
-      <!-- AWS -->
-      <div class="topic-card">
-        <div class="topic-icon">☁️</div>
-        <h3>AWS Fundamentals to Expert</h3>
-        <p>EC2, S3, Lambda, RDS, VPC, IAM, CloudFormation. Hands-on labs and real project work. Prep for SAA-C03, DVA-C02, SOA-C02.</p>
-        <span class="card-tag">Certification Ready</span>
-      </div>
-      <!-- System Design -->
-      <div class="topic-card">
-        <div class="topic-icon orange">⚙️</div>
-        <h3>System Design Mastery</h3>
-        <p>CAP theorem, sharding, replication, event-driven design, API gateways, message queues, and distributed transactions.</p>
-        <span class="card-tag orange">Architecture</span>
-      </div>
-      <!-- Python -->
-      <div class="topic-card">
-        <div class="topic-icon">🐍</div>
-        <h3>Python Programming</h3>
-        <p>From scripting to advanced OOP, async programming, automation, and building cloud-native Python applications.</p>
-        <span class="card-tag">All Levels</span>
-      </div>
-      <!-- Java -->
-      <div class="topic-card">
-        <div class="topic-icon orange">☕</div>
-        <h3>Java Development</h3>
-        <p>Core Java, Spring Boot, Hibernate, REST APIs, microservices architecture, and enterprise-grade application design.</p>
-        <span class="card-tag orange">Enterprise Focus</span>
-      </div>
-      <!-- .NET -->
-      <div class="topic-card">
-        <div class="topic-icon">🔷</div>
-        <h3>.NET / C# Development</h3>
-        <p>ASP.NET Core, Entity Framework, Blazor, MAUI, and building robust enterprise .NET cloud applications.</p>
-        <span class="card-tag">Microsoft Stack</span>
-      </div>
-      <!-- C/C++ -->
-      <div class="topic-card">
-        <div class="topic-icon orange">⚡</div>
-        <h3>C & C++ Programming</h3>
-        <p>Memory management, pointers, STL, algorithms, system programming, and competitive programming fundamentals.</p>
-        <span class="card-tag orange">Performance Focus</span>
-      </div>
-      <!-- DSA -->
-      <div class="topic-card">
-        <div class="topic-icon">🧩</div>
-        <h3>Data Structures & Algorithms</h3>
-        <p>Arrays, trees, graphs, dynamic programming, sorting algorithms. Problem-solving patterns for FAANG-level interviews.</p>
-        <span class="card-tag">Interview Prep</span>
-      </div>
-      <!-- Cloud Architect -->
-      <div class="topic-card">
-        <div class="topic-icon orange">🏗️</div>
-        <h3>Cloud Solution Architect</h3>
-        <p>End-to-end architect training. Well-Architected Framework, cost optimization, security, reliability, and performance.</p>
-        <span class="card-tag orange">Architect Track</span>
+  <!-- Slide 1 -->
+  <div class="slide slide-1 active">
+    <div class="slide-content">
+      <div class="slide-eyebrow"><span class="pip"></span> India's Premier Tech Learning Platform</div>
+      <h1 class="slide-h1">Master <span class="hl-blue">Cloud &amp; Code</span><br>with Expert Guidance</h1>
+      <p class="slide-p">Hands-on AWS training, programming mastery, practice exams, and 1-on-1 mentorship — all in one place.</p>
+      <div class="slide-btns">
+        <a href="programs.html" class="btn btn-blue btn-lg">Explore Programs</a>
+        <a href="practice-exam.html" class="btn btn-outline-blue btn-lg">Try Free Exam</a>
       </div>
     </div>
   </div>
 
-  <footer>
-    <div class="footer-bottom" style="border-top:none;padding-top:0;">
-      <p>© 2024 360 DigiLearning. All rights reserved.</p>
-      <p style="color:#60A5FA;cursor:pointer;" onclick="showPage('home')">← Back to Home</p>
+  <!-- Slide 2 -->
+  <div class="slide slide-2">
+    <div class="slide-content">
+      <div class="slide-eyebrow" style="border-color:var(--orange-light);color:var(--orange)"><span class="pip" style="background:var(--blue)"></span> 1-on-1 Expert Mentorship</div>
+      <h1 class="slide-h1">Learn at <span class="hl-orange">Your Pace</span><br>With a Dedicated Mentor</h1>
+      <p class="slide-p">Personalized sessions for AWS, Python, Java, .NET, C/C++, Data Structures &amp; System Design — tailored to your goals.</p>
+      <div class="slide-btns">
+        <a href="request.html?tab=session" class="btn btn-orange btn-lg">Book a Session</a>
+        <a href="training.html" class="btn btn-outline-blue btn-lg">View Training</a>
+      </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide slide-3">
+    <div class="slide-content">
+      <div class="slide-eyebrow" style="border-color:var(--green);color:#16a34a"><span class="pip" style="background:var(--green)"></span> AWS Certification Prep</div>
+      <h1 class="slide-h1">Crack <span class="hl-blue">AWS Certification</span><br>on Your <span class="hl-orange">First Attempt</span></h1>
+      <p class="slide-p">200+ practice questions with detailed explanations. Real exam simulations for CCP, SAA, DVA and more.</p>
+      <div class="slide-btns">
+        <a href="practice-exam.html" class="btn btn-blue btn-lg">Start Free Exam</a>
+        <a href="request.html?tab=access" class="btn btn-outline-blue btn-lg">Request Full Access</a>
+      </div>
+    </div>
+  </div>
+
+  <button class="slider-prev" onclick="slidePrev()">&#8592;</button>
+  <button class="slider-next" onclick="slideNext()">&#8594;</button>
+  <div class="slider-dots">
+    <button class="sdot on" onclick="slideTo(0)"></button>
+    <button class="sdot" onclick="slideTo(1)"></button>
+    <button class="sdot" onclick="slideTo(2)"></button>
+  </div>
 </div>
 
-<!-- ══════════════════════ PRACTICE EXAM PAGE ══════════════════════ -->
-<div class="page" id="page-exam">
-  <div class="exam-hero">
-    <span class="section-tag">Practice Exam</span>
-    <h1>Test Your <span style="color:var(--blue-dark);">AWS Knowledge</span></h1>
-    <p>10 complimentary sample questions. Complete them and request full exam access via your unique access key.</p>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-cell"><div class="stat-num">5<em>K+</em></div><div class="stat-label">Learners Enrolled</div></div>
+  <div class="stat-cell"><div class="stat-num">200<em>+</em></div><div class="stat-label">Practice Questions</div></div>
+  <div class="stat-cell"><div class="stat-num">15<em>+</em></div><div class="stat-label">Expert Instructors</div></div>
+  <div class="stat-cell"><div class="stat-num">98<em>%</em></div><div class="stat-label">Satisfaction Rate</div></div>
+  <div class="stat-cell"><div class="stat-num">24<em>/7</em></div><div class="stat-label">Learning Access</div></div>
+</div>
+
+<!-- PROGRAMS OVERVIEW -->
+<div class="section">
+  <div class="section-center">
+    <span class="section-tag">What We Offer</span>
+    <h2 class="section-h2">Comprehensive Learning Paths</h2>
+    <p class="section-sub">Everything you need to go from beginner to professional in the most in-demand tech skills.</p>
   </div>
+  <div class="cards-grid container">
+    <a href="programs.html" class="card" style="text-decoration:none">
+      <div class="card-icon">☁️</div>
+      <h3>AWS Cloud Solutions</h3>
+      <p>EC2, S3, Lambda, VPC, RDS, IAM. Prep for CCP, SAA, DVA certifications.</p>
+      <span class="card-tag">Beginner → Advanced</span>
+    </a>
+    <a href="programs.html" class="card" style="text-decoration:none">
+      <div class="card-icon orange">⚙️</div>
+      <h3>System Design</h3>
+      <p>Scalable, fault-tolerant systems. Microservices, load balancing, caching.</p>
+      <span class="card-tag orange">Architecture</span>
+    </a>
+    <a href="programs.html" class="card" style="text-decoration:none">
+      <div class="card-icon">💻</div>
+      <h3>Programming Languages</h3>
+      <p>Python, Java, .NET, C, C++ — with real-world projects and exercises.</p>
+      <span class="card-tag">5 Languages</span>
+    </a>
+    <a href="programs.html" class="card" style="text-decoration:none">
+      <div class="card-icon orange">🧩</div>
+      <h3>Problem Solving &amp; DSA</h3>
+      <p>Data structures and algorithms for interviews and competitive programming.</p>
+      <span class="card-tag orange">Interview Ready</span>
+    </a>
+    <a href="practice-exam.html" class="card" style="text-decoration:none">
+      <div class="card-icon">📝</div>
+      <h3>Practice Exams</h3>
+      <p>10 free sample questions per category. Unlock 200+ with access key.</p>
+      <span class="card-tag">Free + Full Access</span>
+    </a>
+    <a href="training.html" class="card" style="text-decoration:none">
+      <div class="card-icon orange">🎯</div>
+      <h3>1-on-1 Training</h3>
+      <p>Live personal sessions with certified instructors. Tailored curriculum.</p>
+      <span class="card-tag orange">Personal Mentorship</span>
+    </a>
+    <a href="programs.html" class="card" style="text-decoration:none">
+      <div class="card-icon">🏗️</div>
+      <h3>Cloud Architecture</h3>
+      <p>Well-Architected Framework, IaC, DevOps, cost optimization.</p>
+      <span class="card-tag">Enterprise Grade</span>
+    </a>
+    <a href="programs.html" class="card" style="text-decoration:none">
+      <div class="card-icon orange">🤖</div>
+      <h3>AI &amp; Machine Learning</h3>
+      <p>ML fundamentals, deep learning, neural networks, GenAI &amp; LLMs with hands-on projects.</p>
+      <span class="card-tag orange">Beginner → Expert</span>
+    </a>
+    <a href="programs.html" class="card" style="text-decoration:none">
+      <div class="card-icon orange">🔬</div>
+      <h3>Solution Architect Path</h3>
+      <p>End-to-end architect training covering design principles and cloud patterns.</p>
+      <span class="card-tag orange">Career Path</span>
+    </a>
+  </div>
+</div>
 
-  <div class="exam-wrapper">
-    <!-- Q1 -->
-    <div class="question-card">
-      <div class="q-number">1</div>
-      <h4>Which AWS service provides a managed NoSQL database with single-digit millisecond performance at any scale?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q1" value="a"> Amazon RDS</label>
-        <label class="option"><input type="radio" name="q1" value="b"> Amazon DynamoDB</label>
-        <label class="option"><input type="radio" name="q1" value="c"> Amazon Redshift</label>
-        <label class="option"><input type="radio" name="q1" value="d"> Amazon ElastiCache</label>
+<!-- WHY US BANNER -->
+<div style="background:linear-gradient(135deg,var(--blue-pale),var(--orange-pale));padding:60px 6%;border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200)">
+  <div class="container" style="display:flex;align-items:center;gap:48px;flex-wrap:wrap;justify-content:center">
+    <div style="max-width:440px">
+      <span class="section-tag orange">Why 360DigiLearning?</span>
+      <h2 class="section-h2" style="margin-top:8px">Learn from Active<br>Industry Experts</h2>
+      <p style="color:var(--gray-600);line-height:1.75;margin-top:11px;font-size:0.97rem">All instructors are working engineers with 10+ years of industry experience. Real problems, real solutions, real results.</p>
+      <div style="display:flex;gap:11px;flex-wrap:wrap;margin-top:22px">
+        <a href="training.html" class="btn btn-blue">View Instructors</a>
+        <a href="request.html" class="btn btn-outline-blue">Book Free Call</a>
       </div>
     </div>
-
-    <!-- Q2 -->
-    <div class="question-card">
-      <div class="q-number">2</div>
-      <h4>In the AWS Shared Responsibility Model, which of the following is the customer's responsibility?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q2" value="a"> Physical security of data centers</label>
-        <label class="option"><input type="radio" name="q2" value="b"> Operating system patching for EC2 instances</label>
-        <label class="option"><input type="radio" name="q2" value="c"> Hardware maintenance</label>
-        <label class="option"><input type="radio" name="q2" value="d"> Network infrastructure management</label>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;flex-shrink:0">
+      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
+        <div style="font-size:1.7rem;margin-bottom:5px">🏆</div>
+        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">Certified Experts</div>
+        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">AWS &amp; Azure certified</div>
       </div>
-    </div>
-
-    <!-- Q3 -->
-    <div class="question-card">
-      <div class="q-number">3</div>
-      <h4>Which S3 storage class is most cost-effective for data accessed less than once a month with rapid retrieval requirements?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q3" value="a"> S3 Standard</label>
-        <label class="option"><input type="radio" name="q3" value="b"> S3 Glacier Flexible Retrieval</label>
-        <label class="option"><input type="radio" name="q3" value="c"> S3 Standard-IA</label>
-        <label class="option"><input type="radio" name="q3" value="d"> S3 Intelligent-Tiering</label>
+      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
+        <div style="font-size:1.7rem;margin-bottom:5px">⚡</div>
+        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">Live Sessions</div>
+        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">Real-time learning</div>
       </div>
-    </div>
-
-    <!-- Q4 -->
-    <div class="question-card">
-      <div class="q-number">4</div>
-      <h4>A company wants to run containerized applications without managing servers. Which AWS service should they use?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q4" value="a"> Amazon EC2</label>
-        <label class="option"><input type="radio" name="q4" value="b"> AWS Fargate</label>
-        <label class="option"><input type="radio" name="q4" value="c"> AWS Batch</label>
-        <label class="option"><input type="radio" name="q4" value="d"> Amazon Lightsail</label>
+      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
+        <div style="font-size:1.7rem;margin-bottom:5px">📊</div>
+        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">Progress Tracking</div>
+        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">Measure your growth</div>
       </div>
-    </div>
-
-    <!-- Q5 -->
-    <div class="question-card">
-      <div class="q-number">5</div>
-      <h4>What is the maximum size of a single object that can be stored in Amazon S3?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q5" value="a"> 5 GB</label>
-        <label class="option"><input type="radio" name="q5" value="b"> 100 GB</label>
-        <label class="option"><input type="radio" name="q5" value="c"> 5 TB</label>
-        <label class="option"><input type="radio" name="q5" value="d"> Unlimited</label>
-      </div>
-    </div>
-
-    <!-- Q6 -->
-    <div class="question-card">
-      <div class="q-number">6</div>
-      <h4>Which AWS service allows you to define infrastructure as code using JSON or YAML templates?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q6" value="a"> AWS Config</label>
-        <label class="option"><input type="radio" name="q6" value="b"> AWS CloudFormation</label>
-        <label class="option"><input type="radio" name="q6" value="c"> AWS OpsWorks</label>
-        <label class="option"><input type="radio" name="q6" value="d"> AWS Systems Manager</label>
-      </div>
-    </div>
-
-    <!-- Q7 -->
-    <div class="question-card">
-      <div class="q-number">7</div>
-      <h4>In a VPC, which component controls inbound and outbound traffic at the subnet level?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q7" value="a"> Security Group</label>
-        <label class="option"><input type="radio" name="q7" value="b"> Network ACL (NACL)</label>
-        <label class="option"><input type="radio" name="q7" value="c"> Route Table</label>
-        <label class="option"><input type="radio" name="q7" value="d"> Internet Gateway</label>
-      </div>
-    </div>
-
-    <!-- Q8 -->
-    <div class="question-card">
-      <div class="q-number">8</div>
-      <h4>Which AWS pricing model allows significant discounts (up to 72%) in exchange for a 1 or 3-year commitment?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q8" value="a"> On-Demand Instances</label>
-        <label class="option"><input type="radio" name="q8" value="b"> Spot Instances</label>
-        <label class="option"><input type="radio" name="q8" value="c"> Reserved Instances</label>
-        <label class="option"><input type="radio" name="q8" value="d"> Dedicated Hosts</label>
-      </div>
-    </div>
-
-    <!-- Q9 -->
-    <div class="question-card">
-      <div class="q-number">9</div>
-      <h4>Amazon Route 53 routing policy that routes traffic to healthy endpoints and removes unhealthy ones is called?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q9" value="a"> Simple Routing</label>
-        <label class="option"><input type="radio" name="q9" value="b"> Weighted Routing</label>
-        <label class="option"><input type="radio" name="q9" value="c"> Failover Routing</label>
-        <label class="option"><input type="radio" name="q9" value="d"> Geolocation Routing</label>
-      </div>
-    </div>
-
-    <!-- Q10 -->
-    <div class="question-card">
-      <div class="q-number">10</div>
-      <h4>Which AWS service provides a fully managed message queuing service for decoupling microservices?</h4>
-      <div class="options">
-        <label class="option"><input type="radio" name="q10" value="a"> Amazon SNS</label>
-        <label class="option"><input type="radio" name="q10" value="b"> Amazon SQS</label>
-        <label class="option"><input type="radio" name="q10" value="c"> Amazon Kinesis</label>
-        <label class="option"><input type="radio" name="q10" value="d"> AWS EventBridge</label>
-      </div>
-    </div>
-
-    <button class="btn-primary" style="width:100%;padding:15px;font-size:1rem;margin-bottom:24px;" onclick="submitExam()">Submit Answers</button>
-
-    <!-- CTA BOX -->
-    <div class="exam-cta-box">
-      <h3>🔓 Unlock Full Exam Bank</h3>
-      <p>Get access to 200+ practice questions across AWS, System Design, and more. Request access and login with your credentials.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <button class="btn-white" onclick="openAccessModal()">Request Access</button>
-        <button style="background:rgba(255,255,255,0.15);color:white;padding:12px 24px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.3);cursor:pointer;font-weight:600;font-family:inherit;" onclick="showPage('login')">I Have Access Key → Login</button>
+      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
+        <div style="font-size:1.7rem;margin-bottom:5px">💬</div>
+        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">24/7 Support</div>
+        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">Always here to help</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ TRAINING PAGE ══════════════════════ -->
-<div class="page" id="page-training">
-  <div class="training-hero">
-    <span class="section-tag orange">1-on-1 Training</span>
-    <h1 style="font-size:2.4rem;font-weight:800;margin:10px 0;">Personalized <span style="color:var(--orange);">Expert Mentorship</span></h1>
-    <p style="color:var(--gray-600);max-width:560px;margin:0 auto 30px;">Live, one-on-one sessions tailored to your learning pace, goals, and career level. Book a session with a certified expert.</p>
-    <button class="btn-primary" style="background:linear-gradient(135deg,var(--orange),var(--orange-dark));box-shadow:0 4px 16px rgba(249,115,22,0.35);" onclick="showPage('request')">Book a Session →</button>
+<!-- TESTIMONIALS SLIDER -->
+<div class="section" style="background:var(--gray-50);border-bottom:1px solid var(--gray-200)">
+  <div class="section-center" style="margin-bottom:32px">
+    <span class="section-tag">Testimonials</span>
+    <h2 class="section-h2" style="margin-top:8px">What Our Learners Say</h2>
   </div>
-
-  <div class="training-grid">
-    <div class="training-card" onclick="openRequestModal('AWS Cloud Training')">
-      <div class="t-icon">☁️</div>
-      <h3>AWS Cloud Training</h3>
-      <p>One-on-one sessions covering EC2, S3, Lambda, VPC, RDS, CloudFormation and full certification prep paths. Customized for your role.</p>
-      <span class="t-badge">⏱ 60–90 min sessions</span>
-    </div>
-    <div class="training-card" onclick="openRequestModal('.NET / C# Training')">
-      <div class="t-icon">🔷</div>
-      <h3>.NET / C# Training</h3>
-      <p>Deep-dive into ASP.NET Core, EF Core, REST APIs, CQRS patterns, and microservices. Enterprise-ready skill building.</p>
-      <span class="t-badge">⏱ 60–90 min sessions</span>
-    </div>
-    <div class="training-card" onclick="openRequestModal('Java Training')">
-      <div class="t-icon">☕</div>
-      <h3>Java Training</h3>
-      <p>Core Java to Spring Boot ecosystem. OOP design patterns, concurrency, JVM tuning, and building production microservices.</p>
-      <span class="t-badge">⏱ 60–90 min sessions</span>
-    </div>
-    <div class="training-card" onclick="openRequestModal('Python Training')">
-      <div class="t-icon">🐍</div>
-      <h3>Python Training</h3>
-      <p>Scripting, OOP, async programming, FastAPI, Django, data pipelines, and cloud automation with boto3.</p>
-      <span class="t-badge">⏱ 60–90 min sessions</span>
-    </div>
-    <div class="training-card" onclick="openRequestModal('C / C++ Training')">
-      <div class="t-icon">⚡</div>
-      <h3>C & C++ Training</h3>
-      <p>Pointers, memory management, STL deep-dive, system programming, and competitive programming preparation.</p>
-      <span class="t-badge">⏱ 60–90 min sessions</span>
-    </div>
-    <div class="training-card" onclick="openRequestModal('Data Structures Training')">
-      <div class="t-icon">🧩</div>
-      <h3>Data Structures & DSA</h3>
-      <p>Personalized problem-solving sessions. Arrays, trees, graphs, DP, backtracking — targeted for interview success.</p>
-      <span class="t-badge">⏱ 60–90 min sessions</span>
+  <div class="tslider-wrap">
+    <div class="tslider-track" id="tsliderTrack">
+      <div class="tslide">
+        <div class="tcard">
+          <div class="tcard-quote">"</div>
+          <p>360DigiLearning's AWS course was exactly what I needed. The 1-on-1 sessions helped me crack my SAA-C03 on the first attempt. My instructor was incredibly patient and knowledgeable.</p>
+          <div class="tcard-author">Rahul Mehta</div>
+          <div class="tcard-role">AWS Solutions Architect @ TCS</div>
+        </div>
+      </div>
+      <div class="tslide">
+        <div class="tcard">
+          <div class="tcard-quote">"</div>
+          <p>The DSA training helped me land my dream job at Flipkart. The problem-solving approach is systematic and genuinely effective. I highly recommend the 1-on-1 sessions.</p>
+          <div class="tcard-author">Priya Sharma</div>
+          <div class="tcard-role">Software Engineer @ Flipkart</div>
+        </div>
+      </div>
+      <div class="tslide">
+        <div class="tcard">
+          <div class="tcard-quote">"</div>
+          <p>The practice exam bank is outstanding! Questions are very close to the real AWS exam. The detailed answer explanations helped me understand underlying concepts deeply.</p>
+          <div class="tcard-author">Arun Kumar</div>
+          <div class="tcard-role">Cloud Architect @ Infosys</div>
+        </div>
+      </div>
+      <div class="tslide">
+        <div class="tcard">
+          <div class="tcard-quote">"</div>
+          <p>I went from zero Python knowledge to building cloud automation scripts in 6 weeks. The personalized training sessions are completely worth every rupee spent.</p>
+          <div class="tcard-author">Sneha Iyer</div>
+          <div class="tcard-role">DevOps Engineer @ HCL</div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- ══════════════════════ REQUEST PAGE ══════════════════════ -->
-<div class="page" id="page-request">
-  <div style="background:linear-gradient(135deg,#FFF7ED,#EFF6FF);padding:50px 5% 40px;text-align:center;">
-    <span class="section-tag orange">Get In Touch</span>
-    <h1 style="font-size:2.4rem;font-weight:800;margin:10px 0;">Request Your <span style="color:var(--orange);">Learning Journey</span></h1>
-    <p style="color:var(--gray-600);max-width:500px;margin:0 auto;">Request exam access or book a personalized 1-on-1 training session with our experts.</p>
-  </div>
-
-  <div class="request-wrapper">
-    <div class="request-tabs">
-      <button class="tab-btn active" onclick="switchTab('access')">🔑 Request Exam Access</button>
-      <button class="tab-btn" onclick="switchTab('session')">🎯 Book Training Session</button>
-    </div>
-
-    <!-- ACCESS REQUEST TAB -->
-    <div class="tab-content active" id="tab-access">
-      <div class="request-form" id="form-access">
-        <h3>Request Exam Access</h3>
-        <p class="sub">Fill out the form below. We'll review and send your access key to your email within 24 hours.</p>
-        <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" placeholder="Raj"></div>
-          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Kumar"></div>
-        </div>
-        <div class="form-group"><label>Email Address</label><input type="email" placeholder="raj@example.com"></div>
-        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"></div>
-        <div class="form-group">
-          <label>Exam Category</label>
-          <select>
-            <option>AWS Cloud Practitioner</option>
-            <option>AWS Solutions Architect Associate</option>
-            <option>AWS Developer Associate</option>
-            <option>AWS SysOps Administrator</option>
-            <option>System Design</option>
-            <option>Data Structures & Algorithms</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Current Experience Level</label>
-          <select>
-            <option>Beginner (0–1 years)</option>
-            <option>Intermediate (1–3 years)</option>
-            <option>Experienced (3–5 years)</option>
-            <option>Senior (5+ years)</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Why are you interested? (optional)</label>
-          <textarea rows="3" placeholder="I'm preparing for AWS certification and want to practice..."></textarea>
-        </div>
-        <button class="btn-submit" onclick="submitRequest('access')">Submit Access Request →</button>
-      </div>
-      <div class="success-msg" id="success-access">
-        <div class="check">✅</div>
-        <h3>Access Request Submitted!</h3>
-        <p>Thank you! We'll review your request and send your access key to your email within <strong>24 hours</strong>. Check your inbox and spam folder.</p>
-        <br><button class="btn-primary" style="margin-top:10px" onclick="showPage('login')">Go to Login</button>
-      </div>
-    </div>
-
-    <!-- SESSION TAB -->
-    <div class="tab-content" id="tab-session">
-      <div class="request-form" id="form-session">
-        <h3>Book a 1-on-1 Training Session</h3>
-        <p class="sub">Tell us what you want to learn and we'll match you with the perfect expert.</p>
-        <div class="form-row">
-          <div class="form-group"><label>First Name</label><input type="text" placeholder="Priya"></div>
-          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Sharma"></div>
-        </div>
-        <div class="form-group"><label>Email Address</label><input type="email" placeholder="priya@example.com"></div>
-        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"></div>
-        <div class="form-group">
-          <label>Training Topic</label>
-          <select id="session-topic">
-            <option>AWS Cloud (EC2, S3, Lambda, etc.)</option>
-            <option>AWS Solutions Architecture</option>
-            <option>Python Programming</option>
-            <option>Java / Spring Boot</option>
-            <option>.NET / C# Development</option>
-            <option>C & C++ Programming</option>
-            <option>Data Structures & Algorithms</option>
-            <option>System Design</option>
-            <option>Cloud Solution Architecture</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Preferred Session Type</label>
-          <select>
-            <option>Single Session (1 hour)</option>
-            <option>Weekly Sessions (1 month)</option>
-            <option>Intensive Bootcamp (1 week)</option>
-            <option>Custom Plan</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Preferred Timing</label>
-          <select>
-            <option>Weekday Morning (9AM–12PM)</option>
-            <option>Weekday Evening (6PM–9PM)</option>
-            <option>Weekend Morning</option>
-            <option>Weekend Evening</option>
-            <option>Flexible</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Your Goals & Background</label>
-          <textarea rows="3" placeholder="I'm a 2-year developer looking to transition into cloud architecture..."></textarea>
-        </div>
-        <button class="btn-submit" onclick="submitRequest('session')">Book My Session →</button>
-      </div>
-      <div class="success-msg" id="success-session">
-        <div class="check">🎉</div>
-        <h3>Session Request Received!</h3>
-        <p>Amazing! Our team will contact you within <strong>4 hours</strong> to confirm your session and share instructor details. Get ready to learn!</p>
-        <br><button class="btn-primary" style="margin-top:10px" onclick="showPage('home')">Back to Home</button>
-      </div>
-    </div>
+  <div class="t-dots">
+    <button class="tdot on" onclick="goTSlide(0)"></button>
+    <button class="tdot" onclick="goTSlide(1)"></button>
+    <button class="tdot" onclick="goTSlide(2)"></button>
+    <button class="tdot" onclick="goTSlide(3)"></button>
   </div>
 </div>
 
-<!-- ══════════════════════ LOGIN PAGE ══════════════════════ -->
-<div class="page" id="page-login">
-  <div class="login-wrapper">
-    <div class="login-card">
-      <div class="logo">
-        <div style="display:inline-flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue-dark);">
-          <div class="logo-icon" style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.85rem;">360</div>
-          360 <span style="color:var(--orange);">Digi</span>Learning
-        </div>
-      </div>
-      <h2>Welcome Back 👋</h2>
-      <p class="sub-text">Login with your username and access key to continue your learning journey.</p>
-      <div class="login-info">
-        🔑 Don't have an access key? <a style="color:var(--blue-dark);font-weight:700;cursor:pointer;text-decoration:underline;" onclick="showPage('request')">Request one here</a>
-      </div>
-      <div class="form-group"><label>Username</label><input type="text" placeholder="e.g. raj.kumar2024" id="login-username"></div>
-      <div class="form-group"><label>Access Key</label><input type="password" placeholder="Enter your access key" id="login-key"></div>
-      <button class="btn-submit" style="margin-top:16px;" onclick="doLogin()">Login to Dashboard →</button>
-      <p style="text-align:center;margin-top:18px;font-size:0.85rem;color:var(--gray-600);">New here? <a style="color:var(--blue-dark);font-weight:700;cursor:pointer;" onclick="showPage('request')">Request Exam Access</a></p>
-    </div>
+<!-- CTA SECTION -->
+<div style="background:var(--blue-pale);padding:68px 6%;text-align:center;border-top:1px solid var(--blue-soft)">
+  <span class="section-tag">Start Today</span>
+  <h2 class="section-h2" style="margin-top:8px">Ready to Elevate Your Career?</h2>
+  <p class="section-sub">Join thousands of engineers who've transformed their careers with 360DigiLearning.</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+    <a href="request.html" class="btn btn-orange btn-lg">Request a Session</a>
+    <a href="practice-exam.html" class="btn btn-outline-blue btn-lg">Try Free Exam</a>
   </div>
 </div>
 
-<!-- ══════════════════════ DASHBOARD (post-login) ══════════════════════ -->
-<div class="page" id="page-dashboard">
-  <div style="background:linear-gradient(135deg,#EFF6FF,#FFF7ED);padding:60px 5%;text-align:center;">
-    <h1 style="font-size:2.2rem;font-weight:800;">Welcome back, <span style="color:var(--blue-dark);" id="dash-username">Learner</span>! 🎉</h1>
-    <p style="color:var(--gray-600);margin-top:8px;">Your full exam bank is now unlocked. Happy learning!</p>
-  </div>
-  <div style="max-width:900px;margin:0 auto;padding:40px 5%;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;margin-bottom:40px;">
-      <div style="background:white;border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:24px;text-align:center;">
-        <div style="font-size:2rem;margin-bottom:10px;">📝</div>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:6px;">Full Exam Bank</h3>
-        <p style="font-size:0.85rem;color:var(--gray-600);">200+ AWS Questions</p>
-        <button class="btn-primary" style="margin-top:14px;padding:10px 20px;font-size:0.88rem;" onclick="showPage('exam')">Start Practice</button>
-      </div>
-      <div style="background:white;border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:24px;text-align:center;">
-        <div style="font-size:2rem;margin-bottom:10px;">🏆</div>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:6px;">My Progress</h3>
-        <p style="font-size:0.85rem;color:var(--gray-600);">0 exams completed</p>
-        <button class="btn-secondary" style="margin-top:14px;padding:10px 20px;font-size:0.88rem;">View Progress</button>
-      </div>
-      <div style="background:white;border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:24px;text-align:center;">
-        <div style="font-size:2rem;margin-bottom:10px;">🎯</div>
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:6px;">Book Training</h3>
-        <p style="font-size:0.85rem;color:var(--gray-600);">1-on-1 sessions</p>
-        <button class="btn-submit" style="margin-top:14px;padding:10px 20px;font-size:0.88rem;" onclick="showPage('training')">Book Now</button>
-      </div>
-    </div>
-    <button class="btn-secondary" onclick="showPage('home')">← Back to Home</button>
-  </div>
-</div>
+<!-- FOOTER -->
+<div id="mainFooter"></div>
 
-<!-- ══════════════════════ ACCESS MODAL ══════════════════════ -->
-<div class="modal-overlay" id="modal-access">
-  <div class="modal">
-    <h3>🔑 Request Exam Access</h3>
-    <p>Enter your details to request a full access key. You'll receive it via email within 24 hours.</p>
-    <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
-    <div class="form-group"><label>Exam Topic</label>
-      <select>
-        <option>AWS Cloud Practitioner</option>
-        <option>AWS Solutions Architect</option>
-        <option>System Design</option>
-        <option>DSA & Problem Solving</option>
-      </select>
-    </div>
-    <div class="modal-btns">
-      <button class="btn-close-modal" onclick="closeAccessModal()">Cancel</button>
-      <button class="btn-submit" style="flex:1;margin-top:0;" onclick="submitModalAccess()">Request Access →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════ JS ══════════════════════ -->
-<script>
-  const pages = ['home','programs','exam','training','request','login','dashboard'];
-
-  function showPage(name) {
-    pages.forEach(p => {
-      document.getElementById('page-' + p).classList.remove('active');
-      const navEl = document.getElementById('nav-' + p);
-      if (navEl) navEl.classList.remove('active');
-    });
-    document.getElementById('page-' + name).classList.add('active');
-    const navEl = document.getElementById('nav-' + name);
-    if (navEl) navEl.classList.add('active');
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-
-  function openAccessModal() {
-    document.getElementById('modal-access').classList.add('open');
-  }
-  function closeAccessModal() {
-    document.getElementById('modal-access').classList.remove('open');
-  }
-  function submitModalAccess() {
-    closeAccessModal();
-    alert('✅ Access request submitted! Check your email within 24 hours.');
-  }
-
-  function openRequestModal(topic) {
-    showPage('request');
-    switchTab('session');
-    setTimeout(() => {
-      const sel = document.getElementById('session-topic');
-      for (let i=0;i<sel.options.length;i++) {
-        if (sel.options[i].text.toLowerCase().includes(topic.split(' ')[0].toLowerCase())) {
-          sel.selectedIndex = i; break;
-        }
-      }
-    }, 100);
-  }
-
-  function switchTab(tab) {
-    document.querySelectorAll('.tab-btn').forEach((b,i) => {
-      b.classList.toggle('active', (i===0&&tab==='access')||(i===1&&tab==='session'));
-    });
-    document.getElementById('tab-access').classList.toggle('active', tab==='access');
-    document.getElementById('tab-session').classList.toggle('active', tab==='session');
-  }
-
-  function submitRequest(type) {
-    document.getElementById('form-'+type).style.display = 'none';
-    document.getElementById('success-'+type).style.display = 'block';
-    window.scrollTo({top:200, behavior:'smooth'});
-  }
-
-  function submitExam() {
-    alert('📊 Answers submitted! You answered 10 questions.\n\nWant to unlock 200+ more questions?\nRequest full access to get your exam access key.');
-  }
-
-  function doLogin() {
-    const user = document.getElementById('login-username').value.trim();
-    const key = document.getElementById('login-key').value.trim();
-    if (!user || !key) {
-      alert('Please enter both username and access key.');
-      return;
-    }
-    document.getElementById('dash-username').textContent = user;
-    showPage('dashboard');
-  }
-
-  // Option selection highlight
-  document.querySelectorAll('.option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      const name = opt.querySelector('input').name;
-      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
-        r.closest('.option').classList.remove('selected');
-      });
-      opt.classList.add('selected');
-    });
-  });
-
-  // Close modal on overlay click
-  document.getElementById('modal-access').addEventListener('click', function(e) {
-    if (e.target === this) closeAccessModal();
-  });
-</script>
+<script src="common.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice Exam — 360DigiLearning</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.cat-step, .exam-step { display:none; }
+.cat-step.active, .exam-step.active { display:block; }
+.progress-bar-wrap { background:var(--gray-200); border-radius:50px; height:6px; margin-bottom:6px; }
+.progress-bar-fill { height:6px; border-radius:50px; background:linear-gradient(90deg,var(--blue-mid),var(--blue)); transition:width .4s ease; }
+.q-status { font-size:0.78rem; color:var(--gray-400); font-weight:600; }
+.result-bar { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.result-bar-label { font-size:0.84rem; font-weight:700; min-width:80px; color:var(--gray-700); }
+.result-bar-track { flex:1; background:var(--gray-200); border-radius:50px; height:10px; }
+.result-bar-fill { height:10px; border-radius:50px; }
+.result-bar-fill.correct { background:var(--green); }
+.result-bar-fill.wrong { background:var(--red); }
+</style>
+</head>
+<body>
+<div id="mainNav"></div>
+
+<div class="page-hero">
+  <span class="section-tag">Practice Exam</span>
+  <h1>Test Your <span class="text-blue">Knowledge</span></h1>
+  <p>Select a category below. Get 10 free sample questions — check each answer as you go, or reveal after submitting.</p>
+</div>
+
+<div class="section">
+<div class="container" style="max-width:860px">
+
+  <!-- STEP 1: Category Selection -->
+  <div class="cat-step active" id="step-category">
+    <h2 style="font-size:1.15rem;font-weight:800;margin-bottom:6px;color:var(--gray-800)">Choose a Category</h2>
+    <p style="color:var(--gray-500);font-size:0.9rem;margin-bottom:22px">Each category has 10 free sample questions. Select to begin.</p>
+    <div class="exam-cat-grid" id="catGrid"></div>
+    <div style="margin-top:28px;padding:18px;background:var(--blue-pale);border:1.5px solid var(--blue-soft);border-radius:var(--radius)">
+      <p style="font-size:0.88rem;color:var(--blue);font-weight:600">🔓 <strong>Full Exam Bank:</strong> Unlock 200+ questions across all categories with an access key. <a href="request.html" style="color:var(--orange);text-decoration:underline;font-weight:700">Request Access →</a></p>
+    </div>
+  </div>
+
+  <!-- STEP 2: Exam Questions -->
+  <div class="exam-step" id="step-exam">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <div>
+        <button class="btn btn-outline-gray btn-sm" onclick="backToCategories()">← Back to Categories</button>
+      </div>
+      <div style="text-align:right">
+        <div class="q-status" id="examProgress">Question 1 of 10</div>
+        <div class="progress-bar-wrap" style="width:180px;margin-top:5px">
+          <div class="progress-bar-fill" id="progressFill" style="width:10%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--blue-pale);border:1.5px solid var(--blue-soft);border-radius:var(--radius);padding:14px 18px;margin-bottom:22px;display:flex;align-items:center;gap:10px">
+      <span style="font-size:1.2rem" id="catEmojiLabel">☁️</span>
+      <div>
+        <div style="font-weight:800;font-size:0.9rem;color:var(--blue)" id="catNameLabel">AWS Cloud Practitioner</div>
+        <div style="font-size:0.78rem;color:var(--gray-500)">10 sample questions · Check each answer individually</div>
+      </div>
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+      <button class="btn btn-blue btn-lg" onclick="submitExam()" id="submitBtn">Submit All &amp; See Score</button>
+      <button class="btn btn-outline-gray" onclick="backToCategories()">Try Another Category</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Results -->
+  <div class="exam-step" id="step-result">
+    <button class="btn btn-outline-gray btn-sm" onclick="backToCategories()" style="margin-bottom:18px">← Try Another Category</button>
+    <div class="score-card">
+      <div id="resultEmoji" style="font-size:3rem;margin-bottom:8px">🎉</div>
+      <h2 id="resultTitle" style="font-size:1.5rem;font-weight:800;color:var(--gray-800)">Your Result</h2>
+      <div id="resultScore" style="font-size:3.2rem;font-weight:800;color:var(--blue);margin:14px 0;font-family:'Sora',sans-serif">0/10</div>
+      <p id="resultMsg" style="color:var(--gray-600);max-width:460px;margin:0 auto 22px"></p>
+      <div style="max-width:380px;margin:0 auto 24px" id="resultBars"></div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="request.html" class="btn btn-orange">Unlock Full Access →</a>
+        <button class="btn btn-outline-blue" onclick="backToCategories()">Try Another Category</button>
+      </div>
+    </div>
+
+    <!-- Detailed Review -->
+    <div style="margin-top:32px">
+      <h3 style="font-size:1.05rem;font-weight:800;margin-bottom:16px;color:var(--gray-800)">📋 Detailed Answer Review</h3>
+      <div id="reviewContainer"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Access Request Banner -->
+<div style="background:linear-gradient(135deg,var(--blue),#1e3a8a);padding:52px 6%;text-align:center;color:#fff">
+  <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:10px">Want 200+ Questions?</h2>
+  <p style="opacity:0.85;max-width:460px;margin:0 auto 24px;line-height:1.7">Request full exam access and get your unique access key to unlock the complete question bank.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="request.html" class="btn btn-lg" style="background:#fff;color:var(--blue);">Request Full Access</a>
+    <a href="login.html" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.4)">I Have an Access Key</a>
+  </div>
+</div>
+
+<div id="mainFooter"></div>
+<script src="common.js"></script>
+<script src="nav.js"></script>
+<script>
+// ── EXAM DATA ──
+const EXAM_DATA = {
+  ccp: {
+    name: 'AWS Cloud Practitioner',
+    emoji: '☁️',
+    color: 'var(--blue)',
+    questions: [
+      { q: 'What does AWS stand for?', opts: ['Amazon Web Services', 'Advanced Web Systems', 'Automated Web Solutions', 'Amazon Website Server'], ans: 0, explain: 'AWS stands for Amazon Web Services — Amazon\'s cloud computing platform.' },
+      { q: 'Which AWS service provides virtual servers in the cloud?', opts: ['Amazon S3', 'Amazon EC2', 'Amazon RDS', 'Amazon Lambda'], ans: 1, explain: 'Amazon EC2 (Elastic Compute Cloud) provides resizable virtual servers (instances) in the cloud.' },
+      { q: 'What is the AWS Global Infrastructure made of?', opts: ['Regions and Availability Zones', 'Data Centers and Servers', 'Clusters and Nodes', 'Regions and Edge Locations only'], ans: 0, explain: 'AWS Global Infrastructure consists of Regions, Availability Zones (AZs), and Edge Locations.' },
+      { q: 'Which AWS service provides object storage?', opts: ['Amazon EBS', 'Amazon EFS', 'Amazon S3', 'Amazon FSx'], ans: 2, explain: 'Amazon S3 (Simple Storage Service) is AWS\'s primary object storage service — scalable, durable, and highly available.' },
+      { q: 'What is the AWS Free Tier?', opts: ['A discount program for startups', 'A free level of AWS services for new accounts', 'Free support plan', 'A no-cost VPN service'], ans: 1, explain: 'AWS Free Tier lets new accounts use certain services for free within defined limits for 12 months.' },
+      { q: 'Which model describes cloud computing where a provider manages infrastructure?', opts: ['On-premises', 'Hybrid', 'Public Cloud', 'Private Cloud'], ans: 2, explain: 'Public Cloud is a model where third-party providers like AWS manage and own infrastructure, sharing resources among multiple tenants.' },
+      { q: 'Which AWS service is a managed DNS web service?', opts: ['Amazon CloudFront', 'Amazon Route 53', 'AWS Direct Connect', 'Amazon VPC'], ans: 1, explain: 'Amazon Route 53 is AWS\'s highly available and scalable Domain Name System (DNS) web service.' },
+      { q: 'What does the AWS Shared Responsibility Model define?', opts: ['Who pays for AWS services', 'Security and compliance responsibilities between AWS and customers', 'Pricing models', 'Service Level Agreements'], ans: 1, explain: 'The Shared Responsibility Model divides security: AWS secures the "cloud" infrastructure; customers secure their data and applications "in" the cloud.' },
+      { q: 'Which AWS pricing model has no long-term commitment and charges by the hour?', opts: ['Reserved Instances', 'Savings Plans', 'On-Demand', 'Spot Instances'], ans: 2, explain: 'On-Demand pricing lets you pay for compute capacity by the hour or second with no upfront costs or long-term commitments.' },
+      { q: 'Which AWS service allows you to manage multiple AWS accounts centrally?', opts: ['AWS IAM', 'AWS Config', 'AWS Organizations', 'AWS Control Tower'], ans: 2, explain: 'AWS Organizations provides centralized management and governance of multiple AWS accounts under a single root.' }
+    ]
+  },
+  saa: {
+    name: 'AWS Solutions Architect',
+    emoji: '🏗️',
+    color: 'var(--blue)',
+    questions: [
+      { q: 'Which AWS service provides a managed NoSQL database with single-digit millisecond latency?', opts: ['Amazon RDS', 'Amazon DynamoDB', 'Amazon Redshift', 'Amazon ElastiCache'], ans: 1, explain: 'Amazon DynamoDB is a fully managed NoSQL database delivering consistent single-digit millisecond performance at any scale.' },
+      { q: 'In a VPC, which component controls traffic at the subnet level?', opts: ['Security Group', 'Network ACL (NACL)', 'Route Table', 'Internet Gateway'], ans: 1, explain: 'Network ACLs are stateless firewalls that control inbound and outbound traffic at the subnet level in a VPC.' },
+      { q: 'Which S3 storage class is best for infrequently accessed data requiring rapid retrieval?', opts: ['S3 Standard', 'S3 Glacier', 'S3 Standard-IA', 'S3 One Zone-IA'], ans: 2, explain: 'S3 Standard-IA (Infrequent Access) is ideal for data accessed less frequently but needing millisecond retrieval when needed.' },
+      { q: 'A company needs to run containers without managing servers. Which service is best?', opts: ['Amazon EC2', 'AWS Fargate', 'AWS Batch', 'Amazon Lightsail'], ans: 1, explain: 'AWS Fargate is a serverless compute engine for containers — no server management required, you just define CPU/memory.' },
+      { q: 'Which AWS service allows defining infrastructure as code using JSON or YAML?', opts: ['AWS Config', 'AWS CloudFormation', 'AWS OpsWorks', 'AWS Systems Manager'], ans: 1, explain: 'AWS CloudFormation lets you model and provision AWS resources using JSON or YAML templates — enabling infrastructure as code.' },
+      { q: 'Which pricing model gives up to 72% discount for a 1 or 3-year commitment?', opts: ['On-Demand', 'Spot Instances', 'Reserved Instances', 'Dedicated Hosts'], ans: 2, explain: 'Reserved Instances provide significant discounts (up to 72%) compared to On-Demand pricing in exchange for a commitment term.' },
+      { q: 'What is the maximum size of a single S3 object?', opts: ['5 GB', '100 GB', '5 TB', 'Unlimited'], ans: 2, explain: 'Amazon S3 supports objects up to 5 TB in size. Objects larger than 100 MB should use multipart upload.' },
+      { q: 'Which Route 53 routing policy routes to healthy endpoints only?', opts: ['Simple Routing', 'Weighted Routing', 'Failover Routing', 'Geolocation Routing'], ans: 2, explain: 'Failover Routing monitors endpoint health and automatically routes traffic to a healthy backup endpoint when the primary fails.' },
+      { q: 'Which AWS service decouples microservices using a managed message queue?', opts: ['Amazon SNS', 'Amazon SQS', 'Amazon Kinesis', 'AWS EventBridge'], ans: 1, explain: 'Amazon SQS (Simple Queue Service) is a fully managed message queuing service enabling decoupled microservices and distributed systems.' },
+      { q: 'To improve read performance on RDS, what should you add?', opts: ['Multi-AZ standby', 'Read Replica', 'Elastic IP', 'Provisioned IOPS'], ans: 1, explain: 'RDS Read Replicas create read-only copies of your database to offload read traffic and improve overall performance.' }
+    ]
+  },
+  sysdesign: {
+    name: 'System Design',
+    emoji: '⚙️',
+    color: 'var(--orange)',
+    questions: [
+      { q: 'What does the CAP theorem state a distributed system can guarantee at most?', opts: ['Consistency + Availability + Partition tolerance', 'Consistency + Availability only', 'Any two of: Consistency, Availability, Partition tolerance', 'Availability + Partition tolerance only'], ans: 2, explain: 'CAP theorem states a distributed system can guarantee at most two of three: Consistency, Availability, and Partition tolerance.' },
+      { q: 'Which database sharding strategy distributes data based on a hash of the partition key?', opts: ['Range-based sharding', 'Hash-based sharding', 'Directory-based sharding', 'Geographic sharding'], ans: 1, explain: 'Hash-based sharding applies a hash function to the partition key to determine which shard stores the data — ensuring even distribution.' },
+      { q: 'What is the main purpose of a load balancer in system design?', opts: ['Store data redundantly', 'Distribute incoming traffic across multiple servers', 'Cache database queries', 'Compress network packets'], ans: 1, explain: 'A load balancer distributes incoming client requests across multiple backend servers to ensure no single server is overwhelmed.' },
+      { q: 'Which caching strategy updates the cache when the database is written to?', opts: ['Cache-aside', 'Read-through', 'Write-through', 'Write-back'], ans: 2, explain: 'Write-through cache updates both the cache and the database simultaneously on every write, ensuring cache consistency.' },
+      { q: 'What does "eventual consistency" mean in distributed systems?', opts: ['Data is always consistent immediately', 'Data becomes consistent after all updates propagate', 'Data is never consistent', 'Consistency is guaranteed per transaction'], ans: 1, explain: 'Eventual consistency means all replicas will converge to the same value eventually, given no new updates are made — not instant.' },
+      { q: 'Which messaging pattern is best for broadcasting events to multiple consumers?', opts: ['Point-to-point queue', 'Publish-Subscribe (Pub/Sub)', 'Request-Reply', 'Polling'], ans: 1, explain: 'Publish-Subscribe (Pub/Sub) pattern allows a single message to be delivered to multiple subscribers simultaneously — ideal for event broadcasting.' },
+      { q: 'What is the primary benefit of using a CDN (Content Delivery Network)?', opts: ['Reduce database load', 'Improve write performance', 'Serve content from geographically closer locations', 'Encrypt data at rest'], ans: 2, explain: 'CDNs cache and serve static content from edge servers closer to users, reducing latency and load on origin servers.' },
+      { q: 'Which database type is best suited for storing social network relationships?', opts: ['Relational (SQL)', 'Document store', 'Graph database', 'Time-series database'], ans: 2, explain: 'Graph databases (e.g., Neo4j) are optimized for highly connected data with complex relationship queries — perfect for social networks.' },
+      { q: 'What is a circuit breaker pattern used for?', opts: ['Encrypting network traffic', 'Preventing cascading failures in microservices', 'Load balancing requests', 'Compressing API responses'], ans: 1, explain: 'The circuit breaker pattern stops calling a failing service after a threshold, preventing cascading failures and giving the service time to recover.' },
+      { q: 'Which consistency model guarantees every read receives the most recent write?', opts: ['Eventual consistency', 'Causal consistency', 'Strong consistency', 'Monotonic read consistency'], ans: 2, explain: 'Strong (linearizable) consistency guarantees every read returns the most recent committed write — at the cost of availability and latency.' }
+    ]
+  },
+  dsa: {
+    name: 'Data Structures & Algorithms',
+    emoji: '🧩',
+    color: 'var(--orange)',
+    questions: [
+      { q: 'What is the time complexity of binary search on a sorted array?', opts: ['O(n)', 'O(n log n)', 'O(log n)', 'O(1)'], ans: 2, explain: 'Binary search divides the search space in half each step, giving O(log n) time complexity on a sorted array.' },
+      { q: 'Which data structure follows Last-In-First-Out (LIFO) order?', opts: ['Queue', 'Stack', 'Linked List', 'Heap'], ans: 1, explain: 'A Stack follows LIFO — the last element inserted is the first one to be removed. Think of a stack of plates.' },
+      { q: 'What is the worst-case time complexity of QuickSort?', opts: ['O(n log n)', 'O(n)', 'O(n²)', 'O(log n)'], ans: 2, explain: 'QuickSort worst case is O(n²) when the pivot is always the smallest or largest element (e.g., sorted array with naive pivot).' },
+      { q: 'Which traversal of a BST gives elements in sorted order?', opts: ['Pre-order', 'Post-order', 'In-order', 'Level-order'], ans: 2, explain: 'In-order traversal (Left → Root → Right) of a Binary Search Tree visits nodes in ascending sorted order.' },
+      { q: 'What data structure is used to implement Dijkstra\'s shortest path algorithm efficiently?', opts: ['Stack', 'Queue', 'Min-Heap (Priority Queue)', 'Linked List'], ans: 2, explain: 'Dijkstra\'s algorithm uses a Min-Heap (Priority Queue) to always process the node with the smallest known distance next.' },
+      { q: 'What is the space complexity of a recursive Fibonacci function with memoization?', opts: ['O(1)', 'O(n)', 'O(n²)', 'O(2^n)'], ans: 1, explain: 'With memoization, we store n values in a table and the call stack depth is O(n), so space complexity is O(n).' },
+      { q: 'Which graph representation is more space-efficient for sparse graphs?', opts: ['Adjacency Matrix', 'Adjacency List', 'Edge List', 'Incidence Matrix'], ans: 1, explain: 'Adjacency List uses O(V + E) space vs O(V²) for matrix — much better for sparse graphs where E << V².' },
+      { q: 'What is the time complexity of inserting into a Hash Map on average?', opts: ['O(n)', 'O(log n)', 'O(1)', 'O(n log n)'], ans: 2, explain: 'Hash Map insertion is O(1) on average because the hash function directly computes the bucket index.' },
+      { q: 'Which dynamic programming problem finds the longest increasing subsequence?', opts: ['Knapsack', 'LIS', 'Edit Distance', 'Matrix Chain Multiplication'], ans: 1, explain: 'LIS (Longest Increasing Subsequence) is a classic DP problem solvable in O(n²) with DP or O(n log n) with patience sorting.' },
+      { q: 'What does BFS (Breadth-First Search) use internally?', opts: ['Stack', 'Queue', 'Priority Queue', 'Deque'], ans: 1, explain: 'BFS uses a Queue (FIFO) to explore nodes level by level — ensuring shortest-path in unweighted graphs.' }
+    ]
+  },
+  dotnet: {
+    name: '.NET / Java Programming',
+    emoji: '🔷',
+    color: 'var(--blue)',
+    questions: [
+      { q: 'What does the "async/await" pattern in C# allow?', opts: ['Parallel CPU computation', 'Asynchronous non-blocking I/O operations', 'Multi-threading on multiple cores', 'Synchronous I/O with callbacks'], ans: 1, explain: 'async/await allows writing asynchronous code that doesn\'t block the calling thread — ideal for I/O-bound operations like API calls.' },
+      { q: 'Which Java keyword prevents a class from being subclassed?', opts: ['abstract', 'static', 'final', 'sealed'], ans: 2, explain: 'The "final" keyword in Java prevents inheritance — a final class cannot be extended.' },
+      { q: 'What is dependency injection in .NET?', opts: ['Injecting SQL into queries', 'Providing dependencies to a class externally rather than creating them internally', 'A data access pattern', 'A build tool feature'], ans: 1, explain: 'Dependency Injection (DI) passes dependencies (services) into a class from outside, promoting loose coupling and testability.' },
+      { q: 'Which C# collection type ensures unique elements?', opts: ['List<T>', 'Dictionary<K,V>', 'HashSet<T>', 'Queue<T>'], ans: 2, explain: 'HashSet<T> stores unique elements only and provides O(1) average-case lookup using hash codes.' },
+      { q: 'What is the purpose of the "interface" keyword in Java?', opts: ['Create abstract data types only', 'Define a contract that classes must implement', 'Create static utility classes', 'Define enum types'], ans: 1, explain: 'Interfaces define contracts (method signatures) that implementing classes must fulfill — enabling polymorphism and decoupling.' },
+      { q: 'Which pattern in .NET is used for observing state changes in objects?', opts: ['Factory Pattern', 'Strategy Pattern', 'Observer Pattern', 'Command Pattern'], ans: 2, explain: 'Observer Pattern (implemented via events/delegates in C#) notifies multiple subscribers when an object\'s state changes.' },
+      { q: 'What does LINQ stand for in C#?', opts: ['Language Integrated Named Query', 'Language Integrated Network Query', 'Language Integrated Query', 'Lightweight Integrated Query'], ans: 2, explain: 'LINQ (Language Integrated Query) allows querying collections, databases, and XML using a consistent syntax within C#.' },
+      { q: 'Which Java collection is thread-safe out of the box?', opts: ['ArrayList', 'HashMap', 'ConcurrentHashMap', 'LinkedList'], ans: 2, explain: 'ConcurrentHashMap is designed for concurrent access — it uses segment-level locking for thread-safety without sacrificing performance.' },
+      { q: 'What is the "Single Responsibility Principle" in SOLID?', opts: ['A class should have only one method', 'A class should have only one reason to change', 'Methods should do one thing', 'A module should depend on one interface'], ans: 1, explain: 'SRP states a class should have only one responsibility — one reason to change — making it easier to maintain and test.' },
+      { q: 'In ASP.NET Core, what is middleware?', opts: ['A database connection layer', 'Software components in the HTTP request pipeline', 'A front-end rendering engine', 'A caching layer'], ans: 1, explain: 'Middleware in ASP.NET Core are components assembled in a pipeline to handle requests and responses — e.g., authentication, logging, routing.' }
+    ]
+  },
+  python: {
+    name: 'Python Programming',
+    emoji: '🐍',
+    color: 'var(--green)',
+    questions: [
+      { q: 'Which Python data type is immutable?', opts: ['List', 'Dictionary', 'Tuple', 'Set'], ans: 2, explain: 'Tuples are immutable sequences in Python — once created, their elements cannot be changed.' },
+      { q: 'What does the "self" parameter in a Python class method represent?', opts: ['The class itself', 'The current instance of the class', 'A static reference', 'The parent class'], ans: 1, explain: '"self" refers to the current instance of the class, allowing access to instance attributes and other methods.' },
+      { q: 'Which Python keyword is used to create a generator function?', opts: ['return', 'async', 'yield', 'generate'], ans: 2, explain: '"yield" makes a function a generator — it returns values one at a time and suspends execution between calls, saving memory.' },
+      { q: 'What is a Python decorator?', opts: ['A design pattern for UI', 'A function that modifies another function\'s behavior', 'A type annotation', 'A class attribute'], ans: 1, explain: 'Decorators are functions that wrap other functions to modify or extend their behavior without changing their code.' },
+      { q: 'Which Python library is used for making HTTP requests?', opts: ['urllib only', 'socket', 'requests', 'httplib'], ans: 2, explain: 'The "requests" library is the most popular Python HTTP library — simple, intuitive API for GET, POST, etc.' },
+      { q: 'What is the output of: [x**2 for x in range(4)]?', opts: ['[0, 1, 4, 9]', '[1, 4, 9, 16]', '[0, 1, 2, 3]', '[4, 4, 4, 4]'], ans: 0, explain: 'List comprehension squares each number in range(4) = [0,1,2,3], giving [0, 1, 4, 9].' },
+      { q: 'Which keyword is used for exception handling in Python?', opts: ['catch', 'except', 'handle', 'rescue'], ans: 1, explain: 'Python uses "except" (not "catch") to handle exceptions in a try/except block.' },
+      { q: 'What does GIL stand for in CPython?', opts: ['Global Interface Layer', 'Global Interpreter Lock', 'General Import Library', 'Global Input Loop'], ans: 1, explain: 'The GIL (Global Interpreter Lock) prevents multiple native threads from executing Python bytecodes simultaneously in CPython.' },
+      { q: 'Which Python module is used for working with JSON data?', opts: ['xml', 'csv', 'json', 'pickle'], ans: 2, explain: 'Python\'s built-in "json" module provides functions to parse JSON strings (loads/load) and serialize to JSON (dumps/dump).' },
+      { q: 'What is the difference between "==" and "is" in Python?', opts: ['No difference', '"==" checks value equality; "is" checks identity (same object)', '"is" checks value; "==" checks identity', '"is" is only for numbers'], ans: 1, explain: '"==" compares values (are they equal?); "is" compares identity (are they the same object in memory?).' }
+    ]
+  },
+  aiml: {
+    name: 'AI & Machine Learning',
+    emoji: '🤖',
+    color: 'var(--orange)',
+    questions: [
+      { q: 'What type of machine learning uses labeled training data to learn a mapping from inputs to outputs?', opts: ['Unsupervised Learning', 'Reinforcement Learning', 'Supervised Learning', 'Self-supervised Learning'], ans: 2, explain: 'Supervised Learning trains a model on labeled input-output pairs so it can predict outputs for new unseen inputs — e.g., classification, regression.' },
+      { q: 'Which algorithm is commonly used for classification and works by finding the best hyperplane to separate classes?', opts: ['K-Means Clustering', 'Support Vector Machine (SVM)', 'DBSCAN', 'Apriori'], ans: 1, explain: 'Support Vector Machines (SVM) find the optimal hyperplane that maximizes the margin between classes — effective for high-dimensional data.' },
+      { q: 'What is overfitting in machine learning?', opts: ['Model performs well on training and test data', 'Model performs well on training data but poorly on unseen data', 'Model fails to learn from training data', 'Model is too simple to capture patterns'], ans: 1, explain: 'Overfitting occurs when a model learns the training data too well — including noise — and fails to generalize to new, unseen data.' },
+      { q: 'Which technique reduces overfitting by randomly dropping neurons during training?', opts: ['Batch Normalization', 'Dropout', 'L1 Regularization', 'Weight Decay'], ans: 1, explain: 'Dropout randomly deactivates a fraction of neurons during each training step, forcing the network to learn more robust, distributed representations.' },
+      { q: 'In a neural network, what is the role of an activation function?', opts: ['Initialize weights', 'Introduce non-linearity to learn complex patterns', 'Normalize input data', 'Calculate the loss'], ans: 1, explain: 'Activation functions (ReLU, Sigmoid, Tanh) introduce non-linearity, allowing neural networks to learn complex, non-linear mappings.' },
+      { q: 'What does CNN stand for in deep learning?', opts: ['Configured Neural Network', 'Convolutional Neural Network', 'Connected Node Network', 'Cascaded Neuron Network'], ans: 1, explain: 'CNN (Convolutional Neural Network) uses convolutional layers to automatically detect spatial features like edges and textures — ideal for images.' },
+      { q: 'Which metric measures the proportion of actual positives correctly identified by the model?', opts: ['Precision', 'Recall (Sensitivity)', 'F1 Score', 'Specificity'], ans: 1, explain: 'Recall = TP / (TP + FN). It measures how many actual positive cases the model correctly identified — important when false negatives are costly.' },
+      { q: 'What is the purpose of the train/validation/test split in ML?', opts: ['To increase dataset size', 'To train, tune hyperparameters, and evaluate model performance independently', 'To balance class distribution', 'To speed up training'], ans: 1, explain: 'Train set fits the model, validation set tunes hyperparameters, and test set gives an unbiased final evaluation on completely unseen data.' },
+      { q: 'Which algorithm builds multiple decision trees and combines their predictions?', opts: ['Linear Regression', 'K-Nearest Neighbors', 'Random Forest', 'Naive Bayes'], ans: 2, explain: 'Random Forest is an ensemble method that builds many decision trees on random subsets of data/features and aggregates their predictions — reducing variance.' },
+      { q: 'What does the term "Large Language Model" (LLM) refer to?', opts: ['A database with billions of records', 'A deep learning model trained on massive text data to understand and generate language', 'A rule-based chatbot system', 'A compression algorithm for text files'], ans: 1, explain: 'LLMs like GPT, Claude, and Gemini are transformer-based neural networks trained on vast text corpora to generate, understand, and reason about language.' }
+    ]
+  }
+};
+
+const CATEGORIES = [
+  { id: 'ccp', name: 'AWS Cloud Practitioner', emoji: '☁️', count: 10 },
+  { id: 'saa', name: 'AWS Solutions Architect', emoji: '🏗️', count: 10 },
+  { id: 'sysdesign', name: 'System Design', emoji: '⚙️', count: 10 },
+  { id: 'dsa', name: 'Data Structures & Algorithms', emoji: '🧩', count: 10 },
+  { id: 'dotnet', name: '.NET / Java Programming', emoji: '🔷', count: 10 },
+  { id: 'python', name: 'Python Programming', emoji: '🐍', count: 10 },
+  { id: 'aiml', name: 'AI & Machine Learning', emoji: '🤖', count: 10 },
+];
+
+let currentCat = null;
+let userAnswers = {};
+let checked = {};
+let submitted = false;
+
+// Build category grid
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('catGrid');
+  CATEGORIES.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = 'exam-cat-card';
+    div.id = 'catCard_' + cat.id;
+    div.innerHTML = `<div class="cat-icon">${cat.emoji}</div><div class="cat-name">${cat.name}</div><div class="cat-count">${cat.count} sample questions</div>`;
+    div.onclick = () => selectCategory(cat.id);
+    grid.appendChild(div);
+  });
+});
+
+function selectCategory(catId) {
+  document.querySelectorAll('.exam-cat-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('catCard_' + catId)?.classList.add('selected');
+  currentCat = catId;
+  userAnswers = {}; checked = {}; submitted = false;
+  setTimeout(() => startExam(catId), 280);
+}
+
+function startExam(catId) {
+  const data = EXAM_DATA[catId];
+  document.getElementById('catEmojiLabel').textContent = data.emoji;
+  document.getElementById('catNameLabel').textContent = data.name;
+  renderQuestions(data.questions);
+  showStep('exam');
+  updateProgress(0, data.questions.length);
+}
+
+function renderQuestions(questions) {
+  const container = document.getElementById('questionsContainer');
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card'; card.id = 'qcard_' + i;
+    card.innerHTML = `
+      <div class="q-header">
+        <div class="q-num">${i + 1}</div>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div class="q-options" id="opts_${i}">
+        ${q.opts.map((opt, j) => `
+          <label class="q-opt" id="opt_${i}_${j}" onclick="selectAnswer(${i}, ${j})">
+            <input type="radio" name="q${i}" value="${j}">
+            <span>${String.fromCharCode(65 + j)}. ${opt}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="q-actions">
+        <button class="btn btn-outline-blue btn-sm" onclick="checkAnswer(${i})">✓ Check Answer</button>
+        <button class="btn btn-outline-gray btn-sm" onclick="showAnswer(${i})">💡 Show Answer</button>
+      </div>
+      <div class="q-answer-box" id="ansbox_${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectAnswer(qIdx, optIdx) {
+  userAnswers[qIdx] = optIdx;
+  document.querySelectorAll(`#opts_${qIdx} .q-opt`).forEach((el, j) => {
+    el.classList.toggle('selected', j === optIdx);
+  });
+  updateProgress(Object.keys(userAnswers).length, EXAM_DATA[currentCat].questions.length);
+}
+
+function updateProgress(answered, total) {
+  document.getElementById('examProgress').textContent = `${answered} of ${total} answered`;
+  document.getElementById('progressFill').style.width = (answered / total * 100) + '%';
+}
+
+function checkAnswer(qIdx) {
+  const data = EXAM_DATA[currentCat];
+  const q = data.questions[qIdx];
+  const selected = userAnswers[qIdx];
+
+  if (selected === undefined) {
+    showToast('⚠️ Please select an answer first.', 'error');
+    return;
+  }
+
+  checked[qIdx] = true;
+  revealQuestion(qIdx, q, selected);
+}
+
+function showAnswer(qIdx) {
+  const data = EXAM_DATA[currentCat];
+  const q = data.questions[qIdx];
+  checked[qIdx] = true;
+  const sel = userAnswers[qIdx];
+  revealQuestion(qIdx, q, sel, true);
+}
+
+function revealQuestion(qIdx, q, selected, forceReveal = false) {
+  // Highlight options
+  document.querySelectorAll(`#opts_${qIdx} .q-opt`).forEach((el, j) => {
+    el.classList.remove('selected', 'correct', 'wrong');
+    if (j === q.ans) el.classList.add('correct');
+    else if (j === selected && selected !== q.ans) el.classList.add('wrong');
+    el.style.pointerEvents = 'none';
+  });
+
+  // Show explanation box
+  const box = document.getElementById('ansbox_' + qIdx);
+  const isCorrect = selected === q.ans;
+  box.style.display = 'block';
+  if (forceReveal && selected === undefined) {
+    box.className = 'q-answer-box correct-ans';
+    box.innerHTML = `<strong>✅ Correct Answer:</strong> ${String.fromCharCode(65 + q.ans)}. ${q.opts[q.ans]}<br><br><strong>Explanation:</strong> ${q.explain}`;
+  } else {
+    box.className = 'q-answer-box ' + (isCorrect ? 'correct-ans' : 'wrong-ans');
+    box.innerHTML = (isCorrect
+      ? `<strong>✅ Correct!</strong>`
+      : `<strong>❌ Incorrect.</strong> Correct answer: <strong>${String.fromCharCode(65 + q.ans)}. ${q.opts[q.ans]}</strong>`)
+      + `<br><br><strong>Explanation:</strong> ${q.explain}`;
+  }
+}
+
+function submitExam() {
+  const data = EXAM_DATA[currentCat];
+  const total = data.questions.length;
+  let score = 0;
+
+  // Reveal all unchecked
+  data.questions.forEach((q, i) => {
+    if (!checked[i]) revealQuestion(i, q, userAnswers[i]);
+    if (userAnswers[i] === q.ans) score++;
+  });
+
+  submitted = true;
+
+  // Save to localStorage
+  const record = {
+    category: currentCat,
+    categoryName: data.name,
+    score,
+    total,
+    percentage: Math.round(score / total * 100),
+    answers: { ...userAnswers },
+    source: 'practice_exam'
+  };
+  saveRecord('exam_submissions', record);
+
+  // Show results
+  showResults(score, total, data);
+}
+
+function showResults(score, total, data) {
+  const pct = Math.round(score / total * 100);
+  let emoji, title, msg;
+  if (pct >= 80) { emoji = '🏆'; title = 'Outstanding!'; msg = 'Excellent preparation! You\'re ready for the real exam. Unlock the full bank to stay sharp.'; }
+  else if (pct >= 60) { emoji = '👍'; title = 'Good Work!'; msg = 'Solid attempt! A bit more practice will get you exam-ready. Unlock 200+ questions to push higher.'; }
+  else { emoji = '📚'; title = 'Keep Practicing!'; msg = 'Review the explanations below and keep going. Request full access for more practice questions.'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title + ' — ' + data.name;
+  document.getElementById('resultScore').textContent = score + '/' + total + ' (' + pct + '%)';
+  document.getElementById('resultMsg').textContent = msg;
+
+  // Result bars
+  const wrong = total - score;
+  document.getElementById('resultBars').innerHTML = `
+    <div class="result-bar"><span class="result-bar-label">✅ Correct</span><div class="result-bar-track"><div class="result-bar-fill correct" style="width:${pct}%"></div></div><span style="font-size:.82rem;color:var(--gray-500);font-weight:700;min-width:28px">${score}</span></div>
+    <div class="result-bar"><span class="result-bar-label">❌ Wrong</span><div class="result-bar-track"><div class="result-bar-fill wrong" style="width:${(wrong/total*100)}%"></div></div><span style="font-size:.82rem;color:var(--gray-500);font-weight:700;min-width:28px">${wrong}</span></div>
+  `;
+
+  // Detailed review
+  const rev = document.getElementById('reviewContainer');
+  rev.innerHTML = '';
+  data.questions.forEach((q, i) => {
+    const isCorrect = userAnswers[i] === q.ans;
+    const div = document.createElement('div');
+    div.className = 'q-card';
+    div.innerHTML = `
+      <div class="q-header">
+        <div class="q-num" style="background:${isCorrect?'var(--green-pale)':'var(--red-pale)'};color:${isCorrect?'var(--green)':'var(--red)'}">${isCorrect?'✓':'✗'}</div>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div style="font-size:0.85rem;margin-bottom:6px;color:${isCorrect?'#166534':'var(--red)'}">
+        ${isCorrect ? '✅ You answered correctly!' : `❌ Your answer: ${userAnswers[i]!==undefined?String.fromCharCode(65+userAnswers[i])+'. '+q.opts[userAnswers[i]]:'Not answered'}`}
+      </div>
+      <div style="font-size:0.85rem;color:#166534;margin-bottom:8px;font-weight:600">
+        ✅ Correct: ${String.fromCharCode(65 + q.ans)}. ${q.opts[q.ans]}
+      </div>
+      <div style="font-size:0.84rem;color:var(--gray-600);background:var(--gray-100);padding:10px;border-radius:8px;line-height:1.65">
+        <strong>💡 Explanation:</strong> ${q.explain}
+      </div>
+    `;
+    rev.appendChild(div);
+  });
+
+  showStep('result');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToCategories() {
+  userAnswers = {}; checked = {}; submitted = false; currentCat = null;
+  document.querySelectorAll('.exam-cat-card').forEach(c => c.classList.remove('selected'));
+  showStep('category');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showStep(step) {
+  document.querySelectorAll('.cat-step, .exam-step').forEach(el => el.classList.remove('active'));
+  if (step === 'category') document.getElementById('step-category').classList.add('active');
+  else if (step === 'exam') document.getElementById('step-exam').classList.add('active');
+  else if (step === 'result') document.getElementById('step-result').classList.add('active');
+}
+</script>
+</body>
+</html>

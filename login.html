@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — 360DigiLearning</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.login-wrapper {
+  min-height: calc(100vh - 64px);
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(140deg, var(--blue-pale) 0%, #fff 50%, var(--orange-pale) 100%);
+  padding: 40px 5%;
+}
+.login-card {
+  background: #fff; border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg); padding: 44px 40px;
+  max-width: 420px; width: 100%;
+  box-shadow: 0 12px 40px rgba(37,99,235,0.12);
+}
+.login-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.2rem;
+  color: var(--gray-800); margin-bottom: 28px; justify-content: center;
+}
+.login-card h2 { font-size: 1.4rem; font-weight: 800; text-align: center; margin-bottom: 6px; }
+.login-card .login-sub { color: var(--gray-500); font-size: 0.88rem; text-align: center; margin-bottom: 26px; }
+.info-box {
+  background: var(--blue-pale); border: 1px solid var(--blue-soft);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+  font-size: 0.84rem; color: var(--blue); margin-bottom: 22px;
+}
+.info-box a { color: var(--orange); font-weight: 700; text-decoration: underline; }
+
+.dashboard-wrapper {
+  display: none; padding: 40px 5%;
+  background: var(--gray-50); min-height: calc(100vh - 64px);
+}
+.dashboard-wrapper.visible { display: block; }
+
+.dash-welcome {
+  background: linear-gradient(135deg, var(--blue-pale), var(--orange-pale));
+  border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
+  padding: 32px; margin-bottom: 24px; text-align: center;
+}
+.dash-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap: 16px;
+}
+.dash-card {
+  background: #fff; border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius); padding: 24px; text-align: center;
+  transition: all .2s;
+}
+.dash-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.dash-card .dc-icon { font-size: 2rem; margin-bottom: 10px; }
+.dash-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 5px; }
+.dash-card p { font-size: 0.82rem; color: var(--gray-500); }
+</style>
+</head>
+<body>
+<div id="mainNav"></div>
+
+<!-- LOGIN FORM -->
+<div class="login-wrapper" id="loginWrapper" style="margin-top:64px">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="logo-mark">360</div>
+      <span><span style="color:var(--blue)">Digi</span><span style="color:var(--orange)">Learning</span></span>
+    </div>
+    <h2>Welcome Back 👋</h2>
+    <p class="login-sub">Login with your username and access key to access the full exam bank.</p>
+
+    <div class="info-box">
+      🔑 Don't have an access key? <a href="request.html?tab=access">Request one here →</a>
+    </div>
+
+    <form id="loginForm" onsubmit="return false">
+      <div class="form-group">
+        <label class="form-label" for="login_username">Username <span class="req">*</span></label>
+        <input class="form-control" id="login_username" type="text"
+          placeholder="e.g. raj.kumar2024" required
+          data-validate="minlen" data-min="3"
+          data-err-required="Username is required.">
+        <span class="form-error" id="login_username_err"></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="login_key">Access Key <span class="req">*</span></label>
+        <div style="position:relative">
+          <input class="form-control" id="login_key" type="password"
+            placeholder="Enter your access key" required
+            data-validate="minlen" data-min="4"
+            data-err-required="Access key is required."
+            style="padding-right:48px">
+          <button type="button" onclick="toggleKeyVis()" id="eyeBtn"
+            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--gray-400)">👁</button>
+        </div>
+        <span class="form-error" id="login_key_err"></span>
+        <span class="form-hint">Your access key was sent to your email after your request was approved.</span>
+      </div>
+
+      <button type="submit" class="btn btn-blue btn-full btn-lg" style="margin-top:6px" onclick="doLogin()">Login to Dashboard →</button>
+    </form>
+
+    <div class="divider"></div>
+    <p style="text-align:center;font-size:0.84rem;color:var(--gray-500)">
+      New here? <a href="request.html?tab=access" style="color:var(--blue);font-weight:700">Request Exam Access</a>
+    </p>
+  </div>
+</div>
+
+<!-- DASHBOARD (shown after login) -->
+<div class="dashboard-wrapper" id="dashboardWrapper" style="margin-top:64px">
+  <div class="container" style="max-width:960px">
+
+    <div class="dash-welcome">
+      <div style="font-size:2.4rem;margin-bottom:8px">🎉</div>
+      <h1 style="font-size:1.5rem;font-weight:800;color:var(--gray-800);margin-bottom:6px">
+        Welcome, <span style="color:var(--blue)" id="dashUsername">Learner</span>!
+      </h1>
+      <p style="color:var(--gray-600)">Your full exam bank is now unlocked. Happy learning!</p>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-card">
+        <div class="dc-icon">📝</div>
+        <h3>Full Exam Bank</h3>
+        <p>200+ questions across all categories</p>
+        <a href="practice-exam.html" class="btn btn-blue btn-sm" style="margin-top:14px">Start Practice</a>
+      </div>
+      <div class="dash-card">
+        <div class="dc-icon">🏆</div>
+        <h3>My Progress</h3>
+        <p id="dashProgress">0 exams completed</p>
+        <button class="btn btn-outline-blue btn-sm" style="margin-top:14px" onclick="loadProgress()">View History</button>
+      </div>
+      <div class="dash-card">
+        <div class="dc-icon">🎯</div>
+        <h3>Book Training</h3>
+        <p>1-on-1 sessions with experts</p>
+        <a href="request.html?tab=session" class="btn btn-orange btn-sm" style="margin-top:14px">Book Now</a>
+      </div>
+      <div class="dash-card">
+        <div class="dc-icon">📚</div>
+        <h3>Programs</h3>
+        <p>Explore full learning paths</p>
+        <a href="programs.html" class="btn btn-outline-gray btn-sm" style="margin-top:14px">View All</a>
+      </div>
+    </div>
+
+    <!-- Exam History -->
+    <div style="margin-top:28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h2 style="font-size:1.05rem;font-weight:800;color:var(--gray-800)">📊 My Exam History</h2>
+      </div>
+      <div class="table-card">
+        <div id="examHistoryBody"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px">
+      <button class="btn btn-outline-gray btn-sm" onclick="doLogout()">← Logout</button>
+    </div>
+  </div>
+</div>
+
+<div id="mainFooter"></div>
+<script src="common.js"></script>
+<script src="nav.js"></script>
+<script>
+let keyVisible = false;
+function toggleKeyVis() {
+  keyVisible = !keyVisible;
+  document.getElementById('login_key').type = keyVisible ? 'text' : 'password';
+  document.getElementById('eyeBtn').textContent = keyVisible ? '🙈' : '👁';
+}
+
+function doLogin() {
+  if (!validateForm('loginForm')) {
+    showToast('⚠️ Please fill in all required fields.', 'error');
+    return;
+  }
+  const username = document.getElementById('login_username').value.trim();
+  const key = document.getElementById('login_key').value.trim();
+
+  // Save login record
+  saveRecord('access_requests', {
+    type: 'login_attempt', username, source: 'login_page'
+  });
+
+  // Show dashboard
+  document.getElementById('loginWrapper').style.display = 'none';
+  document.getElementById('dashboardWrapper').classList.add('visible');
+  document.getElementById('dashUsername').textContent = username;
+  loadProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function loadProgress() {
+  const exams = getAllRecords('exam_submissions');
+  document.getElementById('dashProgress').textContent = exams.length + ' exam' + (exams.length !== 1 ? 's' : '') + ' completed';
+
+  const body = document.getElementById('examHistoryBody');
+  if (!exams.length) {
+    body.innerHTML = '<div class="empty-state"><div class="es-icon">📭</div><p>No exams taken yet. <a href="practice-exam.html" style="color:var(--blue);font-weight:700">Take your first exam →</a></p></div>';
+    return;
+  }
+  body.innerHTML = `<div style="overflow-x:auto"><table>
+    <thead><tr><th>Date</th><th>Category</th><th>Score</th><th>Result</th></tr></thead>
+    <tbody>${exams.map(e => {
+      const pct = Math.round((e.score/e.total)*100);
+      const cls = pct>=80?'badge-green':pct>=60?'badge-blue':'badge-red';
+      const label = pct>=80?'Pass':'Needs Work';
+      return `<tr>
+        <td>${fmtDate(e._timestamp)}</td>
+        <td>${e.categoryName||e.category||'—'}</td>
+        <td><strong>${e.score}/${e.total}</strong></td>
+        <td><span class="badge ${cls}">${pct}% — ${label}</span></td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table></div>`;
+}
+
+function doLogout() {
+  document.getElementById('loginWrapper').style.display = 'flex';
+  document.getElementById('dashboardWrapper').classList.remove('visible');
+  document.getElementById('loginForm').reset();
+  document.querySelectorAll('#loginForm .form-control').forEach(el => el.classList.remove('error','success'));
+}
+</script>
+</body>
+</html>

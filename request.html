@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Session — 360DigiLearning</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.tab-nav { display:flex; gap:6px; margin-bottom:28px; }
+.tab-nav button {
+  padding:10px 22px; border-radius:var(--radius-sm);
+  border:1.5px solid var(--gray-200); background:#fff;
+  cursor:pointer; font-weight:700; font-size:0.88rem;
+  font-family:'Nunito',sans-serif; transition:all .2s; color:var(--gray-600);
+}
+.tab-nav button.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+.tab-nav button:not(.active):hover { border-color:var(--blue-mid); color:var(--blue); }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+.form-card {
+  background:#fff; border:1.5px solid var(--gray-200);
+  border-radius:var(--radius-lg); padding:36px;
+  box-shadow:var(--shadow-sm);
+}
+.form-card h2 { font-size:1.25rem; font-weight:800; margin-bottom:5px; color:var(--gray-800); }
+.form-card .form-desc { color:var(--gray-500); font-size:0.88rem; margin-bottom:28px; }
+.success-card {
+  background:#fff; border:1.5px solid var(--green);
+  border-radius:var(--radius-lg); padding:48px 36px;
+  text-align:center; box-shadow:var(--shadow-sm);
+}
+.success-card .sc-icon { font-size:3.5rem; margin-bottom:14px; }
+.success-card h2 { font-size:1.4rem; font-weight:800; color:var(--gray-800); margin-bottom:8px; }
+.success-card p { color:var(--gray-600); max-width:440px; margin:0 auto 24px; }
+</style>
+</head>
+<body>
+<div id="mainNav"></div>
+
+<div class="page-hero">
+  <span class="section-tag">Get Started</span>
+  <h1>Request Your <span class="text-orange">Learning Journey</span></h1>
+  <p>Request exam access or book a personalized 1-on-1 training session with our certified experts.</p>
+</div>
+
+<div class="section">
+<div class="container" style="max-width:700px">
+
+  <div class="tab-nav">
+    <button class="active" id="tabBtnAccess" onclick="switchTab('access')">🔑 Request Exam Access</button>
+    <button id="tabBtnSession" onclick="switchTab('session')">🎯 Book Training Session</button>
+  </div>
+
+  <!-- TAB 1: EXAM ACCESS -->
+  <div class="tab-panel active" id="tabAccess">
+    <div class="form-card" id="formAccessCard">
+      <h2>Request Exam Access</h2>
+      <p class="form-desc">Fill in your details below. We'll review and send your unique access key by email within 24 hours.</p>
+
+      <form id="formAccess" onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="acc_fname">First Name <span class="req">*</span></label>
+            <input class="form-control" id="acc_fname" type="text" placeholder="Raj" required
+              data-validate="minlen" data-min="2" data-err-required="First name is required.">
+            <span class="form-error" id="acc_fname_err"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="acc_lname">Last Name <span class="req">*</span></label>
+            <input class="form-control" id="acc_lname" type="text" placeholder="Kumar" required
+              data-validate="minlen" data-min="2" data-err-required="Last name is required.">
+            <span class="form-error" id="acc_lname_err"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="acc_email">Email Address <span class="req">*</span></label>
+          <input class="form-control" id="acc_email" type="email" placeholder="raj@example.com" required
+            data-validate="email" data-err-required="Email address is required.">
+          <span class="form-error" id="acc_email_err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="acc_phone">Phone Number <span class="req">*</span></label>
+          <input class="form-control" id="acc_phone" type="tel" placeholder="+91 98765 43210" required
+            data-validate="phone" data-err-required="Phone number is required.">
+          <span class="form-error" id="acc_phone_err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="acc_category">Exam Category <span class="req">*</span></label>
+          <select class="form-control" id="acc_category" required data-err-required="Please select a category.">
+            <option value="">-- Select Category --</option>
+            <option>AWS Cloud Practitioner (CCP)</option>
+            <option>AWS Solutions Architect Associate (SAA)</option>
+            <option>AWS Developer Associate (DVA)</option>
+            <option>System Design</option>
+            <option>Data Structures &amp; Algorithms</option>
+            <option>.NET / Java Programming</option>
+            <option>Python Programming</option>
+            <option>AI &amp; Machine Learning</option>
+          </select>
+          <span class="form-error" id="acc_category_err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="acc_level">Current Experience Level <span class="req">*</span></label>
+          <select class="form-control" id="acc_level" required data-err-required="Please select your experience level.">
+            <option value="">-- Select Level --</option>
+            <option>Beginner (0–1 years)</option>
+            <option>Intermediate (1–3 years)</option>
+            <option>Experienced (3–5 years)</option>
+            <option>Senior (5+ years)</option>
+          </select>
+          <span class="form-error" id="acc_level_err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="acc_reason">Why are you interested? <span style="color:var(--gray-400)">(Optional)</span></label>
+          <textarea class="form-control" id="acc_reason" placeholder="I'm preparing for AWS certification and want to practice with realistic questions..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-blue btn-full btn-lg" onclick="submitAccessForm()">Submit Access Request →</button>
+      </form>
+    </div>
+
+    <div class="success-card hidden" id="successAccess">
+      <div class="sc-icon">✅</div>
+      <h2>Access Request Submitted!</h2>
+      <p>Thank you! We've received your request and will send your unique access key to your email within <strong>24 hours</strong>. Please check your inbox and spam folder.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="login.html" class="btn btn-blue">Go to Login →</a>
+        <button class="btn btn-outline-gray" onclick="resetForm('access')">Submit Another</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: SESSION BOOKING -->
+  <div class="tab-panel" id="tabSession">
+    <div class="form-card" id="formSessionCard">
+      <h2>Book a 1-on-1 Training Session</h2>
+      <p class="form-desc">Tell us what you want to learn and we'll match you with the perfect certified instructor.</p>
+
+      <form id="formSession" onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="ses_fname">First Name <span class="req">*</span></label>
+            <input class="form-control" id="ses_fname" type="text" placeholder="Priya" required
+              data-validate="minlen" data-min="2" data-err-required="First name is required.">
+            <span class="form-error" id="ses_fname_err"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ses_lname">Last Name <span class="req">*</span></label>
+            <input class="form-control" id="ses_lname" type="text" placeholder="Sharma" required
+              data-validate="minlen" data-min="2" data-err-required="Last name is required.">
+            <span class="form-error" id="ses_lname_err"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ses_email">Email Address <span class="req">*</span></label>
+          <input class="form-control" id="ses_email" type="email" placeholder="priya@example.com" required
+            data-validate="email" data-err-required="Email address is required.">
+          <span class="form-error" id="ses_email_err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ses_phone">Phone Number <span class="req">*</span></label>
+          <input class="form-control" id="ses_phone" type="tel" placeholder="+91 98765 43210" required
+            data-validate="phone" data-err-required="Phone number is required.">
+          <span class="form-error" id="ses_phone_err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ses_topic">Training Topic <span class="req">*</span></label>
+          <select class="form-control" id="ses_topic" required data-err-required="Please select a training topic.">
+            <option value="">-- Select Topic --</option>
+            <option>AWS Cloud (EC2, S3, Lambda, VPC, RDS)</option>
+            <option>AWS Solutions Architecture</option>
+            <option>Python Programming</option>
+            <option>Java / Spring Boot</option>
+            <option>.NET / C# Development</option>
+            <option>C &amp; C++ Programming</option>
+            <option>Data Structures &amp; Algorithms</option>
+            <option>System Design</option>
+            <option>Cloud Solution Architecture</option>
+            <option>AI &amp; Machine Learning</option>
+            <option>Deep Learning &amp; Neural Networks</option>
+            <option>Generative AI &amp; LLMs</option>
+          </select>
+          <span class="form-error" id="ses_topic_err"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="ses_type">Session Type <span class="req">*</span></label>
+            <select class="form-control" id="ses_type" required data-err-required="Please select a session type.">
+              <option value="">-- Select --</option>
+              <option>Single Session (1 hour)</option>
+              <option>Weekly Sessions (1 month)</option>
+              <option>Intensive Bootcamp (1 week)</option>
+              <option>Custom Plan</option>
+            </select>
+            <span class="form-error" id="ses_type_err"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ses_timing">Preferred Timing <span class="req">*</span></label>
+            <select class="form-control" id="ses_timing" required data-err-required="Please select a timing preference.">
+              <option value="">-- Select --</option>
+              <option>Weekday Morning (9AM–12PM)</option>
+              <option>Weekday Evening (6PM–9PM)</option>
+              <option>Weekend Morning</option>
+              <option>Weekend Evening</option>
+              <option>Flexible / Anytime</option>
+            </select>
+            <span class="form-error" id="ses_timing_err"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="ses_goals">Your Goals &amp; Background <span class="req">*</span></label>
+          <textarea class="form-control" id="ses_goals" rows="4"
+            placeholder="E.g., I'm a 2-year .NET developer looking to transition into cloud architecture. I know C# well but need guidance on AWS services..." required
+            data-validate="minlen" data-min="20" data-err-required="Please describe your goals (at least 20 characters)."></textarea>
+          <span class="form-error" id="ses_goals_err"></span>
+          <span class="form-hint">The more detail you provide, the better we can match you with the right instructor.</span>
+        </div>
+
+        <button type="submit" class="btn btn-orange btn-full btn-lg" onclick="submitSessionForm()">Book My Session →</button>
+      </form>
+    </div>
+
+    <div class="success-card hidden" id="successSession">
+      <div class="sc-icon">🎉</div>
+      <h2>Session Request Received!</h2>
+      <p>Amazing! Our team will contact you within <strong>4 hours</strong> to confirm your session details and introduce your instructor. Get ready to learn!</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="index.html" class="btn btn-blue">Back to Home</a>
+        <button class="btn btn-outline-gray" onclick="resetForm('session')">Book Another</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div id="mainFooter"></div>
+<script src="common.js"></script>
+<script src="nav.js"></script>
+<script>
+// Pre-select tab and topic from URL params
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(location.search);
+  const tab = params.get('tab');
+  const topic = params.get('topic');
+
+  if (tab === 'session') switchTab('session');
+  else switchTab('access');
+
+  if (topic) {
+    const sel = document.getElementById('ses_topic');
+    if (sel) {
+      for (let opt of sel.options) {
+        if (opt.text.toLowerCase().includes(decodeURIComponent(topic).toLowerCase().split(' ')[0])) {
+          opt.selected = true; break;
+        }
+      }
+    }
+    if (tab !== 'access') switchTab('session');
+  }
+});
+
+function switchTab(tab) {
+  document.getElementById('tabBtnAccess').classList.toggle('active', tab === 'access');
+  document.getElementById('tabBtnSession').classList.toggle('active', tab === 'session');
+  document.getElementById('tabAccess').classList.toggle('active', tab === 'access');
+  document.getElementById('tabSession').classList.toggle('active', tab === 'session');
+}
+
+function submitAccessForm() {
+  if (!validateForm('formAccess')) {
+    showToast('⚠️ Please fix the errors before submitting.', 'error');
+    return;
+  }
+  const data = {
+    type: 'access_request',
+    firstName: document.getElementById('acc_fname').value.trim(),
+    lastName: document.getElementById('acc_lname').value.trim(),
+    email: document.getElementById('acc_email').value.trim(),
+    phone: document.getElementById('acc_phone').value.trim(),
+    category: document.getElementById('acc_category').value,
+    level: document.getElementById('acc_level').value,
+    reason: document.getElementById('acc_reason').value.trim(),
+    source: 'request_page_access_form'
+  };
+  saveRecord('access_requests', data);
+  document.getElementById('formAccessCard').classList.add('hidden');
+  document.getElementById('successAccess').classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitSessionForm() {
+  if (!validateForm('formSession')) {
+    showToast('⚠️ Please fix the errors before submitting.', 'error');
+    return;
+  }
+  const data = {
+    type: 'session_booking',
+    firstName: document.getElementById('ses_fname').value.trim(),
+    lastName: document.getElementById('ses_lname').value.trim(),
+    email: document.getElementById('ses_email').value.trim(),
+    phone: document.getElementById('ses_phone').value.trim(),
+    topic: document.getElementById('ses_topic').value,
+    sessionType: document.getElementById('ses_type').value,
+    timing: document.getElementById('ses_timing').value,
+    goals: document.getElementById('ses_goals').value.trim(),
+    source: 'request_page_session_form'
+  };
+  saveRecord('session_bookings', data);
+  document.getElementById('formSessionCard').classList.add('hidden');
+  document.getElementById('successSession').classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetForm(type) {
+  if (type === 'access') {
+    document.getElementById('formAccess').reset();
+    document.getElementById('formAccessCard').classList.remove('hidden');
+    document.getElementById('successAccess').classList.add('hidden');
+    document.querySelectorAll('#formAccess .form-control').forEach(el => el.classList.remove('error','success'));
+    document.querySelectorAll('#formAccess .form-error').forEach(el => el.classList.remove('show'));
+  } else {
+    document.getElementById('formSession').reset();
+    document.getElementById('formSessionCard').classList.remove('hidden');
+    document.getElementById('successSession').classList.add('hidden');
+    document.querySelectorAll('#formSession .form-control').forEach(el => el.classList.remove('error','success'));
+    document.querySelectorAll('#formSession .form-error').forEach(el => el.classList.remove('show'));
+  }
+}
+</script>
+</body>
+</html>
