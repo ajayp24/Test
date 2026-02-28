@@ -12,19 +12,19 @@
 <div id="mainNav"></div>
 
 <!-- PROMO BANNER -->
-<div id="promoBanner" class="promo-banner" style="margin-top:64px">
+<div id="promoBanner" class="promo-banner" >
   <p>🎉 <strong>Limited Time:</strong> Get 3 months FREE exam access with any training session booking!</p>
-  <button class="pb-cta" onclick="location.href='request.html?tab=session'">Claim Offer →</button>
-  <button class="pb-close" id="promoBannerClose" title="Close">✕</button>
+  <a href="request.html?tab=session" class="pb-cta">Claim Offer →</a>
+  <button class="pb-close" id="promoBannerClose" title="Close" aria-label="Dismiss banner">✕</button>
 </div>
 
 <!-- HERO SLIDER -->
-<div class="hero-slider" style="margin-top:0; height:calc(100vh - 104px)">
+<div class="hero-slider" id="heroSlider">
 
   <!-- Slide 1 -->
   <div class="slide slide-1 active">
     <div class="slide-content">
-      <div class="slide-eyebrow"><span class="pip"></span> India's Premier Tech Learning Platform</div>
+      <div class="slide-eyebrow"><span class="pip"></span> Tech Learning Platform</div>
       <h1 class="slide-h1">Master <span class="hl-blue">Cloud &amp; Code</span><br>with Expert Guidance</h1>
       <p class="slide-p">Hands-on AWS training, programming mastery, practice exams, and 1-on-1 mentorship — all in one place.</p>
       <div class="slide-btns">
@@ -246,5 +246,34 @@
 
 <script src="common.js"></script>
 <script src="nav.js"></script>
+<script>
+// Dynamically set hero height based on banner + nav
+function setHeroHeight() {
+  const nav = 64;
+  const banner = document.getElementById('promoBanner');
+  const slider = document.getElementById('heroSlider');
+  if (!slider) return;
+  const bannerH = (banner && banner.style.display !== 'none') ? banner.offsetHeight : 0;
+  const available = window.innerHeight - nav - bannerH;
+  slider.style.height = Math.max(420, available) + 'px';
+}
+
+// Banner close
+document.addEventListener('DOMContentLoaded', () => {
+  setHeroHeight();
+  const closeBtn = document.getElementById('promoBannerClose');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      const banner = document.getElementById('promoBanner');
+      if (banner) {
+        banner.style.display = 'none';
+        setHeroHeight();
+      }
+    });
+  }
+});
+
+window.addEventListener('resize', setHeroHeight);
+</script>
 </body>
 </html>

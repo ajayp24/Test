@@ -138,11 +138,46 @@ img { max-width: 100%; display: block; }
 }
 .mobile-menu a:hover { color: var(--blue); background: var(--blue-pale); }
 
+/* ── PROMO BANNER — sits right below fixed navbar ── */
+.promo-banner {
+  position: relative;
+  margin-top: 64px;           /* push below fixed navbar */
+  z-index: 100;
+  background: linear-gradient(90deg, var(--blue-pale), var(--orange-pale));
+  border-bottom: 1px solid var(--gray-200);
+  padding: 10px 16px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; flex-wrap: wrap; text-align: center;
+  box-sizing: border-box; width: 100%;
+}
+.promo-banner p {
+  font-size: 0.85rem; font-weight: 600; color: var(--gray-700);
+  flex: 1 1 auto; min-width: 0; line-height: 1.5;
+}
+.promo-banner p strong { color: var(--blue); }
+.promo-banner .pb-cta {
+  font-size: 0.82rem; font-weight: 700; color: var(--orange);
+  background: none; border: 1.5px solid var(--orange-mid);
+  padding: 6px 14px; border-radius: 7px; cursor: pointer;
+  font-family: inherit; transition: all 0.18s;
+  white-space: nowrap; flex-shrink: 0;
+  min-height: 36px; touch-action: manipulation;
+  text-decoration: none; display: inline-flex; align-items: center;
+}
+.promo-banner .pb-cta:hover { background: var(--orange-pale); }
+.promo-banner .pb-close {
+  background: none; border: none; font-size: 1.1rem; cursor: pointer;
+  color: var(--gray-400); padding: 6px 8px; flex-shrink: 0;
+  min-height: 36px; min-width: 36px;
+  display: flex; align-items: center; justify-content: center;
+  touch-action: manipulation; border-radius: 6px; font-family: inherit;
+}
+.promo-banner .pb-close:hover { color: var(--gray-700); background: var(--gray-100); }
 /* ── HERO SLIDER ── */
 .hero-slider {
   position: relative; overflow: hidden;
   height: calc(100vh - 64px); min-height: 520px;
-  margin-top: 64px;
+  /* JS will subtract banner height — see setHeroHeight() */
 }
 .slide {
   position: absolute; inset: 0;
@@ -205,31 +240,6 @@ img { max-width: 100%; display: block; }
   background: var(--blue-light); cursor: pointer; transition: all 0.3s;
 }
 .sdot.on { background: var(--blue); width: 22px; border-radius: 4px; }
-
-/* ── PROMO BANNER ── */
-.promo-banner {
-  background: linear-gradient(90deg, var(--blue-pale), var(--orange-pale));
-  border-bottom: 1px solid var(--gray-200);
-  padding: 10px 5%;
-  display: flex; align-items: center; justify-content: center; gap: 14px;
-  flex-wrap: wrap; text-align: center;
-}
-.promo-banner p {
-  font-size: 0.88rem; font-weight: 600; color: var(--gray-700);
-}
-.promo-banner p strong { color: var(--blue); }
-.promo-banner .pb-cta {
-  font-size: 0.82rem; font-weight: 700; color: var(--orange);
-  background: none; border: 1.5px solid var(--orange-mid);
-  padding: 5px 14px; border-radius: 7px; cursor: pointer;
-  font-family: inherit; transition: all 0.18s;
-}
-.promo-banner .pb-cta:hover { background: var(--orange-pale); }
-.promo-banner .pb-close {
-  background: none; border: none; font-size: 1rem; cursor: pointer;
-  color: var(--gray-400); line-height: 1; padding: 2px;
-}
-.promo-banner .pb-close:hover { color: var(--gray-700); }
 
 /* ── STATS BAR ── */
 .stats-bar {
@@ -661,4 +671,38 @@ tr:hover td { background: var(--gray-50); }
   .hero-slider { height: auto; min-height: 500px; }
   .slide { position: relative; padding: 60px 4% 80px; }
   .slide.active { z-index: 2; }
+
+  /* Banner mobile fixes */
+  .promo-banner {
+    padding: 10px 12px;
+    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .promo-banner p {
+    font-size: 0.8rem;
+    text-align: left;
+    flex: 1 1 160px;
+  }
+  .promo-banner .pb-cta {
+    font-size: 0.78rem;
+    padding: 6px 11px;
+  }
+
+  /* Stats bar 2-col on small screens */
+  .stat-cell { max-width: 50%; flex-basis: 50%; }
+
+  /* Slider arrows hidden on touch */
+  .slider-prev, .slider-next { display: none; }
+
+  /* Exam category grid single col */
+  .exam-cat-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .hero-slider { min-height: 500px; }  /* keep as you like */
+  .slide { 
+    position: absolute;   /* keep slider stacking */
+    inset: 0;
+    padding: 60px 4% 80px;
+  }
 }
