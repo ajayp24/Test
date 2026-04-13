@@ -1,279 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>360DigiLearning — Master Cloud, Code & System Design</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<!-- NAV -->
-<div id="mainNav"></div>
-
-<!-- PROMO BANNER -->
-<div id="promoBanner" class="promo-banner" >
-  <p>🎉 <strong>Limited Time:</strong> Get 3 months FREE exam access with any training session booking!</p>
-  <a href="request.html?tab=session" class="pb-cta">Claim Offer →</a>
-  <button class="pb-close" id="promoBannerClose" title="Close" aria-label="Dismiss banner">✕</button>
-</div>
-
-<!-- HERO SLIDER -->
-<div class="hero-slider" id="heroSlider">
-
-  <!-- Slide 1 -->
-  <div class="slide slide-1 active">
-    <div class="slide-content">
-      <div class="slide-eyebrow"><span class="pip"></span> Tech Learning Platform</div>
-      <h1 class="slide-h1">Master <span class="hl-blue">Cloud &amp; Code</span><br>with Expert Guidance</h1>
-      <p class="slide-p">Hands-on AWS training, programming mastery, practice exams, and 1-on-1 mentorship — all in one place.</p>
-      <div class="slide-btns">
-        <a href="programs.html" class="btn btn-blue btn-lg">Explore Programs</a>
-        <a href="practice-exam.html" class="btn btn-outline-blue btn-lg">Try Free Exam</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide 2 -->
-  <div class="slide slide-2">
-    <div class="slide-content">
-      <div class="slide-eyebrow" style="border-color:var(--orange-light);color:var(--orange)"><span class="pip" style="background:var(--blue)"></span> 1-on-1 Expert Mentorship</div>
-      <h1 class="slide-h1">Learn at <span class="hl-orange">Your Pace</span><br>With a Dedicated Mentor</h1>
-      <p class="slide-p">Personalized sessions for AWS, Python, Java, .NET, C/C++, Data Structures &amp; System Design — tailored to your goals.</p>
-      <div class="slide-btns">
-        <a href="request.html?tab=session" class="btn btn-orange btn-lg">Book a Session</a>
-        <a href="training.html" class="btn btn-outline-blue btn-lg">View Training</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Slide 3 -->
-  <div class="slide slide-3">
-    <div class="slide-content">
-      <div class="slide-eyebrow" style="border-color:var(--green);color:#16a34a"><span class="pip" style="background:var(--green)"></span> AWS Certification Prep</div>
-      <h1 class="slide-h1">Crack <span class="hl-blue">AWS Certification</span><br>on Your <span class="hl-orange">First Attempt</span></h1>
-      <p class="slide-p">200+ practice questions with detailed explanations. Real exam simulations for CCP, SAA, DVA and more.</p>
-      <div class="slide-btns">
-        <a href="practice-exam.html" class="btn btn-blue btn-lg">Start Free Exam</a>
-        <a href="request.html?tab=access" class="btn btn-outline-blue btn-lg">Request Full Access</a>
-      </div>
-    </div>
-  </div>
-
-  <button class="slider-prev" onclick="slidePrev()">&#8592;</button>
-  <button class="slider-next" onclick="slideNext()">&#8594;</button>
-  <div class="slider-dots">
-    <button class="sdot on" onclick="slideTo(0)"></button>
-    <button class="sdot" onclick="slideTo(1)"></button>
-    <button class="sdot" onclick="slideTo(2)"></button>
-  </div>
-</div>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-cell"><div class="stat-num">5<em>K+</em></div><div class="stat-label">Learners Enrolled</div></div>
-  <div class="stat-cell"><div class="stat-num">200<em>+</em></div><div class="stat-label">Practice Questions</div></div>
-  <div class="stat-cell"><div class="stat-num">15<em>+</em></div><div class="stat-label">Expert Instructors</div></div>
-  <div class="stat-cell"><div class="stat-num">98<em>%</em></div><div class="stat-label">Satisfaction Rate</div></div>
-  <div class="stat-cell"><div class="stat-num">24<em>/7</em></div><div class="stat-label">Learning Access</div></div>
-</div>
-
-<!-- PROGRAMS OVERVIEW -->
-<div class="section">
-  <div class="section-center">
-    <span class="section-tag">What We Offer</span>
-    <h2 class="section-h2">Comprehensive Learning Paths</h2>
-    <p class="section-sub">Everything you need to go from beginner to professional in the most in-demand tech skills.</p>
-  </div>
-  <div class="cards-grid container">
-    <a href="programs.html" class="card" style="text-decoration:none">
-      <div class="card-icon">☁️</div>
-      <h3>AWS Cloud Solutions</h3>
-      <p>EC2, S3, Lambda, VPC, RDS, IAM. Prep for CCP, SAA, DVA certifications.</p>
-      <span class="card-tag">Beginner → Advanced</span>
-    </a>
-    <a href="programs.html" class="card" style="text-decoration:none">
-      <div class="card-icon orange">⚙️</div>
-      <h3>System Design</h3>
-      <p>Scalable, fault-tolerant systems. Microservices, load balancing, caching.</p>
-      <span class="card-tag orange">Architecture</span>
-    </a>
-    <a href="programs.html" class="card" style="text-decoration:none">
-      <div class="card-icon">💻</div>
-      <h3>Programming Languages</h3>
-      <p>Python, Java, .NET, C, C++ — with real-world projects and exercises.</p>
-      <span class="card-tag">5 Languages</span>
-    </a>
-    <a href="programs.html" class="card" style="text-decoration:none">
-      <div class="card-icon orange">🧩</div>
-      <h3>Problem Solving &amp; DSA</h3>
-      <p>Data structures and algorithms for interviews and competitive programming.</p>
-      <span class="card-tag orange">Interview Ready</span>
-    </a>
-    <a href="practice-exam.html" class="card" style="text-decoration:none">
-      <div class="card-icon">📝</div>
-      <h3>Practice Exams</h3>
-      <p>10 free sample questions per category. Unlock 200+ with access key.</p>
-      <span class="card-tag">Free + Full Access</span>
-    </a>
-    <a href="training.html" class="card" style="text-decoration:none">
-      <div class="card-icon orange">🎯</div>
-      <h3>1-on-1 Training</h3>
-      <p>Live personal sessions with certified instructors. Tailored curriculum.</p>
-      <span class="card-tag orange">Personal Mentorship</span>
-    </a>
-    <a href="programs.html" class="card" style="text-decoration:none">
-      <div class="card-icon">🏗️</div>
-      <h3>Cloud Architecture</h3>
-      <p>Well-Architected Framework, IaC, DevOps, cost optimization.</p>
-      <span class="card-tag">Enterprise Grade</span>
-    </a>
-    <a href="programs.html" class="card" style="text-decoration:none">
-      <div class="card-icon orange">🤖</div>
-      <h3>AI &amp; Machine Learning</h3>
-      <p>ML fundamentals, deep learning, neural networks, GenAI &amp; LLMs with hands-on projects.</p>
-      <span class="card-tag orange">Beginner → Expert</span>
-    </a>
-    <a href="programs.html" class="card" style="text-decoration:none">
-      <div class="card-icon orange">🔬</div>
-      <h3>Solution Architect Path</h3>
-      <p>End-to-end architect training covering design principles and cloud patterns.</p>
-      <span class="card-tag orange">Career Path</span>
-    </a>
-  </div>
-</div>
-
-<!-- WHY US BANNER -->
-<div style="background:linear-gradient(135deg,var(--blue-pale),var(--orange-pale));padding:60px 6%;border-top:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200)">
-  <div class="container" style="display:flex;align-items:center;gap:48px;flex-wrap:wrap;justify-content:center">
-    <div style="max-width:440px">
-      <span class="section-tag orange">Why 360DigiLearning?</span>
-      <h2 class="section-h2" style="margin-top:8px">Learn from Active<br>Industry Experts</h2>
-      <p style="color:var(--gray-600);line-height:1.75;margin-top:11px;font-size:0.97rem">All instructors are working engineers with 10+ years of industry experience. Real problems, real solutions, real results.</p>
-      <div style="display:flex;gap:11px;flex-wrap:wrap;margin-top:22px">
-        <a href="training.html" class="btn btn-blue">View Instructors</a>
-        <a href="request.html" class="btn btn-outline-blue">Book Free Call</a>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px;flex-shrink:0">
-      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
-        <div style="font-size:1.7rem;margin-bottom:5px">🏆</div>
-        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">Certified Experts</div>
-        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">AWS &amp; Azure certified</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
-        <div style="font-size:1.7rem;margin-bottom:5px">⚡</div>
-        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">Live Sessions</div>
-        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">Real-time learning</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
-        <div style="font-size:1.7rem;margin-bottom:5px">📊</div>
-        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">Progress Tracking</div>
-        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">Measure your growth</div>
-      </div>
-      <div style="background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid var(--gray-200)">
-        <div style="font-size:1.7rem;margin-bottom:5px">💬</div>
-        <div style="font-weight:700;font-size:0.88rem;color:var(--gray-800)">24/7 Support</div>
-        <div style="color:var(--gray-400);font-size:0.78rem;margin-top:2px">Always here to help</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TESTIMONIALS SLIDER -->
-<div class="section" style="background:var(--gray-50);border-bottom:1px solid var(--gray-200)">
-  <div class="section-center" style="margin-bottom:32px">
-    <span class="section-tag">Testimonials</span>
-    <h2 class="section-h2" style="margin-top:8px">What Our Learners Say</h2>
-  </div>
-  <div class="tslider-wrap">
-    <div class="tslider-track" id="tsliderTrack">
-      <div class="tslide">
-        <div class="tcard">
-          <div class="tcard-quote">"</div>
-          <p>360DigiLearning's AWS course was exactly what I needed. The 1-on-1 sessions helped me crack my SAA-C03 on the first attempt. My instructor was incredibly patient and knowledgeable.</p>
-          <div class="tcard-author">Rahul Mehta</div>
-          <div class="tcard-role">AWS Solutions Architect</div>
-        </div>
-      </div>
-      <div class="tslide">
-        <div class="tcard">
-          <div class="tcard-quote">"</div>
-          <p>The DSA training helped me land my dream job at top MNC. The problem-solving approach is systematic and genuinely effective. I highly recommend the 1-on-1 sessions.</p>
-          <div class="tcard-author">Priya Sharma</div>
-          <div class="tcard-role">Software Engineer</div>
-        </div>
-      </div>
-      <div class="tslide">
-        <div class="tcard">
-          <div class="tcard-quote">"</div>
-          <p>The practice exam bank is outstanding! Questions are very close to the real AWS exam. The detailed answer explanations helped me understand underlying concepts deeply.</p>
-          <div class="tcard-author">Arun Kumar</div>
-          <div class="tcard-role">Cloud Architect</div>
-        </div>
-      </div>
-      <div class="tslide">
-        <div class="tcard">
-          <div class="tcard-quote">"</div>
-          <p>I went from zero Python knowledge to building cloud automation scripts in 6 weeks. The personalized training sessions are completely worth every rupee spent.</p>
-          <div class="tcard-author">Sneha Iyer</div>
-          <div class="tcard-role">DevOps Engineer</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="t-dots">
-    <button class="tdot on" onclick="goTSlide(0)"></button>
-    <button class="tdot" onclick="goTSlide(1)"></button>
-    <button class="tdot" onclick="goTSlide(2)"></button>
-    <button class="tdot" onclick="goTSlide(3)"></button>
-  </div>
-</div>
-
-<!-- CTA SECTION -->
-<div style="background:var(--blue-pale);padding:68px 6%;text-align:center;border-top:1px solid var(--blue-soft)">
-  <span class="section-tag">Start Today</span>
-  <h2 class="section-h2" style="margin-top:8px">Ready to Elevate Your Career?</h2>
-  <p class="section-sub">Join thousands of engineers who've transformed their careers with 360DigiLearning.</p>
-  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-    <a href="request.html" class="btn btn-orange btn-lg">Request a Session</a>
-    <a href="practice-exam.html" class="btn btn-outline-blue btn-lg">Try Free Exam</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<div id="mainFooter"></div>
-
-<script src="common.js"></script>
-<script src="nav.js"></script>
-<script>
-// Dynamically set hero height based on banner + nav
-function setHeroHeight() {
-  const nav = 64;
-  const banner = document.getElementById('promoBanner');
-  const slider = document.getElementById('heroSlider');
-  if (!slider) return;
-  const bannerH = (banner && banner.style.display !== 'none') ? banner.offsetHeight : 0;
-  const available = window.innerHeight - nav - bannerH;
-  slider.style.height = Math.max(420, available) + 'px';
-}
-
-// Banner close
-document.addEventListener('DOMContentLoaded', () => {
-  setHeroHeight();
-  const closeBtn = document.getElementById('promoBannerClose');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      const banner = document.getElementById('promoBanner');
-      if (banner) {
-        banner.style.display = 'none';
-        setHeroHeight();
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#2563eb"/><meta name="robots" content="index, follow"/><title>360DigiLearning - AWS Practice Exam, Cloud Training & Certification Prep</title><meta name="title" content="360DigiLearning - AWS Practice Exam, Cloud Training & Certification Prep"/><meta name="description" content="Free AWS practice exam with 200+ questions. Prepare for AWS CCP, SAA-C03, DVA certification. Expert-led cloud training, 1-on-1 mentorship, and interview prep for engineers."/><meta name="keywords" content="AWS practice exam, free AWS questions, AWS CCP practice test, SAA-C03 practice exam, DVA certification prep, AWS cloud training, cloud computing, programming courses, system design, DSA, data structures, algorithms, interview prep, Python, Java, AWS certification, online exam practice, certification training"/><link rel="canonical" href="https://360digilearning.com/"/><meta property="og:type" content="website"/><meta property="og:url" content="https://360digilearning.com/"/><meta property="og:title" content="360DigiLearning - Expert Cloud, Programming & System Design Training"/><meta property="og:description" content="Master AWS cloud, programming, and system design with expert-led training. Practice exams, 1-on-1 mentorship, and certification prep."/><meta property="og:image" content="https://360digilearning.com/logo512.png"/><meta property="og:site_name" content="360DigiLearning"/><meta property="og:locale" content="en_IN"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:url" content="https://360digilearning.com/"/><meta name="twitter:title" content="360DigiLearning - Expert Cloud, Programming & System Design Training"/><meta name="twitter:description" content="Master AWS cloud, programming, and system design with expert-led training. Practice exams, 1-on-1 mentorship, and certification prep."/><meta name="twitter:image" content="https://360digilearning.com/logo512.png"/><link rel="manifest" href="./manifest.json"/><script type="application/ld+json">{
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "360DigiLearning",
+      "url": "https://360digilearning.com",
+      "logo": "https://360digilearning.com/logo512.png",
+      "description": "Premier tech education platform offering AWS cloud training, programming courses, system design, and 1-on-1 mentorship for engineers and architects.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      },
+      "areaServed": "IN",
+      "sameAs": [
+        "https://twitter.com/360digilearning"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "availableLanguage": "English"
+      },
+      "offers": {
+        "@type": "Offer",
+        "category": "Educational"
       }
-    });
-  }
-});
-
-window.addEventListener('resize', setHeroHeight);
-</script>
-</body>
-</html>
+    }</script><script type="application/ld+json">{
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "AWS Cloud Certification Training",
+      "description": "Comprehensive AWS training with practice exams and certification prep for CCP, SAA-C03, and DVA.",
+      "provider": {
+        "@type": "Organization",
+        "name": "360DigiLearning",
+        "url": "https://360digilearning.com"
+      }
+    }</script><script type="application/ld+json">{
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "AWS Practice Exam Bank - 200+ Questions",
+      "description": "200+ AWS certification practice questions with detailed explanations. Covers CCP, SAA-C03, DVA exams. Real exam simulation with score tracking.",
+      "brand": {
+        "@type": "Brand",
+        "name": "360DigiLearning"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "360DigiLearning",
+        "url": "https://360digilearning.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "name": "Full Exam Access",
+        "price": "0",
+        "priceCurrency": "INR",
+        "availability": "https://schema.org/InStock"
+      }
+    }</script><script type="application/ld+json">{
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is 360DigiLearning free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! We offer 10 free sample questions per AWS exam category. Unlock full access with 200+ questions by requesting an access key."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What AWS certifications can I practice for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our practice exams cover AWS Cloud Practitioner (CCP), Solutions Architect Associate (SAA-C03), and Developer Associate (DVA)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the practice questions similar to real AWS exams?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, our questions are designed to match the difficulty and style of actual AWS certification exams with detailed explanations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I unlock full exam access?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Request full access from the Request a Session page or contact us directly to get your unique access key."
+          }
+        }
+      ]
+    }</script><script defer="defer" src="./static/js/main.aa13e31c.js"></script><link href="./static/css/main.965a3c2b.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
