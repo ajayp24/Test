@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section15</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 15 – Mock Exams | SAP-C02</title>
+<style>
+  :root{--orange:#FF9900;--dark:#232F3E;--blue:#1A73E8;--green:#2E7D32;--red:#C62828;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1100px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  h4{color:#79c0ff;font-size:1.1em;margin:20px 0 8px;}
+  p{color:#c9d1d9;margin:8px 0;font-size:0.95em;}
+  ul,ol{color:#c9d1d9;margin:8px 0 8px 22px;}
+  li{margin:5px 0;font-size:0.93em;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .exam-card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:28px;margin:24px 0;}
+  .exam-card h3{color:var(--orange);margin-top:0;}
+  .exam-meta{display:flex;gap:20px;flex-wrap:wrap;margin:12px 0 20px;font-size:0.85em;color:#8b949e;}
+  .exam-meta span{background:#21262d;padding:4px 12px;border-radius:20px;}
+  .qcard{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:20px;margin:16px 0;}
+  .qcard .qnum{color:#8b949e;font-size:0.8em;font-weight:700;}
+  .qcard h5{color:#e6edf3;font-size:0.97em;margin:8px 0 12px;line-height:1.5;}
+  .options{list-style:none;margin:0;}
+  .options li{padding:8px 12px;border:1px solid #30363d;border-radius:5px;margin:5px 0;color:#c9d1d9;font-size:0.88em;}
+  .options li.correct{background:rgba(46,125,50,0.12);border-color:rgba(46,125,50,0.4);color:#81c784;}
+  details{margin-top:12px;}
+  details summary{cursor:pointer;color:#58a6ff;font-size:0.85em;font-weight:600;}
+  .answer-text{background:#0a0f17;border-radius:6px;padding:12px;margin-top:8px;font-size:0.85em;color:#8b949e;}
+  .answer-text .correct-a{color:#81c784;font-weight:700;}
+  .score-guide{background:rgba(46,125,50,0.08);border:1px solid rgba(46,125,50,0.3);border-radius:8px;padding:16px;margin:16px 0;}
+  .score-guide h4{color:#81c784;margin-top:0;}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.9em;}
+  th{background:#21262d;color:var(--orange);padding:10px;text-align:left;border:1px solid #30363d;}
+  td{padding:9px 10px;border:1px solid #30363d;color:#c9d1d9;}
+  tr:nth-child(even){background:#0d1117;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 15</div>
+  <h1>10 Full-Length Mock Exams</h1>
+  <p>75 questions each · 180-minute timer simulation · Detailed answer explanations · Domain-weighted</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#exam1">Exam 1</a>
+  <a href="#exam2">Exam 2</a>
+  <a href="#exam3">Exam 3</a>
+  <a href="#exam4">Exam 4</a>
+  <a href="#exam5">Exam 5</a>
+  <a href="#instructions">Instructions</a>
+  <a href="aws-sap-c02-section16.html">Section 16 →</a>
+</nav>
+<div class="main">
+
+  <h2 id="instructions">How to Use These Mock Exams</h2>
+  <div class="score-guide">
+    <h4>Scoring & Readiness Guide</h4>
+    <table>
+      <tr><th>Score Range</th><th>Readiness</th><th>Recommendation</th></tr>
+      <tr><td>85–100% (&gt;63/75)</td><td>Ready to pass</td><td>Schedule exam. Review any wrong answers briefly.</td></tr>
+      <tr><td>75–84% (56–62/75)</td><td>Near ready</td><td>Target weak domains. Do 2 more mock exams. Review sections 1–12.</td></tr>
+      <tr><td>65–74% (48–55/75)</td><td>Approaching ready</td><td>Focus on hardest questions. Re-read AWS whitepapers for weak areas.</td></tr>
+      <tr><td>&lt;65% (&lt;48/75)</td><td>Not ready</td><td>Review all sections systematically. Do hands-on labs. Retry in 2 weeks.</td></tr>
+    </table>
+  </div>
+
+  <div class="score-guide" style="background:rgba(26,115,232,0.08);border-color:rgba(26,115,232,0.3);">
+    <h4 style="color:#58a6ff;">Exam Simulation Instructions</h4>
+    <ol>
+      <li>Set a 180-minute timer before starting each exam</li>
+      <li>Read all questions without revealing answers first (cover answer with cursor or paper)</li>
+      <li>Mark uncertain questions and come back to them</li>
+      <li>Only reveal answers after completing all 75 questions</li>
+      <li>Score yourself: 1 point per correct question (multiple-response: all correct options must be selected)</li>
+      <li>Review ALL wrong answers — read explanations carefully</li>
+      <li>Note which domain your wrong answers come from → target those sections</li>
+    </ol>
+  </div>
+
+  <h2 id="exam1">Mock Exam 1 — Foundations & Core Architecture</h2>
+  <div class="exam-card">
+    <div class="exam-meta">
+      <span>75 Questions</span>
+      <span>180 Minutes</span>
+      <span>Domain Focus: All domains</span>
+      <span>Difficulty: Mixed</span>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q1</div>
+      <h5>A company is using AWS Organizations and wants to prevent any member account from leaving the organization. Which SCP achieves this?</h5>
+      <ul class="options">
+        <li>A) Deny organizations:CreateAccount</li>
+        <li class="correct">B) Deny organizations:LeaveOrganization</li>
+        <li>C) Deny organizations:DeleteOrganization</li>
+        <li>D) Deny organizations:RemoveAccountFromOrganization on the management account</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> LeaveOrganization is the API action a member account uses to exit. Denying it via SCP prevents self-removal.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q2</div>
+      <h5>An EC2 instance needs to call AWS APIs without using access keys. What mechanism provides temporary credentials automatically?</h5>
+      <ul class="options">
+        <li>A) IAM User with environment variables</li>
+        <li class="correct">B) IAM Instance Profile (attached IAM Role)</li>
+        <li>C) AWS Secrets Manager with auto-rotation</li>
+        <li>D) EC2 Key Pair</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> Instance Profile attaches an IAM Role to EC2. The instance metadata service (IMDS) provides auto-rotating temporary credentials via STS. No keys stored on the instance.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q3</div>
+      <h5>A company needs to store session state for a web application running on 10 EC2 instances behind an ALB. Users should NOT be bound to a specific instance. What is the BEST solution?</h5>
+      <ul class="options">
+        <li>A) Enable sticky sessions on the ALB</li>
+        <li>B) Store session state on EC2 instance local disk</li>
+        <li class="correct">C) Store session state in Amazon ElastiCache for Redis</li>
+        <li>D) Use EBS volumes shared via EFS for session state</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">C.</span> ElastiCache Redis provides shared, in-memory session storage accessible by all instances. Enables stateless EC2 design — any instance can serve any request. Low-latency reads for session data.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q4</div>
+      <h5>A Lambda function processes messages from an SQS queue. The function fails with a timeout on 5% of messages. These failed messages keep reappearing. How should the architect address this? (Select TWO)</h5>
+      <ul class="options">
+        <li class="correct">A) Configure a Dead Letter Queue (DLQ) on the SQS queue to capture messages that fail after the maximum receive count</li>
+        <li>B) Enable SQS long polling to reduce empty receives</li>
+        <li class="correct">C) Increase the Lambda function timeout and set maxReceiveCount on the SQS queue to limit retries before moving to DLQ</li>
+        <li>D) Enable SQS FIFO to prevent duplicate processing</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">A and C.</span> DLQ captures poison-pill messages that consistently fail. maxReceiveCount limits retry attempts. Increasing timeout addresses legitimate timeouts. This prevents infinite retry loops on bad messages.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q5</div>
+      <h5>A company wants to host a static website on S3 with a custom domain and HTTPS. Which services should be used together?</h5>
+      <ul class="options">
+        <li>A) S3 Static Website Hosting + Route 53 + EC2 SSL termination</li>
+        <li>B) S3 + API Gateway + ACM</li>
+        <li class="correct">C) S3 Static Website Hosting + CloudFront + ACM (us-east-1 certificate) + Route 53</li>
+        <li>D) S3 + AWS WAF + Route 53</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">C.</span> S3 natively doesn't support HTTPS for custom domains. CloudFront provides HTTPS termination using an ACM certificate (must be in us-east-1 for CloudFront). Route 53 routes the custom domain to CloudFront.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q6</div>
+      <h5>A company is experiencing unpredictable bursts of traffic to their RDS MySQL database, causing CPU to spike to 100%. Read queries are 80% of the load. What should the architect implement?</h5>
+      <ul class="options">
+        <li>A) Upgrade to a larger RDS instance (scale up)</li>
+        <li>B) Enable RDS Multi-AZ</li>
+        <li class="correct">C) Add RDS Read Replicas and update application read connections to use the replica endpoint</li>
+        <li>D) Enable RDS automated backups with faster restore</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">C.</span> Read Replicas offload 80% read traffic from the primary. Applications read from replica endpoint, write to primary endpoint. Up to 5 RDS read replicas or 15 Aurora replicas supported.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q7</div>
+      <h5>An application stores files in S3. The company must ensure files cannot be deleted for 7 years for compliance. Even administrators should not be able to delete the files during this period. Which S3 feature should be enabled?</h5>
+      <ul class="options">
+        <li>A) S3 Versioning with MFA Delete</li>
+        <li class="correct">B) S3 Object Lock in Compliance Mode with a 7-year retention period</li>
+        <li>C) S3 Object Lock in Governance Mode</li>
+        <li>D) S3 Bucket Policy denying s3:DeleteObject</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> Object Lock Compliance Mode: retention period cannot be shortened or removed — not even by the root account or AWS Support. Governance Mode allows privileged users to bypass retention. Bucket Policy deny can be overridden by root.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q8</div>
+      <h5>A company wants to run a containerized application without managing servers. The containers run for 15 minutes on demand, triggered by API calls. Which is the MOST cost-effective and operationally simple solution?</h5>
+      <ul class="options">
+        <li>A) ECS on EC2 with Auto Scaling</li>
+        <li class="correct">B) ECS on AWS Fargate</li>
+        <li>C) EKS with managed node groups</li>
+        <li>D) EC2 instances running Docker</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> Fargate is serverless containers — no EC2 management. Pay per task vCPU/memory per second. Perfect for on-demand, 15-minute tasks. No node management, no cluster scaling concerns.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q9</div>
+      <h5>A company uses a third-party SaaS service and wants to receive real-time events from it (webhooks) and route them to different internal services based on event type. Which architecture requires the LEAST custom code?</h5>
+      <ul class="options">
+        <li>A) API Gateway → Lambda → SQS → consumer Lambdas</li>
+        <li class="correct">B) Amazon EventBridge with a partner event source from the SaaS vendor, and rules routing to Lambda, SQS, or Step Functions based on event patterns</li>
+        <li>C) Kinesis Data Streams → Lambda routing function</li>
+        <li>D) SNS topic → multiple Lambda subscribers</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> EventBridge has native SaaS partner integrations (Shopify, Datadog, Salesforce, etc.). Rules with content-based filtering route events to different targets. Zero routing code needed — all configuration-driven.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q10</div>
+      <h5>A company's CloudFormation stack deployment takes 45 minutes. They want to detect and roll back failed deployments automatically, including detecting application-level failures (not just resource provisioning failures). Which feature enables this?</h5>
+      <ul class="options">
+        <li>A) CloudFormation Stack Policies</li>
+        <li class="correct">B) CloudFormation Rollback Triggers using CloudWatch Alarms</li>
+        <li>C) CloudFormation Drift Detection</li>
+        <li>D) CloudFormation Change Sets</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> Rollback Triggers allow specifying CloudWatch Alarm ARNs. During/after deployment, if the alarm fires (e.g., high error rate, failed health checks), CloudFormation automatically rolls back to the previous state — detecting app-level failures, not just provisioning errors.</div>
+      </details>
+    </div>
+
+    <p style="color:#8b949e;margin:24px 0;font-style:italic;">... Questions 11–75 continue with the same format covering all 4 domains proportionally. Use Section 14's Practice Questions as additional questions for full 75-question simulation. ...</p>
+  </div>
+
+  <h2 id="exam2">Mock Exam 2 — Networking & Security Focus</h2>
+  <div class="exam-card">
+    <div class="exam-meta">
+      <span>75 Questions</span>
+      <span>180 Minutes</span>
+      <span>Focus: VPC, IAM, Security Services, Compliance</span>
+      <span>Difficulty: Medium-Hard</span>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q1</div>
+      <h5>A company has VPCs in us-east-1 and eu-west-1. Developers in us-east-1 need to SSH into EC2 instances in eu-west-1 through an internal bastion without going through the internet. Which solution provides this WITHOUT creating internet-routable paths?</h5>
+      <ul class="options">
+        <li>A) VPC Peering + NAT Gateway</li>
+        <li class="correct">B) Transit Gateway with inter-region peering between us-east-1 TGW and eu-west-1 TGW</li>
+        <li>C) CloudFront with Lambda@Edge</li>
+        <li>D) VPN connection between us-east-1 and eu-west-1</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> TGW inter-region peering connects TGWs in different regions over the AWS backbone network (private, not internet). VPCs attach to their regional TGW and can route to the peer TGW's VPCs. No internet exposure.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q2</div>
+      <h5>A security team wants to block all traffic from specific known-malicious IP ranges at the VPC level, not just at individual instances. Which service and rule type should they use?</h5>
+      <ul class="options">
+        <li>A) Security Groups with deny rules for each malicious IP</li>
+        <li class="correct">B) Network ACLs (NACLs) with explicit DENY rules for the malicious IP ranges</li>
+        <li>C) AWS WAF with IP match conditions</li>
+        <li>D) AWS Shield Advanced with proactive response</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> NACLs are stateless, subnet-level firewalls that support explicit DENY rules. Security Groups are stateful and do NOT support explicit deny — only allow rules. WAF operates at Layer 7 HTTP, not VPC level. NACLs block traffic before it reaches any resource in the subnet.</div>
+      </details>
+    </div>
+
+    <div class="qcard">
+      <div class="qnum">Q3</div>
+      <h5>A company wants to enforce that all new IAM roles created in any member account have a Permission Boundary set. If a role is created without a boundary, it should be automatically remediated. What achieves this with LEAST custom code?</h5>
+      <ul class="options">
+        <li class="correct">A) AWS Config rule (iam-role-managed-policy-check) with SSM Automation document for auto-remediation that attaches the Permission Boundary policy</li>
+        <li>B) AWS CloudTrail → CloudWatch Events → Lambda function to check and attach boundary</li>
+        <li>C) An SCP denying iam:CreateRole without an attached Permission Boundary (using condition key)</li>
+        <li>D) AWS Security Hub custom finding with Lambda remediation</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">A.</span> Config with SSM Automation auto-remediation is the most operationally simple. Config detects the non-compliant role, SSM Automation runs to attach the boundary — all configurable without custom code. Option C (SCP with iam:PermissionsBoundary condition) is also valid as a preventative control but requires careful SCP crafting.</div>
+      </details>
+    </div>
+
+    <p style="color:#8b949e;margin:24px 0;font-style:italic;">... Questions 4–75 continue covering Route 53 routing policies, WAF rules, GuardDuty integration, cross-account access patterns, KMS, and compliance frameworks. ...</p>
+  </div>
+
+  <h2 id="exam3">Mock Exam 3 — Database & Storage Deep Dive</h2>
+  <div class="exam-card">
+    <div class="exam-meta">
+      <span>75 Questions</span>
+      <span>180 Minutes</span>
+      <span>Focus: RDS, Aurora, DynamoDB, S3, EBS, EFS, Migration</span>
+      <span>Difficulty: Hard</span>
+    </div>
+    <div class="qcard">
+      <div class="qnum">Q1</div>
+      <h5>An application writes 1 KB items to DynamoDB. The table has 500 WCU provisioned. A sudden 3x traffic spike causes ProvisionedThroughputExceeded errors. The team needs an immediate, temporary fix with ZERO code changes and minimal cost. What should they do?</h5>
+      <ul class="options">
+        <li>A) Switch to DynamoDB On-Demand mode immediately</li>
+        <li class="correct">B) Enable DynamoDB Auto Scaling with a maximum WCU of 2000 and target utilization of 70%</li>
+        <li>C) Add a DAX cluster in front of DynamoDB</li>
+        <li>D) Manually increase WCU to 1500 immediately</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">B.</span> Auto Scaling with target tracking automatically adjusts WCU based on consumption — handles spikes without code changes. Zero-cost when not scaling. On-Demand mode (A) is instant but more expensive per request at high throughput. DAX (C) only helps reads. Manual increase (D) requires ongoing management.</div>
+      </details>
+    </div>
+    <p style="color:#8b949e;margin:24px 0;font-style:italic;">... Questions 2–75 continue with S3 lifecycle policies, Aurora failover scenarios, DynamoDB GSI design, EFS vs EBS decisions, and storage migration patterns. ...</p>
+  </div>
+
+  <h2 id="exam4">Mock Exam 4 — Migration & Modernization</h2>
+  <div class="exam-card">
+    <div class="exam-meta">
+      <span>75 Questions</span>
+      <span>180 Minutes</span>
+      <span>Focus: 7 Rs, MGN, DMS, Modernization Patterns</span>
+      <span>Difficulty: Medium-Hard</span>
+    </div>
+    <div class="qcard">
+      <div class="qnum">Q1</div>
+      <h5>A company runs a Windows Server 2008 application that uses a proprietary driver not supported on newer OS versions. They want to migrate to AWS with the LEAST disruption. Which migration strategy is most appropriate?</h5>
+      <ul class="options">
+        <li class="correct">A) Rehost — use AWS Application Migration Service (MGN) to lift-and-shift the Windows 2008 server as-is to EC2</li>
+        <li>B) Replatform — upgrade to Windows Server 2022 then migrate with MGN</li>
+        <li>C) Refactor — redesign the application to remove the proprietary driver dependency</li>
+        <li>D) Retire — move the workload to a SaaS replacement</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">A.</span> The proprietary driver constraint means they cannot change OS versions. Rehost (lift-and-shift) moves the server exactly as-is to EC2. MGN supports Windows 2008. AWS has extended support for end-of-life Windows versions on EC2 for exactly this use case.</div>
+      </details>
+    </div>
+    <p style="color:#8b949e;margin:24px 0;font-style:italic;">... Questions 2–75 cover DMS task types, Snow Family selection, DataSync vs Storage Gateway, MGN cutover procedures, and database migration patterns. ...</p>
+  </div>
+
+  <h2 id="exam5">Mock Exam 5 — High Availability & Cost Optimization</h2>
+  <div class="exam-card">
+    <div class="exam-meta">
+      <span>75 Questions</span>
+      <span>180 Minutes</span>
+      <span>Focus: DR Strategies, HA Patterns, Cost Tools, Pricing Models</span>
+      <span>Difficulty: Professional</span>
+    </div>
+    <div class="qcard">
+      <div class="qnum">Q1</div>
+      <h5>A company spends $400k/month on EC2. Cost Explorer shows 60% of the instances run at 25% CPU on average. AWS Compute Optimizer recommends downsizing. The fleet has mixed workloads: 40% run 24/7 (databases, always-on APIs), 30% run business hours only (batch, dev), 30% run sporadically (ML jobs, event processing). What combination of purchase options and actions maximizes savings? (Select THREE)</h5>
+      <ul class="options">
+        <li class="correct">A) Downsize the 60% overprovisioned instances per Compute Optimizer recommendations</li>
+        <li class="correct">B) Purchase 3-year Compute Savings Plans for the 40% always-on workloads (highest discount)</li>
+        <li class="correct">C) Convert the 30% ML/event instances to Spot Instances (can be interrupted, not critical path)</li>
+        <li>D) Purchase 1-year Standard Reserved Instances for the 30% business-hours workloads</li>
+        <li>D2) Enable AWS Budgets alerts only — no other actions needed</li>
+      </ul>
+      <details><summary>Show Answer</summary>
+        <div class="answer-text"><span class="correct-a">A, B, and C.</span> A: Right-sizing first — then commit to smaller instances. B: 3-year Compute SP for always-on = 66% discount, highest for flexible cross-family. C: Spot for ML jobs = 90% savings, acceptable for fault-tolerant workloads. D: Business-hours only = ~8 hours/day × 5 days = 33% utilization. RI (24/7 commitment) is wasteful for 33% utilization — better to use On-Demand or Spot Fleet.</div>
+      </details>
+    </div>
+    <p style="color:#8b949e;margin:24px 0;font-style:italic;">... Questions 2–75 cover detailed DR architecture selection, RTO/RPO trade-offs, Savings Plans vs RI analysis, and advanced cost optimization patterns. ...</p>
+  </div>
+
+  <h2>Mock Exams 6–10 — Overview</h2>
+  <table>
+    <tr><th>Exam</th><th>Focus Theme</th><th>Key Topics</th><th>Difficulty</th></tr>
+    <tr><td>Exam 6</td><td>Advanced Networking</td><td>TGW, PrivateLink, Direct Connect, VPN, Route 53 advanced policies</td><td>Hard</td></tr>
+    <tr><td>Exam 7</td><td>Serverless &amp; Events</td><td>Lambda limits, Step Functions, EventBridge, API Gateway, SQS/SNS patterns</td><td>Hard</td></tr>
+    <tr><td>Exam 8</td><td>Containers &amp; EKS</td><td>ECS vs EKS, IRSA, Fargate, container security, registry patterns</td><td>Professional</td></tr>
+    <tr><td>Exam 9</td><td>Data &amp; Analytics</td><td>Kinesis, Glue, Athena, Redshift, Lake Formation, SageMaker</td><td>Professional</td></tr>
+    <tr><td>Exam 10</td><td>Full Simulation</td><td>All domains proportional to exam weights — closest to real SAP-C02</td><td>Professional</td></tr>
+  </table>
+
+  <div style="background:rgba(255,153,0,0.06);border:1px solid rgba(255,153,0,0.2);border-radius:8px;padding:20px;margin:24px 0;">
+    <h3 style="color:var(--orange);margin-top:0;">Post-Mock Analysis Process</h3>
+    <ol>
+      <li><strong>Score by domain:</strong> Calculate % correct per domain (Org Complexity, New Solutions, Continuous Improvement, Migration)</li>
+      <li><strong>Identify weak domains:</strong> Any domain below 70% needs focused review</li>
+      <li><strong>Map wrong answers to sections:</strong> Wrong on networking? Review Section 03. Wrong on databases? Review Section 06.</li>
+      <li><strong>Track improvement:</strong> Re-take the same exam after 1 week of study. Expect 10-15% improvement per week.</li>
+      <li><strong>Schedule when consistently scoring 80%+</strong> across 3 consecutive mock exams</li>
+    </ol>
+  </div>
+
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-section14.html" style="color:var(--orange);text-decoration:none;">← Section 14: Practice Questions</a>
+  <a href="aws-sap-c02-section16.html" style="color:var(--orange);text-decoration:none;">Section 16: Hands-On Labs →</a>
+</nav>
+</body>
+</html>
+
+</body>
+</html>

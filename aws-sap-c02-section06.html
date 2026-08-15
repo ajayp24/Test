@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section06</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 06 – Databases | SAP-C02</title>
+<style>
+  :root{--orange:#FF9900;--dark:#232F3E;--blue:#1A73E8;--green:#2E7D32;--red:#C62828;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1200px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  h4{color:#79c0ff;font-size:1.1em;margin:20px 0 8px;}
+  p{color:#c9d1d9;margin:10px 0;font-size:0.97em;}
+  ul,ol{color:#c9d1d9;margin:10px 0 10px 24px;}
+  li{margin:6px 0;font-size:0.95em;}
+  .info-box{background:rgba(26,115,232,0.08);border-left:4px solid var(--blue);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .warn-box{background:rgba(255,153,0,0.08);border-left:4px solid var(--orange);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .success-box{background:rgba(46,125,50,0.08);border-left:4px solid var(--green);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .danger-box{background:rgba(198,40,40,0.08);border-left:4px solid var(--red);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .exam-box{background:rgba(106,27,154,0.12);border:1px solid rgba(106,27,154,0.4);padding:20px;margin:20px 0;border-radius:8px;}
+  .exam-box h4{color:#ce93d8;margin-top:0;}
+  pre{background:#161b22;border:1px solid #30363d;padding:20px;border-radius:8px;overflow-x:auto;font-size:0.85em;color:#e6edf3;margin:16px 0;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9em;}
+  th{background:#21262d;color:var(--orange);padding:12px;text-align:left;border:1px solid #30363d;}
+  td{padding:10px 12px;border:1px solid #30363d;color:#c9d1d9;}
+  tr:nth-child(even){background:#0d1117;}
+  tr:hover{background:#161b22;}
+  .diagram{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:24px;font-family:monospace;font-size:0.82em;color:#8b949e;margin:20px 0;white-space:pre;overflow-x:auto;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0;}
+  .cheat-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;}
+  .cheat-card h5{color:var(--orange);margin-bottom:8px;}
+  .cheat-card p,.cheat-card li{font-size:0.85em;color:#8b949e;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 06</div>
+  <h1>Databases</h1>
+  <p>RDS · Aurora · Aurora Global · Aurora Serverless · DynamoDB · Global Tables · DAX · ElastiCache · Redshift · Neptune · DocumentDB · Timestream</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#rds">RDS</a>
+  <a href="#aurora">Aurora</a>
+  <a href="#dynamodb">DynamoDB</a>
+  <a href="#dax">DAX</a>
+  <a href="#elasticache">ElastiCache</a>
+  <a href="#redshift">Redshift</a>
+  <a href="#specialty">Neptune, DocumentDB, Timestream</a>
+  <a href="#comparison">Comparison Matrix</a>
+  <a href="#exam-tips">Exam Tips</a>
+  <a href="aws-sap-c02-section07.html">Section 07 →</a>
+</nav>
+<div class="main">
+
+  <h2 id="rds">1. Amazon RDS</h2>
+  <p>Amazon RDS (Relational Database Service) is a managed relational database service supporting MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, and Db2.</p>
+
+  <div class="diagram">
+RDS MULTI-AZ ARCHITECTURE
+
+                        ┌────────────────────┐
+                        │  Application Tier  │
+                        └─────────┬──────────┘
+                                  │ Writes/Reads → Primary Endpoint
+                                  │
+                    ┌─────────────▼──────────────┐
+                    │   RDS Primary Instance     │
+                    │   AZ: us-east-1a           │
+                    │   Engine: MySQL 8.0        │
+                    └─────────────┬──────────────┘
+                                  │ Synchronous Replication
+                                  │ (always in-sync)
+                    ┌─────────────▼───────────────┐
+                    │   RDS Standby Instance      │
+                    │   AZ: us-east-1b            │
+                    │   (No reads, no writes)     │
+                    └─────────────────────────────┘
+
+Failover:
+  • Primary fails → DNS endpoint switches to Standby
+  • Automatic failover: 60-120 seconds
+  • Application reconnects using same endpoint
+  </div>
+
+  <h4>RDS Key Facts</h4>
+  <ul>
+    <li><strong>Multi-AZ:</strong> Synchronous replication. Standby cannot serve reads. Automatic failover 60–120 seconds.</li>
+    <li><strong>Read Replicas:</strong> Asynchronous replication. Up to 15 replicas. CAN serve reads. Can be promoted to standalone.</li>
+    <li><strong>Cross-Region Read Replica:</strong> Asynchronous. Up to 5 cross-region replicas per RDS instance.</li>
+    <li><strong>Automated backups:</strong> Point-in-time recovery up to 35 days retention</li>
+    <li><strong>Manual snapshots:</strong> Retained indefinitely (even after DB deletion)</li>
+    <li><strong>Encryption:</strong> At rest (KMS) — must be enabled at creation. Cannot encrypt an existing unencrypted DB directly (snapshot → copy encrypted → restore).</li>
+    <li><strong>Storage Auto Scaling:</strong> Automatically increase storage when 10% free space threshold hit</li>
+  </ul>
+
+  <div class="warn-box">
+    <strong>Exam Trap:</strong> RDS Multi-AZ standby CANNOT serve reads. If you need read scaling, add Read Replicas. Multi-AZ is for HA/availability, not read performance.
+  </div>
+
+  <h4>RDS Multi-AZ vs Read Replicas</h4>
+  <table>
+    <tr><th>Feature</th><th>Multi-AZ</th><th>Read Replica</th></tr>
+    <tr><td>Purpose</td><td>High Availability, automatic failover</td><td>Read scaling, reporting, DR</td></tr>
+    <tr><td>Replication</td><td>Synchronous</td><td>Asynchronous</td></tr>
+    <tr><td>Can serve reads?</td><td>No (standby is passive)</td><td>Yes (that's the point)</td></tr>
+    <tr><td>Failover</td><td>Automatic (60-120 sec)</td><td>Manual promotion required</td></tr>
+    <tr><td>Cross-Region</td><td>No (same Region)</td><td>Yes (cross-region replicas)</td></tr>
+    <tr><td>Performance cost</td><td>~10-20% write latency overhead</td><td>Minimal</td></tr>
+  </table>
+
+  <h2 id="aurora">2. Amazon Aurora</h2>
+  <p>Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud, offering up to 5x the throughput of MySQL and 3x PostgreSQL on the same hardware.</p>
+
+  <div class="diagram">
+AURORA STORAGE ARCHITECTURE
+
+┌───────────────────────────────────────────────────────────┐
+│                  AURORA CLUSTER                           │
+│                                                           │
+│  ┌──────────────┐  ┌─────────────┐  ┌─────────────────    │
+│  │  Primary     │  │  Replica 1  │  │  Replica 2      │   │
+│  │  (R/W)       │  │  (RO, AZ-b) │  │  (RO, AZ-c)     │   │
+│  │  AZ-a        │  │  < 10ms lag │  │  < 10ms lag     │   │
+│  └──────┬───────┘  └──────┬──────┘  └────────┬────────┘   │
+│         │                 │                  │            │
+│         └─────────────────┴──────────────────┘            │
+│                           │                               │
+│    ┌──────────────────────▼────────────────────────────┐  │
+│    │           Aurora Shared Storage Volume            │  │
+│    │  6 copies across 3 AZs (2 copies per AZ)          │  │
+│    │  Auto-heal corrupt data                           │  │
+│    │  10 GB chunks, auto-scales to 128 TB              │  │
+│    └───────────────────────────────────────────────────┘  │
+└───────────────────────────────────────────────────────────┘
+
+Failover: Primary fails → Replica promoted < 30 seconds
+          (vs RDS Multi-AZ: 60-120 seconds)
+  </div>
+
+  <h4>Aurora Features</h4>
+  <ul>
+    <li><strong>Storage:</strong> 6 copies across 3 AZs; tolerates 2 copy failures for writes, 3 for reads</li>
+    <li><strong>Replicas:</strong> Up to 15 Aurora Replicas; < 10ms replication lag</li>
+    <li><strong>Endpoints:</strong> Cluster endpoint (writer), Reader endpoint (load-balanced across replicas), Custom endpoints</li>
+    <li><strong>Backtrack:</strong> Rewind database to a point in time without restoring from backup (MySQL only)</li>
+    <li><strong>Fast Clone:</strong> Create a database clone in minutes by sharing storage pages (copy-on-write)</li>
+    <li><strong>Parallel Query:</strong> Pushes query processing to storage layer for analytics</li>
+  </ul>
+
+  <h3>Aurora Global Database</h3>
+  <div class="diagram">
+AURORA GLOBAL DATABASE
+
+PRIMARY REGION (us-east-1)         SECONDARY REGION (eu-west-1)
+┌──────────────────────┐           ┌──────────────────────────┐
+│ Aurora Primary       │           │ Aurora Secondary         │
+│ Cluster (R/W)        │──async───►│ Cluster (Read Only)      │
+│                      │  < 1 sec  │                          │
+│ All writes here      │  lag      │ Up to 16 read replicas   │
+└──────────────────────┘           └──────────────────────────┘
+
+Use cases:
+• Global application with reads close to users
+• DR: Promote secondary to primary in < 1 minute RTO
+• RPO: < 1 second (typically)
+  </div>
+
+  <h3>Aurora Serverless v2</h3>
+  <ul>
+    <li>Auto-scales from 0.5 to 128 Aurora Capacity Units (ACUs) in seconds</li>
+    <li>Scales in fine-grained 0.5 ACU increments (unlike v1 which doubled)</li>
+    <li>Eliminates need to provision peak capacity</li>
+    <li>Can have Serverless and provisioned instances in same cluster</li>
+    <li><strong>Exam:</strong> "Variable workload" + "scale to zero" + "minimize database cost" → Aurora Serverless v2</li>
+  </ul>
+
+  <h2 id="dynamodb">3. Amazon DynamoDB</h2>
+  <p>DynamoDB is a fully managed, serverless, key-value and document NoSQL database. Single-digit millisecond performance at any scale.</p>
+
+  <div class="diagram">
+DYNAMODB ARCHITECTURE
+
+┌─────────────────────────────────────────────────────┐
+│  TABLE: Orders                                      │
+│  ┌──────────────────────────────────────────────┐   │
+│  │ Partition Key: OrderId (required)            │   │
+│  │ Sort Key: CustomerId (optional)              │   │
+│  │ Attributes: Status, Amount, Date, ...        │   │
+│  └──────────────────────────────────────────────┘   │
+│                                                     │
+│  Physical Storage:                                  │
+│  Item → Hash(PartitionKey) → Storage Partition      │
+│  Partitions split when > 10 GB or > 3000 RCU/1000WCU│
+│                                                     │
+│  Capacity Modes:                                    │
+│  • Provisioned: Set RCU/WCU, auto-scale possible    │
+│  • On-Demand: Pay per request, instant scale        │
+└─────────────────────────────────────────────────────┘
+  </div>
+
+  <h4>DynamoDB Read/Write Units</h4>
+  <table>
+    <tr><th>Unit</th><th>What It Gives You</th><th>Consistency</th></tr>
+    <tr><td>1 RCU (Read Capacity Unit)</td><td>1 strongly consistent read OR 2 eventually consistent reads per second for items up to 4 KB</td><td>Strongly or Eventually Consistent</td></tr>
+    <tr><td>1 WCU (Write Capacity Unit)</td><td>1 write per second for items up to 1 KB</td><td>N/A</td></tr>
+    <tr><td>1 Transactional Read</td><td>2 RCUs per 4 KB item</td><td>ACID transaction</td></tr>
+    <tr><td>1 Transactional Write</td><td>2 WCUs per 1 KB item</td><td>ACID transaction</td></tr>
+  </table>
+
+  <h4>DynamoDB Global Tables</h4>
+  <p>Multi-region, multi-active replication. Each region can accept writes. Conflict resolution: last-writer-wins (timestamp). Sub-second replication between regions.</p>
+  <div class="success-box">
+    <strong>Global Tables vs Aurora Global:</strong> DynamoDB Global Tables = multi-active (any region can write). Aurora Global = active-passive (secondary regions are read-only). Use DynamoDB when you need multi-region WRITES.
+  </div>
+
+  <h4>DynamoDB Key Design Patterns</h4>
+  <ul>
+    <li><strong>Hot partition:</strong> Avoid using sequential IDs or timestamps as partition keys — causes "hot partition" problem. Use high-cardinality attributes or add random suffix.</li>
+    <li><strong>GSI (Global Secondary Index):</strong> Different partition/sort key than base table. Queries across different attributes. Eventually consistent reads. Cost: separate RCU/WCU.</li>
+    <li><strong>LSI (Local Secondary Index):</strong> Same partition key, different sort key. Must be created at table creation. Can do strongly consistent reads. Max 5 LSIs per table.</li>
+    <li><strong>DynamoDB Streams:</strong> Ordered record of item changes. Trigger Lambda for event-driven processing. 24-hour retention.</li>
+    <li><strong>TTL (Time to Live):</strong> Auto-delete expired items. Good for session data, cache items, temporary data.</li>
+  </ul>
+
+  <h2 id="dax">4. DynamoDB DAX (Accelerator)</h2>
+  <p>DAX is an in-memory cache cluster for DynamoDB that provides microsecond read latency (vs millisecond DynamoDB). Fully compatible with DynamoDB API — just point SDK to DAX cluster endpoint.</p>
+  <ul>
+    <li>Read cache only — writes go through to DynamoDB</li>
+    <li>Multi-AZ cluster (3 nodes minimum for HA)</li>
+    <li>TTL for cached items configurable</li>
+    <li>Does NOT help with write-heavy workloads or strongly consistent reads</li>
+    <li><strong>Exam keyword:</strong> "microsecond latency" + DynamoDB → DAX</li>
+  </ul>
+  <div class="warn-box">
+    <strong>DAX vs ElastiCache:</strong> DAX = DynamoDB specific, API-compatible, in-cluster. ElastiCache = general purpose, works with any database/app, more flexible.
+  </div>
+
+  <h2 id="elasticache">5. ElastiCache</h2>
+  <table>
+    <tr><th>Feature</th><th>ElastiCache for Redis</th><th>ElastiCache for Memcached</th></tr>
+    <tr><td>Data structures</td><td>Rich: strings, hashes, lists, sets, sorted sets, bitmaps, HyperLogLog, streams, geospatial</td><td>Simple key-value only</td></tr>
+    <tr><td>Persistence</td><td>RDB snapshots + AOF journal</td><td>None (in-memory only)</td></tr>
+    <tr><td>Replication</td><td>Yes (primary + replicas)</td><td>No</td></tr>
+    <tr><td>Multi-AZ</td><td>Yes (automatic failover)</td><td>No</td></tr>
+    <tr><td>Cluster mode</td><td>Yes (sharding across nodes)</td><td>Yes (horizontal scaling)</td></tr>
+    <tr><td>Pub/Sub</td><td>Yes</td><td>No</td></tr>
+    <tr><td>Sorted sets</td><td>Yes (leaderboards)</td><td>No</td></tr>
+    <tr><td>Use case</td><td>Session store, leaderboards, pub/sub, real-time analytics, caching with persistence</td><td>Simple high-performance caching, multi-threaded</td></tr>
+  </table>
+
+  <div class="info-box">
+    <strong>Exam Keywords:</strong> "Gaming leaderboard" → ElastiCache Redis (sorted sets). "Session management" → ElastiCache Redis. "Simple caching, multi-threaded" → Memcached.
+  </div>
+
+  <h2 id="redshift">6. Amazon Redshift</h2>
+  <p>Redshift is a fully managed petabyte-scale data warehouse. Columnar storage, massively parallel processing (MPP), and data compression make it ideal for analytics.</p>
+
+  <div class="diagram">
+REDSHIFT ARCHITECTURE
+
+┌────────────────────────────────────────────────────────────┐
+│  REDSHIFT CLUSTER                                          │
+│                                                            │
+│  ┌────────────────┐                                        │
+│  │  Leader Node   │ ← Query planning, client connection    │
+│  └────────┬───────┘                                        │
+│           │ Distributes query slices                       │
+│  ┌────────▼───────────────────────────┐                    │
+│  │  Compute Nodes (1–128)             │                    │
+│  │  ┌──────┐ ┌──────┐ ┌──────┐        │                    │
+│  │  │Node 1│ │Node 2│ │Node 3│        │                    │
+│  │  │Slice1│ │Slice2│ │Slice3│        │                    │
+│  │  └──────┘ └──────┘ └──────┘        │                    │
+│  └────────────────────────────────────┘                    │
+│                                                            │
+│  Redshift Spectrum: Query S3 data lake without loading     │
+│  RA3 nodes: Managed storage (S3), compute separate         │
+└────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h4>Redshift Key Features</h4>
+  <ul>
+    <li><strong>Columnar storage:</strong> Reads only the columns needed — massive performance for analytics</li>
+    <li><strong>Redshift Spectrum:</strong> Query S3 data lake directly using Redshift SQL without loading data</li>
+    <li><strong>Redshift Serverless:</strong> Auto-provisioned, auto-scaled, pay per query</li>
+    <li><strong>Materialized Views:</strong> Pre-computed query results for complex queries</li>
+    <li><strong>Data Sharing:</strong> Share live data with other Redshift clusters without copying</li>
+    <li><strong>RA3 nodes:</strong> Managed storage on S3, compute separate — scale each independently</li>
+    <li><strong>Enhanced VPC Routing:</strong> Force all COPY/UNLOAD traffic through VPC (not public internet)</li>
+  </ul>
+
+  <h2 id="specialty">7. Specialty Databases</h2>
+  <table>
+    <tr><th>Service</th><th>Type</th><th>Use Case</th><th>Exam Keyword</th></tr>
+    <tr><td>Amazon Neptune</td><td>Graph database</td><td>Social networks, knowledge graphs, fraud detection, recommendation engines</td><td>"graph", "relationships", "social network", "fraud"</td></tr>
+    <tr><td>Amazon DocumentDB</td><td>Document (MongoDB-compatible)</td><td>Migrate from MongoDB, JSON documents, content management, catalogs</td><td>"MongoDB", "document", "JSON", "managed MongoDB"</td></tr>
+    <tr><td>Amazon Keyspaces</td><td>Cassandra-compatible</td><td>Migrate from Apache Cassandra, IoT, time-series, high-write workloads</td><td>"Cassandra", "CQL"</td></tr>
+    <tr><td>Amazon Timestream</td><td>Time-series</td><td>IoT sensor data, DevOps metrics, application monitoring</td><td>"time-series", "IoT metrics", "sensor data"</td></tr>
+    <tr><td>Amazon QLDB</td><td>Ledger (immutable)</td><td>Financial transactions, audit trail, supply chain verification</td><td>"immutable", "cryptographically verifiable", "ledger"</td></tr>
+    <tr><td>Amazon MemoryDB for Redis</td><td>In-memory with durability</td><td>Primary database with Redis API (not just cache), microsecond reads, durable</td><td>"Redis-compatible", "primary database", "durable"</td></tr>
+  </table>
+
+  <h2 id="comparison">8. Database Comparison Matrix</h2>
+  <table>
+    <tr><th>Service</th><th>Type</th><th>Scale</th><th>Latency</th><th>Cost</th><th>Best For</th></tr>
+    <tr><td>RDS MySQL/PG</td><td>Relational</td><td>Vertical + Read Replicas</td><td>ms</td><td>Medium</td><td>Traditional SQL apps</td></tr>
+    <tr><td>Aurora</td><td>Relational</td><td>Auto-storage, 15 replicas</td><td>ms</td><td>Medium-High</td><td>High-performance relational</td></tr>
+    <tr><td>Aurora Serverless</td><td>Relational</td><td>Auto-scales ACU</td><td>ms</td><td>Variable</td><td>Variable traffic, dev/test</td></tr>
+    <tr><td>DynamoDB</td><td>NoSQL Key-Value/Doc</td><td>Unlimited (serverless)</td><td>single-digit ms</td><td>Per request</td><td>High scale, predictable latency</td></tr>
+    <tr><td>ElastiCache Redis</td><td>In-memory cache</td><td>Cluster mode</td><td>microseconds</td><td>Medium</td><td>Cache, sessions, real-time</td></tr>
+    <tr><td>Redshift</td><td>Data Warehouse</td><td>Petabytes</td><td>seconds</td><td>High</td><td>Analytics, BI, reporting</td></tr>
+  </table>
+
+  <h4>Terraform — Aurora Cluster</h4>
+  <pre>
+resource "aws_rds_cluster" "aurora" {
+  cluster_identifier      = "production-aurora"
+  engine                  = "aurora-postgresql"
+  engine_version          = "15.3"
+  database_name           = "appdb"
+  master_username         = "admin"
+  master_password         = data.aws_secretsmanager_secret_version.db_pass.secret_string
+  vpc_security_group_ids  = [aws_security_group.rds.id]
+  db_subnet_group_name    = aws_db_subnet_group.main.name
+  storage_encrypted       = true
+  kms_key_id              = aws_kms_key.rds.arn
+  backup_retention_period = 7
+  preferred_backup_window = "03:00-04:00"
+
+  # Enable Global Database
+  # global_cluster_identifier = aws_rds_global_cluster.main.id
+
+  enabled_cloudwatch_logs_exports = ["postgresql"]
+  deletion_protection             = true
+
+  serverlessv2_scaling_configuration {
+    min_capacity = 0.5
+    max_capacity = 128
+  }
+}
+
+resource "aws_rds_cluster_instance" "writer" {
+  count              = 1
+  identifier         = "aurora-writer"
+  cluster_identifier = aws_rds_cluster.aurora.id
+  instance_class     = "db.serverless"
+  engine             = aws_rds_cluster.aurora.engine
+  engine_version     = aws_rds_cluster.aurora.engine_version
+}
+
+resource "aws_rds_cluster_instance" "reader" {
+  count              = 2
+  identifier         = "aurora-reader-${count.index}"
+  cluster_identifier = aws_rds_cluster.aurora.id
+  instance_class     = "db.serverless"
+  engine             = aws_rds_cluster.aurora.engine
+  engine_version     = aws_rds_cluster.aurora.engine_version
+}
+  </pre>
+
+  <h2 id="exam-tips">9. Exam Tips & Cheat Sheet</h2>
+  <div class="exam-box">
+    <h4>SAP-C02 Databases — Critical Points</h4>
+    <ul>
+      <li><strong>RDS Multi-AZ:</strong> HA, NOT performance. Standby cannot serve reads.</li>
+      <li><strong>RDS Read Replicas:</strong> Performance. Can promote for DR. Asynchronous — possible lag.</li>
+      <li><strong>Aurora vs RDS:</strong> Aurora = faster, cheaper storage, 15 replicas, sub-30s failover. Choose Aurora for high performance.</li>
+      <li><strong>Aurora Global:</strong> RPO ~1 sec, RTO ~1 min. Multi-region read + DR.</li>
+      <li><strong>DynamoDB Global Tables:</strong> Multi-active (write from any region). Use for globally distributed apps.</li>
+      <li><strong>DAX:</strong> Microsecond reads. Only for eventually consistent DynamoDB reads. API-compatible.</li>
+      <li><strong>ElastiCache Redis:</strong> Sorted sets = leaderboard. Pub/Sub. Persistence possible. Multi-AZ.</li>
+      <li><strong>Redshift:</strong> Data warehouse (analytics). NOT for OLTP. Columnar. Use Spectrum for querying S3.</li>
+      <li><strong>DynamoDB Hot Partition:</strong> Avoid low-cardinality partition keys. Add random suffix. Use write sharding.</li>
+      <li><strong>Neptune:</strong> Graph = relationships. "Social network", "fraud detection", "recommendation".</li>
+      <li><strong>DocumentDB:</strong> MongoDB-compatible managed service. JSON documents.</li>
+      <li><strong>Timestream:</strong> Time-series data. IoT metrics. 1000x cheaper than relational for time-series.</li>
+      <li><strong>MemoryDB:</strong> Redis API with durability. Use as PRIMARY database, not just cache.</li>
+    </ul>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h5>DB Selection Guide</h5>
+      <ul>
+        <li>Traditional SQL: RDS or Aurora</li>
+        <li>High-scale NoSQL: DynamoDB</li>
+        <li>Caching: ElastiCache Redis</li>
+        <li>Analytics/BI: Redshift</li>
+        <li>Graph: Neptune</li>
+        <li>MongoDB: DocumentDB</li>
+        <li>Time-series: Timestream</li>
+        <li>Immutable ledger: QLDB</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>HA & DR Patterns</h5>
+      <ul>
+        <li>RDS Multi-AZ: AZ failover 60-120s</li>
+        <li>Aurora Multi-AZ: AZ failover &lt;30s</li>
+        <li>Aurora Global: Region failover &lt;1min</li>
+        <li>DynamoDB: Multi-AZ by default</li>
+        <li>DynamoDB Global Tables: multi-active</li>
+        <li>Redshift: RA3 + snapshots to S3</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Performance Patterns</h5>
+      <ul>
+        <li>DynamoDB slow reads → DAX (μs)</li>
+        <li>RDS read heavy → Read Replicas</li>
+        <li>Any DB slow reads → ElastiCache</li>
+        <li>DynamoDB writes slow → On-demand mode</li>
+        <li>Redshift analytics → columnar, compress</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>DynamoDB Limits</h5>
+      <ul>
+        <li>Max item size: 400 KB</li>
+        <li>GSI: up to 20 per table</li>
+        <li>LSI: up to 5 per table (created at table creation)</li>
+        <li>Partition: up to 3000 RCU + 1000 WCU</li>
+        <li>Streams: 24 hour retention</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-section05.html" style="color:var(--orange);text-decoration:none;">← Section 05: Storage</a>
+  <a href="aws-sap-c02-section07.html" style="color:var(--orange);text-decoration:none;">Section 07: Application Integration →</a>
+</nav>
+</body>
+</html>
+
+</body>
+</html>

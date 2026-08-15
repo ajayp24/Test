@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section01</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 01 – AWS Foundations | SAP-C02</title>
+<style>
+  :root { --orange:#FF9900; --dark:#232F3E; --blue:#1A73E8; --green:#2E7D32; --red:#C62828; --purple:#6A1B9A; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;font-size:1.1em;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;transition:all 0.2s;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1200px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  h4{color:#79c0ff;font-size:1.1em;margin:20px 0 8px;}
+  p{color:#c9d1d9;margin:10px 0;font-size:0.97em;}
+  ul,ol{color:#c9d1d9;margin:10px 0 10px 24px;}
+  li{margin:6px 0;font-size:0.95em;}
+  .info-box{background:rgba(26,115,232,0.08);border-left:4px solid #1A73E8;padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .warn-box{background:rgba(255,153,0,0.08);border-left:4px solid var(--orange);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .success-box{background:rgba(46,125,50,0.08);border-left:4px solid var(--green);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .danger-box{background:rgba(198,40,40,0.08);border-left:4px solid var(--red);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .exam-box{background:rgba(106,27,154,0.12);border:1px solid rgba(106,27,154,0.4);padding:20px;margin:20px 0;border-radius:8px;}
+  .exam-box h4{color:#ce93d8;margin-top:0;}
+  pre{background:#161b22;border:1px solid #30363d;padding:20px;border-radius:8px;overflow-x:auto;font-size:0.85em;color:#e6edf3;margin:16px 0;}
+  code{background:#21262d;padding:2px 6px;border-radius:4px;font-size:0.88em;color:#79c0ff;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9em;}
+  th{background:#21262d;color:var(--orange);padding:12px;text-align:left;border:1px solid #30363d;}
+  td{padding:10px 12px;border:1px solid #30363d;color:#c9d1d9;}
+  tr:nth-child(even){background:#0d1117;}
+  tr:hover{background:#161b22;}
+  .diagram{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:24px;font-family:monospace;font-size:0.82em;color:#8b949e;margin:20px 0;white-space:pre;overflow-x:auto;}
+  .diagram .highlight{color:var(--orange);}
+  .tag{display:inline-block;background:rgba(255,153,0,0.12);color:var(--orange);padding:3px 10px;border-radius:12px;font-size:0.78em;font-weight:600;margin:2px;}
+  .cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0;}
+  .cheat-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;}
+  .cheat-card h5{color:var(--orange);margin-bottom:8px;font-size:0.95em;}
+  .cheat-card p,.cheat-card li{font-size:0.85em;color:#8b949e;}
+  .back-link{display:inline-block;margin-bottom:30px;color:var(--orange);text-decoration:none;font-size:0.9em;}
+  .back-link:hover{text-decoration:underline;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .toc{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin:30px 0;}
+  .toc h4{color:var(--orange);margin-bottom:12px;}
+  .toc ol{column-count:2;column-gap:30px;}
+  .toc a{color:#58a6ff;text-decoration:none;font-size:0.88em;}
+  .toc a:hover{text-decoration:underline;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 01</div>
+  <h1>AWS Foundations</h1>
+  <p>Global Infrastructure · Shared Responsibility Model · Well-Architected Framework · Organizations · SCPs · Control Tower</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#infrastructure">Global Infrastructure</a>
+  <a href="#shared-responsibility">Shared Responsibility</a>
+  <a href="#well-architected">Well-Architected</a>
+  <a href="#organizations">Organizations</a>
+  <a href="#scps">SCPs</a>
+  <a href="#control-tower">Control Tower</a>
+  <a href="#exam-tips">Exam Tips</a>
+  <a href="aws-sap-c02-section02.html">Section 02 →</a>
+</nav>
+<div class="main">
+  <a href="aws-sap-c02-index.html" class="back-link">← Back to Index</a>
+  <div class="toc">
+    <h4>Table of Contents</h4>
+    <ol>
+      <li><a href="#infrastructure">AWS Global Infrastructure</a></li>
+      <li><a href="#regions">Regions Deep Dive</a></li>
+      <li><a href="#azs">Availability Zones</a></li>
+      <li><a href="#edge">Edge Locations</a></li>
+      <li><a href="#service-scope">Service Scope</a></li>
+      <li><a href="#shared-responsibility">Shared Responsibility Model</a></li>
+      <li><a href="#well-architected">Well-Architected Framework</a></li>
+      <li><a href="#organizations">AWS Organizations</a></li>
+      <li><a href="#ous">Organizational Units (OUs)</a></li>
+      <li><a href="#scps">Service Control Policies</a></li>
+      <li><a href="#multi-account">Multi-Account Strategy</a></li>
+      <li><a href="#landing-zone">Landing Zone</a></li>
+      <li><a href="#control-tower">AWS Control Tower</a></li>
+      <li><a href="#exam-tips">Exam Tips &amp; Cheat Sheet</a></li>
+    </ol>
+  </div>
+
+  <!-- =================== GLOBAL INFRASTRUCTURE =================== -->
+  <h2 id="infrastructure">1. AWS Global Infrastructure</h2>
+  <h3>Definition</h3>
+  <p><strong>Beginner:</strong> AWS Global Infrastructure is the massive worldwide network of physical data centers, network equipment, and edge servers that power every AWS service you use. Think of it as the backbone — the physical foundation that makes cloud computing possible globally.</p>
+  <p><strong>Official AWS:</strong> AWS operates the broadest global cloud infrastructure, spanning Regions, Availability Zones, Local Zones, Wavelength Zones, and Edge Locations designed for fault tolerance, low latency, and high availability at global scale.</p>
+  <p><strong>Exam:</strong> AWS Global Infrastructure has 3 primary tiers — Regions (top), Availability Zones (within a Region), and Edge Locations (CloudFront CDN/Route53). Each tier serves different architectural purposes. Know which services are Regional vs. Global.</p>
+
+  <h3>Why It Exists</h3>
+  <ul>
+    <li><strong>Problem solved:</strong> A single data center creates a single point of failure, legal compliance issues, and high latency for global users.</li>
+    <li><strong>Business value:</strong> Enables global application deployment with low latency, data residency compliance, and disaster recovery across geographies.</li>
+    <li><strong>Architectural value:</strong> Allows architects to design for fault isolation (AZ-level), regional isolation (Region-level), and global distribution (Edge-level).</li>
+  </ul>
+
+  <h2 id="regions">2. AWS Regions</h2>
+  <div class="diagram">
+┌─────────────────────────────────────────────────────────────────┐
+│                    AWS GLOBAL REGIONS                           │
+│                                                                 │
+│  Americas          Europe/ME/Africa      Asia Pacific          │
+│  ┌─────────┐      ┌─────────────┐       ┌────────────┐        │
+│  │ us-east-1│      │ eu-west-1   │       │ ap-southeast│       │
+│  │(N.Virginia)│    │ (Ireland)   │       │ (Singapore) │       │
+│  │ AZ-1    │      │ AZ-1        │       │ AZ-1        │       │
+│  │ AZ-2    │      │ AZ-2        │       │ AZ-2        │       │
+│  │ AZ-3    │      │ AZ-3        │       │ AZ-3        │       │
+│  └─────────┘      └─────────────┘       └────────────┘        │
+│                                                                 │
+│  33+ Regions     105+ Availability Zones    600+ Edge Locs     │
+└─────────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h3>Region Deep Dive</h3>
+  <p>An AWS Region is a geographic cluster of data centers. Each Region is completely independent and isolated from other Regions. This means a disaster in us-east-1 does NOT affect eu-west-1.</p>
+  <ul>
+    <li>Each Region consists of 2 or more (usually 3) Availability Zones</li>
+    <li>Regions are connected via the <strong>AWS global backbone network</strong> (private fiber, not public internet)</li>
+    <li>Data does NOT replicate across Regions automatically — you must explicitly configure cross-region replication</li>
+    <li>Services are launched in specific Regions; pricing varies by Region</li>
+    <li>Some services are <strong>Regional</strong> (VPC, EC2, RDS) and some are <strong>Global</strong> (IAM, Route 53, CloudFront)</li>
+  </ul>
+  <div class="warn-box">
+    <strong>Exam Trap:</strong> When a question says "replicate for disaster recovery," you must choose cross-region replication. Multi-AZ does NOT protect against an entire Region failure.
+  </div>
+
+  <h3>How to Choose a Region</h3>
+  <ul>
+    <li><strong>Compliance & Data Residency:</strong> GDPR requires EU data stays in EU. Choose eu-west-1, eu-central-1, etc.</li>
+    <li><strong>Latency:</strong> Place compute closest to your end users</li>
+    <li><strong>Service Availability:</strong> Not all services launch in all Regions simultaneously</li>
+    <li><strong>Cost:</strong> us-east-1 is typically cheapest; ap-southeast regions tend to cost more</li>
+  </ul>
+
+  <h2 id="azs">3. Availability Zones</h2>
+  <div class="diagram">
+┌────────────────────────────────────────────────────┐
+│              AWS REGION (us-east-1)                │
+│                                                    │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────┐ │
+│  │   AZ-1a      │  │   AZ-1b      │  │  AZ-1c   │ │
+│  │              │  │              │  │          │ │
+│  │ Data Center  │  │ Data Center  │  │ Data     │ │
+│  │ Campus A     │  │ Campus B     │  │ Center C │ │
+│  │              │  │              │  │          │ │
+│  │ EC2 Instance │  │ EC2 Instance │  │ EC2      │ │
+│  │ RDS Primary  │  │ RDS Standby  │  │ EKS Node │ │
+│  └──────┬───────┘  └──────┬───────┘  └────┬─────┘ │
+│         └────────────┬────┘               │       │
+│                  Low-latency              │       │
+│                  private fiber ───────────┘       │
+└────────────────────────────────────────────────────┘
+  </div>
+
+  <p>An Availability Zone (AZ) is one or more discrete data centers with redundant power, networking, and connectivity within a Region. Key characteristics:</p>
+  <ul>
+    <li>AZs are physically separated by a meaningful distance (kilometers apart) to minimize correlated failures</li>
+    <li>Connected via <strong>low-latency, high-bandwidth, private fiber</strong> — typically sub-2ms between AZs in the same Region</li>
+    <li>Each AZ has independent power, cooling, and physical security</li>
+    <li>AZ names are <strong>randomized per account</strong> — your us-east-1a may be a different physical AZ than my us-east-1a</li>
+    <li>Deploy across 2+ AZs for high availability; 3+ AZs for production systems</li>
+  </ul>
+  <div class="info-box">
+    <strong>Architecture Rule:</strong> Minimum of 2 AZs for HA. For SAP-C02 scenarios, always deploy databases in Multi-AZ mode and distribute EC2 instances across 3 AZs when using Auto Scaling.
+  </div>
+
+  <h2 id="edge">4. Edge Locations & Regional Edge Caches</h2>
+  <table>
+    <tr><th>Component</th><th>Count (approx)</th><th>Purpose</th><th>Services Using It</th></tr>
+    <tr><td>Edge Locations</td><td>600+</td><td>Content delivery, DNS resolution</td><td>CloudFront, Route 53, WAF, Shield</td></tr>
+    <tr><td>Regional Edge Caches</td><td>13+</td><td>Larger cache for less popular content</td><td>CloudFront</td></tr>
+    <tr><td>Local Zones</td><td>30+</td><td>Ultra-low latency extension of Regions</td><td>EC2, VPC, EBS, ECS</td></tr>
+    <tr><td>Wavelength Zones</td><td>Multiple</td><td>5G mobile edge computing</td><td>EC2, EBS within carrier networks</td></tr>
+    <tr><td>AWS Outposts</td><td>On-premises</td><td>AWS infrastructure at customer site</td><td>EC2, RDS, ECS, EKS, S3</td></tr>
+  </table>
+
+  <h2 id="service-scope">5. Regional vs. Global Services</h2>
+  <table>
+    <tr><th>Service Scope</th><th>Examples</th><th>Key Behavior</th></tr>
+    <tr><td><strong>Global</strong></td><td>IAM, Route 53, CloudFront, WAF (global), Organizations, STS</td><td>Data/config shared across all Regions</td></tr>
+    <tr><td><strong>Regional</strong></td><td>VPC, EC2, RDS, S3 (buckets are Regional), Lambda, ECS, EKS</td><td>Deployed per Region; not automatically replicated</td></tr>
+    <tr><td><strong>AZ-specific</strong></td><td>EC2 instances, EBS volumes, Subnets</td><td>Physically bound to a single AZ</td></tr>
+    <tr><td><strong>Account-global</strong></td><td>S3 bucket namespace, IAM roles</td><td>Unique per account, not per Region</td></tr>
+  </table>
+  <div class="warn-box">
+    <strong>Exam Trap:</strong> S3 bucket NAMES are globally unique but buckets are REGIONAL. Data in a bucket does NOT replicate to other Regions unless you configure Cross-Region Replication (CRR).
+  </div>
+
+  <!-- =================== SHARED RESPONSIBILITY =================== -->
+  <h2 id="shared-responsibility">6. AWS Shared Responsibility Model</h2>
+  <div class="diagram">
+╔══════════════════════════════════════════════════════════╗
+║          SHARED RESPONSIBILITY MODEL                     ║
+╠══════════════════════════════════════════════════════════╣
+║                                                          ║
+║  CUSTOMER RESPONSIBILITY ("Security IN the cloud")       ║
+║  ┌──────────────────────────────────────────────────┐    ║
+║  │ Customer Data                                    │    ║
+║  │ Platform, Applications, IAM                      │    ║
+║  │ OS, Network, Firewall Config (EC2)               │    ║
+║  │ Client-side data encryption                      │    ║
+║  │ Server-side encryption (data in transit/rest)    │    ║
+║  │ Network traffic protection                       │    ║
+║  └──────────────────────────────────────────────────┘    ║
+║                                                          ║
+║  AWS RESPONSIBILITY ("Security OF the cloud")            ║
+║  ┌──────────────────────────────────────────────────┐    ║
+║  │ Hardware / AWS Global Infrastructure             │    ║
+║  │ Compute, Storage, Database, Networking Hardware  │    ║
+║  │ Regions, Availability Zones, Edge Locations      │    ║
+║  │ Physical Security of Data Centers                │    ║
+║  └──────────────────────────────────────────────────┘    ║
+╚══════════════════════════════════════════════════════════╝
+  </div>
+
+  <h3>Service Type Matters — The Responsibility Shifts</h3>
+  <table>
+    <tr><th>Service Type</th><th>Example</th><th>Customer Manages</th><th>AWS Manages</th></tr>
+    <tr><td>IaaS</td><td>EC2</td><td>OS, patches, middleware, apps, data, network ACLs, SGs</td><td>Hypervisor, hardware, physical security</td></tr>
+    <tr><td>PaaS</td><td>RDS</td><td>Data, DB config, DB users, backups (retention settings)</td><td>OS patches, DB engine patches, hardware</td></tr>
+    <tr><td>SaaS</td><td>S3, DynamoDB</td><td>Data, encryption, access policies, bucket policies</td><td>All infrastructure, replication, durability</td></tr>
+    <tr><td>Managed Container</td><td>ECS Fargate</td><td>Container images, task IAM roles, data</td><td>Host OS, runtime, infrastructure</td></tr>
+  </table>
+
+  <div class="exam-box">
+    <h4>SAP-C02 Exam Tip: Shared Responsibility</h4>
+    <ul>
+      <li>On EC2: <strong>YOU patch the OS</strong>. AWS does NOT install OS patches for EC2.</li>
+      <li>On RDS: <strong>AWS patches the DB engine</strong>. You patch nothing at OS level.</li>
+      <li>On Lambda: <strong>AWS manages everything</strong> below the function code.</li>
+      <li>Encryption at rest on S3: <strong>Customer's decision</strong> to enable SSE-S3, SSE-KMS, or SSE-C.</li>
+      <li>Security Groups: <strong>Customer configures</strong> them — AWS just provides the capability.</li>
+    </ul>
+  </div>
+
+  <!-- =================== WELL-ARCHITECTED =================== -->
+  <h2 id="well-architected">7. AWS Well-Architected Framework</h2>
+  <p>The Well-Architected Framework is AWS's guide to designing and evaluating cloud architectures. It consists of <strong>6 pillars</strong>. In SAP-C02, many questions test your ability to identify which pillar a design decision belongs to and how to make the right trade-off.</p>
+
+  <div class="diagram">
+┌────────────────────────────────────────────────────────────────┐
+│              AWS WELL-ARCHITECTED FRAMEWORK                    │
+│                                                                │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐ │
+│  │  Operational │  │   Security   │  │    Reliability       │ │
+│  │  Excellence  │  │              │  │                      │ │
+│  │              │  │ IAM, KMS,    │  │ Multi-AZ, Backups,   │ │
+│  │ IaC, CI/CD,  │  │ WAF, Shield, │  │ Health Checks,       │ │
+│  │ Runbooks     │  │ GuardDuty    │  │ Auto Scaling         │ │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘ │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐ │
+│  │  Performance │  │    Cost      │  │   Sustainability     │ │
+│  │  Efficiency  │  │ Optimization │  │                      │ │
+│  │              │  │              │  │ Reduce carbon        │ │
+│  │ Right-size,  │  │ Reserved,    │  │ footprint, efficient │ │
+│  │ Caching,     │  │ Spot, Saving │  │ resource usage       │ │
+│  │ Elasticity   │  │ Plans        │  │                      │ │
+│  └──────────────┘  └──────────────┘  └──────────────────────┘ │
+└────────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h3>Pillar 1: Operational Excellence</h3>
+  <p>Running and monitoring systems to deliver business value, and continually improving processes and procedures.</p>
+  <ul>
+    <li><strong>Design Principles:</strong> Perform operations as code (IaC), make frequent small reversible changes, refine operations procedures frequently, anticipate failure, learn from all operational events</li>
+    <li><strong>Key Services:</strong> CloudFormation, Systems Manager, CloudWatch, CloudTrail, AWS Config, CodePipeline, CodeDeploy</li>
+    <li><strong>Exam pattern:</strong> Questions about how to automate deployments, rollback, or detect operational issues → Operational Excellence</li>
+  </ul>
+
+  <h3>Pillar 2: Security</h3>
+  <p>Protecting information, systems, and assets while delivering business value through risk assessments and mitigation strategies.</p>
+  <ul>
+    <li><strong>Design Principles:</strong> Implement a strong identity foundation, enable traceability, apply security at all layers, automate security best practices, protect data in transit and at rest, keep people away from data, prepare for security events</li>
+    <li><strong>Key Services:</strong> IAM, KMS, CloudTrail, GuardDuty, Security Hub, WAF, Shield, Macie, Inspector, Config</li>
+    <li><strong>Exam pattern:</strong> Questions about encryption, audit, least privilege, detecting threats → Security pillar</li>
+  </ul>
+
+  <h3>Pillar 3: Reliability</h3>
+  <p>Ensuring a workload performs its intended function correctly and consistently throughout its lifecycle.</p>
+  <ul>
+    <li><strong>Design Principles:</strong> Automatically recover from failure, test recovery procedures, scale horizontally, stop guessing capacity, manage change through automation</li>
+    <li><strong>Key Services:</strong> Route 53, ELB, Auto Scaling, CloudWatch Alarms, Multi-AZ RDS, S3 (11 9s durability), AWS Backup</li>
+    <li><strong>Exam pattern:</strong> Questions about RPO, RTO, fault tolerance, high availability → Reliability pillar</li>
+  </ul>
+
+  <h3>Pillar 4: Performance Efficiency</h3>
+  <p>Using computing resources efficiently to meet system requirements and maintaining efficiency as demand changes and technologies evolve.</p>
+  <ul>
+    <li><strong>Design Principles:</strong> Democratize advanced technologies, go global in minutes, use serverless architectures, experiment more often, consider mechanical sympathy</li>
+    <li><strong>Key Services:</strong> EC2 (right instance types), ElastiCache, CloudFront, Lambda, Aurora Serverless, DynamoDB DAX, S3 Intelligent-Tiering</li>
+    <li><strong>Exam pattern:</strong> Questions about caching, right-sizing, reducing latency → Performance Efficiency</li>
+  </ul>
+
+  <h3>Pillar 5: Cost Optimization</h3>
+  <p>Running systems to deliver business value at the lowest price point.</p>
+  <ul>
+    <li><strong>Design Principles:</strong> Implement cloud financial management, adopt a consumption model, measure overall efficiency, stop spending money on undifferentiated heavy lifting, analyze and attribute expenditure</li>
+    <li><strong>Key Services:</strong> Cost Explorer, Budgets, Savings Plans, Reserved Instances, Spot Instances, Compute Optimizer, Trusted Advisor</li>
+    <li><strong>Exam pattern:</strong> Questions about reducing costs, right-sizing, purchasing models → Cost Optimization</li>
+  </ul>
+
+  <h3>Pillar 6: Sustainability</h3>
+  <p>Minimizing the environmental impacts of running cloud workloads.</p>
+  <ul>
+    <li><strong>Design Principles:</strong> Understand your impact, establish sustainability goals, maximize utilization, use more efficient hardware and software, use managed services, reduce downstream impact</li>
+    <li><strong>Key Services:</strong> Graviton instances, Spot Instances (better server utilization), serverless, S3 lifecycle policies</li>
+    <li><strong>Exam pattern:</strong> New pillar — questions about energy efficiency, Graviton processors, serverless for reduced idle compute</li>
+  </ul>
+
+  <!-- =================== ORGANIZATIONS =================== -->
+  <h2 id="organizations">8. AWS Organizations</h2>
+  <div class="diagram">
+┌─────────────────────────────────────────────────────────────────────┐
+│                    AWS ORGANIZATIONS STRUCTURE                      │
+│                                                                     │
+│                    ┌──────────────────┐                             │
+│                    │  Management      │  ← Formerly "Master Account"│
+│                    │  Account (Root)  │    Pays all bills            │
+│                    └────────┬─────────┘                             │
+│                             │                                       │
+│              ┌──────────────┼──────────────┐                        │
+│              │              │              │                        │
+│         ┌────▼─────┐  ┌─────▼────┐  ┌─────▼────┐                   │
+│         │  OU:     │  │  OU:     │  │  OU:     │                   │
+│         │ Security │  │  Prod    │  │   Dev    │                   │
+│         └────┬─────┘  └─────┬────┘  └─────┬────┘                   │
+│              │              │              │                        │
+│         ┌────▼──────┐  ┌────▼─────────────▼────┐                   │
+│         │Log Archive│  │ Account: │  Account:   │                   │
+│         │  Account  │  │ App Prod │  App Dev     │                   │
+│         │Security   │  └──────────┘  └──────────┘                   │
+│         │Tooling    │                                                │
+│         └───────────┘                                               │
+└─────────────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h3>AWS Organizations — Core Concepts</h3>
+  <p>AWS Organizations allows you to centrally manage multiple AWS accounts. It's essential for enterprise architectures.</p>
+
+  <h4>Key Features</h4>
+  <ul>
+    <li><strong>Consolidated Billing:</strong> All accounts' usage is aggregated for volume discounts and a single invoice</li>
+    <li><strong>Service Control Policies (SCPs):</strong> Guardrails applied at OU or account level — limits what IAM can grant</li>
+    <li><strong>AWS SSO Integration:</strong> Single sign-on across all member accounts</li>
+    <li><strong>Organizational CloudTrail:</strong> Aggregate API activity logs across all accounts</li>
+    <li><strong>RAM (Resource Access Manager):</strong> Share resources like VPC subnets across accounts without peering</li>
+  </ul>
+
+  <h2 id="ous">9. Organizational Units (OUs)</h2>
+  <p>OUs are containers within the organization hierarchy used to group accounts. You can apply SCPs to OUs (policies cascade down to child OUs and accounts).</p>
+
+  <h4>Recommended OU Structure (AWS Best Practice)</h4>
+  <pre>
+Root
+├── Security OU
+│   ├── Log Archive Account      (all CloudTrail, Config logs aggregated here)
+│   └── Security Tooling Account (GuardDuty, Security Hub, Macie master)
+├── Infrastructure OU
+│   ├── Network Account          (Transit Gateway, DNS, shared VPC)
+│   └── Shared Services Account  (Artifactory, Jenkins, Active Directory)
+├── Workloads OU
+│   ├── Production OU
+│   │   └── App-1-Prod Account
+│   └── Development OU
+│       └── App-1-Dev Account
+├── Sandbox OU
+│   └── Developer Sandbox Accounts (less restrictive SCPs)
+└── Suspended OU
+    └── Accounts being decommissioned (deny all SCP)</pre>
+
+  <h2 id="scps">10. Service Control Policies (SCPs)</h2>
+  <div class="diagram">
+┌─────────────────────────────────────────────────────────┐
+│               HOW SCPs WORK                             │
+│                                                         │
+│  SCP at Root ──► Applies to ALL accounts/OUs below      │
+│  SCP at OU   ──► Applies to that OU and children        │
+│  SCP at Acct ──► Applies only to that account           │
+│                                                         │
+│  EFFECTIVE PERMISSIONS =                                │
+│    SCP allows AND IAM policy allows                     │
+│                                                         │
+│  Even if IAM grants AdministratorAccess,               │
+│  SCP can DENY that action.                              │
+│                                                         │
+│  Management Account: SCPs do NOT apply to it!           │
+└─────────────────────────────────────────────────────────┘
+  </div>
+
+  <h4>SCP Types</h4>
+  <ul>
+    <li><strong>Deny-list strategy (default):</strong> Attach FullAWSAccess SCP, then add explicit Deny SCPs to block unwanted actions</li>
+    <li><strong>Allow-list strategy:</strong> Remove FullAWSAccess, create explicit Allow SCPs for only what's needed (more restrictive)</li>
+  </ul>
+
+  <h4>Common SCP Examples</h4>
+  <pre>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyLeaveOrganization",
+      "Effect": "Deny",
+      "Action": "organizations:LeaveOrganization",
+      "Resource": "*"
+    },
+    {
+      "Sid": "DenyNonApprovedRegions",
+      "Effect": "Deny",
+      "NotAction": [
+        "cloudfront:*", "iam:*", "route53:*", "support:*"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": ["us-east-1", "eu-west-1"]
+        }
+      }
+    }
+  ]
+}</pre>
+
+  <div class="warn-box">
+    <strong>Critical SCP Behavior:</strong> SCPs do NOT grant permissions — they only restrict them. An explicit Deny in an SCP ALWAYS wins, even against root account permissions in member accounts. The management account is EXEMPT from SCPs.
+  </div>
+
+  <!-- =================== MULTI-ACCOUNT =================== -->
+  <h2 id="multi-account">11. Multi-Account Strategy</h2>
+  <p>Why use multiple accounts? Accounts are the strongest isolation boundary in AWS. Multiple accounts provide:</p>
+  <ul>
+    <li><strong>Blast radius reduction:</strong> A misconfiguration in one account doesn't affect others</li>
+    <li><strong>Security isolation:</strong> Separate security contexts for production vs development</li>
+    <li><strong>Billing clarity:</strong> Track costs per business unit, team, or environment</li>
+    <li><strong>Service limit isolation:</strong> Each account has its own service quotas</li>
+    <li><strong>Compliance:</strong> Keep regulated data in a separate account with tighter controls</li>
+  </ul>
+
+  <table>
+    <tr><th>Strategy</th><th>Use Case</th><th>Accounts</th></tr>
+    <tr><td>Per Environment</td><td>Dev/Test/Prod isolation</td><td>3+</td></tr>
+    <tr><td>Per Business Unit</td><td>Finance, HR, Engineering</td><td>3–20</td></tr>
+    <tr><td>Per Application</td><td>Each app in own account</td><td>Many</td></tr>
+    <tr><td>Per Region (compliance)</td><td>Data sovereignty requirements</td><td>2–10</td></tr>
+    <tr><td>AWS Best Practice (Landing Zone)</td><td>Combination of above</td><td>20–100+</td></tr>
+  </table>
+
+  <!-- =================== LANDING ZONE =================== -->
+  <h2 id="landing-zone">12. Landing Zone</h2>
+  <p>A Landing Zone is a pre-configured, secure, scalable, multi-account AWS environment based on best practices. It provides the foundation from which workloads are deployed.</p>
+
+  <h4>Landing Zone Components</h4>
+  <ul>
+    <li><strong>Account Factory:</strong> Automated provisioning of new accounts using templates</li>
+    <li><strong>VPC Baseline:</strong> Standard VPC structure with approved CIDR ranges</li>
+    <li><strong>Centralized Logging:</strong> All logs shipped to a dedicated Log Archive account</li>
+    <li><strong>Security Baseline:</strong> GuardDuty, Security Hub, Config Rules enabled everywhere</li>
+    <li><strong>IAM Identity Center:</strong> Central user access management across all accounts</li>
+    <li><strong>Network Connectivity:</strong> Transit Gateway or AWS Network Firewall baseline</li>
+    <li><strong>SCPs:</strong> Guardrails enforced across the entire organization</li>
+  </ul>
+
+  <!-- =================== CONTROL TOWER =================== -->
+  <h2 id="control-tower">13. AWS Control Tower</h2>
+  <p>AWS Control Tower automates the setup of a Landing Zone. It is the easiest way to set up and govern a secure, multi-account AWS environment.</p>
+
+  <div class="diagram">
+┌──────────────────────────────────────────────────────────────┐
+│                  AWS CONTROL TOWER                           │
+│                                                              │
+│  ┌─────────────────────────────────────────────────────┐     │
+│  │           Landing Zone Setup (automated)            │     │
+│  │  ┌─────────────┐  ┌───────────────┐  ┌──────────┐  │     │
+│  │  │  Account    │  │  Guardrails   │  │ Account  │  │     │
+│  │  │  Factory    │  │  (Preventive  │  │ Vending  │  │     │
+│  │  │             │  │   Detective)  │  │ Machine  │  │     │
+│  │  └─────────────┘  └───────────────┘  └──────────┘  │     │
+│  └─────────────────────────────────────────────────────┘     │
+│                                                              │
+│  Guardrail Types:                                            │
+│  • Preventive: SCPs (MUST not do X)                          │
+│  • Detective:  AWS Config Rules (Alert if X happens)         │
+│  • Proactive:  CloudFormation hooks (block non-compliant)    │
+│                                                              │
+│  Automatically Sets Up:                                      │
+│  • Management Account                                        │
+│  • Log Archive Account                                       │
+│  • Audit Account                                             │
+│  • IAM Identity Center                                       │
+│  • CloudTrail Organization Trail                             │
+│  • AWS Config aggregator                                     │
+└──────────────────────────────────────────────────────────────┘
+  </div>
+
+  <h4>Control Tower Guardrails</h4>
+  <table>
+    <tr><th>Guardrail Type</th><th>Mechanism</th><th>Behavior</th><th>Example</th></tr>
+    <tr><td>Preventive – Mandatory</td><td>SCP</td><td>ALWAYS enforced, cannot disable</td><td>Deny leaving organization</td></tr>
+    <tr><td>Preventive – Strongly Recommended</td><td>SCP</td><td>Enabled by default, can disable</td><td>Deny root user access</td></tr>
+    <tr><td>Preventive – Elective</td><td>SCP</td><td>Opt-in</td><td>Deny SSH access from internet</td></tr>
+    <tr><td>Detective – Mandatory</td><td>Config Rule</td><td>Always active</td><td>Detect if root MFA disabled</td></tr>
+    <tr><td>Detective – Strongly Recommended</td><td>Config Rule</td><td>Default on</td><td>Detect unencrypted EBS volumes</td></tr>
+    <tr><td>Proactive</td><td>CloudFormation Hook</td><td>Blocks non-compliant IaC</td><td>Block S3 buckets without encryption</td></tr>
+  </table>
+
+  <h4>CLI Example — List OUs in an Organization</h4>
+  <pre>
+# List all OUs
+aws organizations list-organizational-units-for-parent \
+  --parent-id r-xxxx \
+  --query 'OrganizationalUnits[*].{Name:Name,Id:Id}' \
+  --output table
+
+# List accounts in an OU
+aws organizations list-accounts-for-parent \
+  --parent-id ou-xxxx-xxxxxxxx
+
+# List all SCPs
+aws organizations list-policies \
+  --filter SERVICE_CONTROL_POLICY \
+  --query 'Policies[*].{Name:Name,Id:Id,Description:Description}' \
+  --output table
+
+# Attach SCP to an OU
+aws organizations attach-policy \
+  --policy-id p-xxxxxxxxxxxx \
+  --target-id ou-xxxx-xxxxxxxx
+  </pre>
+
+  <h4>Terraform Example — AWS Organization with OUs</h4>
+  <pre>
+# Create organization
+resource "aws_organizations_organization" "org" {
+  aws_service_access_principals = [
+    "cloudtrail.amazonaws.com",
+    "config.amazonaws.com",
+    "sso.amazonaws.com",
+    "controltower.amazonaws.com"
+  ]
+  feature_set = "ALL"
+}
+
+# Create Security OU
+resource "aws_organizations_organizational_unit" "security" {
+  name      = "Security"
+  parent_id = aws_organizations_organization.org.roots[0].id
+}
+
+# Create Production OU
+resource "aws_organizations_organizational_unit" "prod" {
+  name      = "Production"
+  parent_id = aws_organizations_organization.org.roots[0].id
+}
+
+# Create SCP — Deny non-approved regions
+resource "aws_organizations_policy" "deny_regions" {
+  name    = "DenyNonApprovedRegions"
+  type    = "SERVICE_CONTROL_POLICY"
+  content = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Deny"
+      NotAction = [
+        "cloudfront:*",
+        "iam:*",
+        "route53:*",
+        "support:*"
+      ]
+      Resource  = "*"
+      Condition = {
+        StringNotEquals = {
+          "aws:RequestedRegion" = ["us-east-1", "eu-west-1"]
+        }
+      }
+    }]
+  })
+}
+
+# Attach SCP to Production OU
+resource "aws_organizations_policy_attachment" "prod_regions" {
+  policy_id = aws_organizations_policy.deny_regions.id
+  target_id = aws_organizations_organizational_unit.prod.id
+}
+  </pre>
+
+  <h4>CloudFormation Example — Enable AWS Organizations Service</h4>
+  <pre>
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Enable AWS Config Aggregator for Organizations
+
+Resources:
+  ConfigAggregator:
+    Type: AWS::Config::ConfigurationAggregator
+    Properties:
+      ConfigurationAggregatorName: OrgAggregator
+      OrganizationAggregationSource:
+        RoleArn: !GetAtt ConfigAggregatorRole.Arn
+        AllAwsRegions: true
+
+  ConfigAggregatorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: config.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations
+  </pre>
+
+  <!-- =================== ENTERPRISE ARCHITECTURE =================== -->
+  <h2>14. Enterprise Architecture Example</h2>
+  <div class="diagram">
+ENTERPRISE BANKING MULTI-ACCOUNT LANDING ZONE
+
+Root Organization
+│
+├─ Security OU (SCP: Deny delete CloudTrail, Deny disable GuardDuty)
+│  ├─ Log Archive Account
+│  │   └─ S3 (all org CloudTrail, Config logs, 7yr retention)
+│  └─ Security Tooling Account
+│      └─ GuardDuty Master, Security Hub Aggregator, Macie
+│
+├─ Infrastructure OU (SCP: Deny IGW creation without approval)
+│  └─ Network Account
+│      └─ Transit Gateway, Route 53 Private Hosted Zones
+│         AWS Network Firewall, VPN Termination
+│
+├─ Prod OU (SCP: Deny non-approved instance types, Deny unencrypted S3)
+│  ├─ BankingCore-Prod Account (us-east-1 + eu-west-1)
+│  └─ CustomerPortal-Prod Account
+│
+├─ NonProd OU (SCP: Deny large EC2, Deny Reserved Instance purchase)
+│  ├─ BankingCore-Dev Account
+│  └─ BankingCore-Staging Account
+│
+└─ Sandbox OU (SCP: Cost limit $500/month, Deny production services)
+   └─ Developer individual sandbox accounts
+
+Connectivity: All accounts connect via Transit Gateway in Network Account
+              Using RAM (Resource Access Manager) to share TGW
+Security: All activity logged to Log Archive, alerts in Security Tooling
+Cost: Consolidated billing for volume discounts on EC2, RDS
+  </div>
+
+  <!-- =================== EXAM TIPS =================== -->
+  <h2 id="exam-tips">15. Exam Tips & Cheat Sheet</h2>
+  <div class="exam-box">
+    <h4>SAP-C02 Exam Tips — AWS Foundations</h4>
+    <ul>
+      <li><strong>AZ vs Region failure:</strong> Multi-AZ = AZ failure protection. Multi-Region = Region failure protection.</li>
+      <li><strong>SCP + IAM:</strong> Effective permission = intersection of SCP and IAM. SCP does NOT grant, only restricts.</li>
+      <li><strong>Management account:</strong> SCPs do NOT apply to the management account itself.</li>
+      <li><strong>Control Tower:</strong> Automated Landing Zone setup. Guardrails = Preventive (SCP) or Detective (Config Rules).</li>
+      <li><strong>S3 namespace:</strong> Globally unique names but buckets ARE Regional.</li>
+      <li><strong>IAM is global:</strong> IAM roles, users, policies exist globally — not per-Region.</li>
+      <li><strong>Edge Locations:</strong> Used by CloudFront and Route 53 — not compute services like EC2.</li>
+      <li><strong>Consolidated billing:</strong> Usage aggregated for volume pricing. Payer account = management account.</li>
+      <li><strong>Well-Architected:</strong> Know which pillar covers what. Reliability ≠ Performance. Cost ≠ Sustainability.</li>
+    </ul>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h5>Regions vs AZs</h5>
+      <ul>
+        <li>33+ Regions globally</li>
+        <li>2+ AZs per Region (usually 3)</li>
+        <li>AZ = 1+ data centers</li>
+        <li>Region = isolated geography</li>
+        <li>No auto cross-region replication</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>SCP Rules</h5>
+      <ul>
+        <li>Does NOT grant permissions</li>
+        <li>Only restricts what IAM can grant</li>
+        <li>Management account exempt</li>
+        <li>Deny ALWAYS wins</li>
+        <li>Cascades down OU tree</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Well-Architected Pillars</h5>
+      <ul>
+        <li>Operational Excellence</li>
+        <li>Security</li>
+        <li>Reliability</li>
+        <li>Performance Efficiency</li>
+        <li>Cost Optimization</li>
+        <li>Sustainability (new!)</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Control Tower</h5>
+      <ul>
+        <li>Automates Landing Zone</li>
+        <li>Preventive = SCP</li>
+        <li>Detective = Config Rule</li>
+        <li>Creates Log Archive + Audit accounts</li>
+        <li>Enables IAM Identity Center</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Global vs Regional Services</h5>
+      <ul>
+        <li>Global: IAM, Route 53, CloudFront</li>
+        <li>Regional: EC2, RDS, S3, VPC</li>
+        <li>AZ-specific: EBS, EC2 instances</li>
+        <li>S3 name = global, bucket = regional</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Shared Responsibility</h5>
+      <ul>
+        <li>EC2 OS patches → Customer</li>
+        <li>RDS engine patches → AWS</li>
+        <li>Lambda runtime → AWS</li>
+        <li>Data encryption → Customer decides</li>
+        <li>Physical security → AWS always</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="success-box">
+    <strong>Memory Trick:</strong> "OSRPCS" = Operational, Security, Reliability, Performance, Cost, Sustainability — the 6 Well-Architected pillars. Remember: "Ops Sec Rel Perf Cost Sustain"
+  </div>
+
+  <div class="danger-box">
+    <strong>Common Exam Mistakes:</strong>
+    <ul>
+      <li>Thinking Multi-AZ protects against Region failure — it does NOT</li>
+      <li>Thinking SCPs grant permissions — they only restrict</li>
+      <li>Forgetting that management account is exempt from SCPs</li>
+      <li>Confusing Control Tower guardrails: Preventive=SCP, Detective=Config Rule</li>
+      <li>Assuming all services are Regional — IAM, Route 53, CloudFront are Global</li>
+    </ul>
+  </div>
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-index.html" style="color:var(--orange);text-decoration:none;">← Back to Index</a>
+  <a href="aws-sap-c02-section02.html" style="color:var(--orange);text-decoration:none;">Section 02: IAM & Security →</a>
+</nav>
+</body>
+</html>
+
+</body>
+</html>

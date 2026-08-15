@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section10</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 10 – High Availability & Disaster Recovery | SAP-C02</title>
+<style>
+  :root{--orange:#FF9900;--dark:#232F3E;--blue:#1A73E8;--green:#2E7D32;--red:#C62828;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1200px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  h4{color:#79c0ff;font-size:1.1em;margin:20px 0 8px;}
+  p{color:#c9d1d9;margin:10px 0;font-size:0.97em;}
+  ul,ol{color:#c9d1d9;margin:10px 0 10px 24px;}
+  li{margin:6px 0;font-size:0.95em;}
+  .info-box{background:rgba(26,115,232,0.08);border-left:4px solid var(--blue);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .warn-box{background:rgba(255,153,0,0.08);border-left:4px solid var(--orange);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .success-box{background:rgba(46,125,50,0.08);border-left:4px solid var(--green);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .exam-box{background:rgba(106,27,154,0.12);border:1px solid rgba(106,27,154,0.4);padding:20px;margin:20px 0;border-radius:8px;}
+  .exam-box h4{color:#ce93d8;margin-top:0;}
+  pre{background:#161b22;border:1px solid #30363d;padding:20px;border-radius:8px;overflow-x:auto;font-size:0.85em;color:#e6edf3;margin:16px 0;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9em;}
+  th{background:#21262d;color:var(--orange);padding:12px;text-align:left;border:1px solid #30363d;}
+  td{padding:10px 12px;border:1px solid #30363d;color:#c9d1d9;}
+  tr:nth-child(even){background:#0d1117;}
+  tr:hover{background:#161b22;}
+  .diagram{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:24px;font-family:monospace;font-size:0.82em;color:#8b949e;margin:20px 0;white-space:pre;overflow-x:auto;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0;}
+  .cheat-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;}
+  .cheat-card h5{color:var(--orange);margin-bottom:8px;}
+  .cheat-card p,.cheat-card li{font-size:0.85em;color:#8b949e;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 10</div>
+  <h1>High Availability & Disaster Recovery</h1>
+  <p>Backup & Restore · Pilot Light · Warm Standby · Multi-Site Active/Passive · Multi-Site Active/Active · RTO/RPO Decision Framework</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#concepts">RTO & RPO</a>
+  <a href="#backup-restore">Backup & Restore</a>
+  <a href="#pilot-light">Pilot Light</a>
+  <a href="#warm-standby">Warm Standby</a>
+  <a href="#active-passive">Active/Passive</a>
+  <a href="#active-active">Active/Active</a>
+  <a href="#decision">Decision Framework</a>
+  <a href="#exam-tips">Exam Tips</a>
+  <a href="aws-sap-c02-section11.html">Section 11 →</a>
+</nav>
+<div class="main">
+
+  <h2 id="concepts">1. RTO & RPO Fundamentals</h2>
+  <div class="diagram">
+DISASTER RECOVERY CONCEPTS
+
+                 Disaster Occurs
+                      │
+──────────────────────┼──────────────────────────────────────►
+                      │                                      time
+Last Clean            │◄─────────────────────────────────────
+Backup/               │         Recovery Time Objective (RTO)
+Replication           │         (maximum acceptable downtime)
+Point ◄──────────────►│
+   RPO                │
+(Recovery Point       ▼
+ Objective:       System Back
+ max data loss)   Online
+
+RPO = Maximum tolerable data loss (time)
+RTO = Maximum tolerable downtime (time)
+
+Lower RPO = More frequent backups/replication = Higher cost
+Lower RTO = Warmer standby infrastructure = Higher cost
+  </div>
+
+  <h2 id="backup-restore">2. Backup & Restore</h2>
+  <div class="diagram">
+BACKUP & RESTORE STRATEGY
+                         PRIMARY REGION (us-east-1)
+                         ┌──────────────────────────────┐
+                         │ EC2, RDS, EBS, DynamoDB      │
+                         │     │                        │
+                         │   AWS Backup                 │
+                         │     │ periodic snapshots     │
+                         │     └──► S3, RDS snapshos    │
+                         └──────────────────────────────┘
+                                        │
+                              Cross-region copy
+                                        │
+                         DR REGION (us-west-2)
+                         ┌──────────────────────────────┐
+                         │ Snapshots stored in S3       │
+                         │                              │
+                         │ ON DISASTER:                 │
+                         │  1. Restore from snapshot    │
+                         │  2. Launch EC2 from AMI      │
+                         │  3. Restore RDS from snapshot│
+                         │  4. Update DNS (Route 53)    │
+                         │  RTO: Hours                  │
+                         │  RPO: Hours (last backup)    │
+                         └──────────────────────────────┘
+
+Cost: LOWEST (only pay for storage)
+RTO: Hours (24+ hours for large DBs)
+RPO: Hours (time since last backup)
+  </div>
+
+  <h4>AWS Backup — Centralized Backup Management</h4>
+  <ul>
+    <li>Centrally configure and manage backup policies across EC2, RDS, Aurora, EFS, FSx, DynamoDB, EBS, S3</li>
+    <li><strong>Backup Vault Lock:</strong> WORM (Write Once Read Many) — prevent backup deletion even by admin</li>
+    <li><strong>Cross-account backup:</strong> Copy backups to different account (immutable DR copy)</li>
+    <li><strong>Cross-region backup:</strong> Copy backups to different region</li>
+    <li>Integrates with Organizations for policy-driven backup across all accounts</li>
+  </ul>
+
+  <h2 id="pilot-light">3. Pilot Light</h2>
+  <div class="diagram">
+PILOT LIGHT STRATEGY
+
+NORMAL OPERATION:
+PRIMARY REGION                          DR REGION
+┌─────────────────────┐                ┌───────────────────────────┐
+│ EC2 Auto Scale Group│                │ RDS Read Replica (running)│
+│ ALB                 │                │ (minimal data replication │
+│ RDS Primary (R/W)   │──replication──►│ AMIs ready to launch      │
+└─────────────────────┘                └───────────────────────────┘
+
+ON DISASTER:
+1. Promote RDS Read Replica → Primary
+2. Launch EC2 instances from pre-existing AMIs
+3. Update Route 53 to point to DR ALB
+4. Scale up Auto Scaling Group
+
+RTO: 10 minutes – 1 hour
+RPO: Minutes (replication lag)
+Cost: Low (only DB replicas running, no EC2)
+  </div>
+
+  <h2 id="warm-standby">4. Warm Standby</h2>
+  <div class="diagram">
+WARM STANDBY STRATEGY
+
+PRIMARY REGION                    DR REGION
+┌─────────────────────┐           ┌────────────────────────────────┐
+│ EC2: 10 instances   │           │ EC2: 2 instances (scaled down) │
+│ ALB (active)        │           │ ALB (running, receives no load)│
+│ RDS Primary         │──async───►│ RDS Read Replica (running)     │
+│ (full traffic)      │  repl.    │ (serving reduced test traffic) │
+└─────────────────────┘           └────────────────────────────────┘
+
+ON DISASTER:
+1. Route 53 failover → DR ALB
+2. Scale up EC2 ASG to full capacity
+3. Promote RDS Read Replica → Primary
+
+RTO: Minutes (scale-up + DNS failover)
+RPO: Seconds (near-real-time replication)
+Cost: Medium (infrastructure running at reduced capacity)
+  </div>
+
+  <h2 id="active-passive">5. Multi-Site Active/Passive</h2>
+  <div class="diagram">
+ACTIVE/PASSIVE MULTI-SITE
+
+PRIMARY REGION (us-east-1)        SECONDARY REGION (eu-west-1)
+┌──────────────────────────┐      ┌──────────────────────────────┐
+│ Full capacity (100%)     │      │ Full capacity (100%) running │
+│ Handles ALL traffic      │      │ Route 53 Failover: Passive   │
+│                          │      │ (Ready but no live traffic)  │
+│ ALB → 10 EC2 instances   │      │ ALB → 10 EC2 instances       │
+│ Aurora Primary           │─────►│ Aurora Global Secondary      │
+│                          │ sync │                              │
+└──────────────────────────┘      └──────────────────────────────┘
+           │
+Route 53 (Failover Policy):
+  Primary (us-east-1): Healthy → all traffic here
+  Secondary (eu-west-1): Only if primary fails (health check fails)
+
+ON DISASTER:
+  Route 53 detects failure (health check)
+  Traffic shifts to eu-west-1 in < 1 minute
+  Promote Aurora Global Secondary → Primary
+
+RTO: Minutes (DNS failover)
+RPO: < 1 second (Aurora Global)
+Cost: High (full infrastructure in both regions)
+  </div>
+
+  <h2 id="active-active">6. Multi-Site Active/Active</h2>
+  <div class="diagram">
+ACTIVE/ACTIVE MULTI-SITE (HIGHEST HA, HIGHEST COST)
+
+REGION 1 (us-east-1)              REGION 2 (eu-west-1)
+┌──────────────────────────┐      ┌──────────────────────────────┐
+│ Full capacity (50%)      │      │ Full capacity (50%)          │
+│ Handles HALF of traffic  │      │ Handles HALF of traffic      │
+│                          │      │                              │
+│ ALB → EC2 ASG            │◄────►│ ALB → EC2 ASG                │
+│ DynamoDB Global Table    │ sync │ DynamoDB Global Table        │
+│ Aurora Global Primary    │─────►│ Aurora Global Read           │
+└──────────────────────────┘      └──────────────────────────────┘
+           │
+Route 53 (Latency Policy or Weighted):
+  Both regions receive traffic simultaneously
+  If one fails: Route 53 removes it, all traffic to survivor
+
+ON DISASTER:
+  Route 53 detects failure (health check)
+  100% traffic shifts to surviving region
+  Surviving region scales up to handle full load
+
+RTO: Near zero (traffic reroutes in seconds)
+RPO: Near zero (data written to both regions)
+Cost: Highest (full capacity in both + data transfer)
+  </div>
+
+  <h2 id="decision">7. DR Strategy Decision Framework</h2>
+  <table>
+    <tr><th>Strategy</th><th>RTO</th><th>RPO</th><th>Cost</th><th>Complexity</th><th>When to Use</th></tr>
+    <tr><td>Backup & Restore</td><td>Hours–Days</td><td>Hours</td><td>Lowest ($)</td><td>Low</td><td>Non-critical, dev/test, cost-sensitive</td></tr>
+    <tr><td>Pilot Light</td><td>10min–1hr</td><td>Minutes</td><td>Low ($$)</td><td>Medium</td><td>Critical DBs, non-critical apps. RTO acceptable in minutes</td></tr>
+    <tr><td>Warm Standby</td><td>Minutes</td><td>Seconds</td><td>Medium ($$$)</td><td>Medium-High</td><td>Business-critical apps. Faster RTO needed</td></tr>
+    <tr><td>Active/Passive</td><td>Minutes</td><td>&lt;1 sec</td><td>High ($$$$)</td><td>High</td><td>Mission-critical. Financial systems. Low RPO required</td></tr>
+    <tr><td>Active/Active</td><td>Seconds</td><td>Near-zero</td><td>Highest ($$$$$)</td><td>Highest</td><td>No downtime acceptable. Global users. Banking, e-commerce</td></tr>
+  </table>
+
+  <div class="diagram">
+SAP-C02 DR DECISION TREE
+
+Does the app need to handle regional failures?
+└── YES → Multi-Region DR required
+
+What is the RTO requirement?
+├── Hours acceptable → Backup & Restore
+├── 10-60 min → Pilot Light
+├── 5-10 min → Warm Standby
+└── < 1 min → Active/Passive or Active/Active
+
+What is the RPO requirement?
+├── Hours → Backup & Restore (scheduled snapshots)
+├── Minutes → Pilot Light (async replication)
+├── Seconds → Warm Standby or Active/Passive
+└── Near-zero → Active/Active (DynamoDB Global + Aurora Global)
+
+Budget?
+├── Minimal → Backup & Restore
+├── Moderate → Pilot Light
+├── Higher → Warm Standby
+└── No limit → Active/Active
+  </div>
+
+  <h4>Real-World DR — Banking Application</h4>
+  <div class="diagram">
+BANKING ACTIVE/PASSIVE DR ARCHITECTURE
+
+Route 53 Health Checks:
+  Primary: api.bank.com → us-east-1 ALB (TTL: 30 sec)
+  Failover: api.bank.com → eu-west-1 ALB
+
+us-east-1 (Primary):
+  ALB → ECS Fargate (banking API)
+  Aurora PostgreSQL (Primary, 3 replicas)
+  ElastiCache Redis (session store)
+  SQS FIFO (transaction queue)
+
+eu-west-1 (Secondary):
+  ALB → ECS Fargate (scaled to 20% capacity — Pilot Light hybrid)
+  Aurora Global Secondary (< 1 sec replication lag from primary)
+  ElastiCache Redis (standalone, not replicated — session loss on failover accepted)
+  SQS FIFO (separate queue, messages accumulate during normal operation)
+
+Failover Procedure (automated via EventBridge + Lambda):
+  1. Health check fails (3 consecutive)
+  2. Route 53 removes primary
+  3. Lambda: promote Aurora Global → Primary in eu-west-1
+  4. Lambda: scale ECS service to 100% capacity
+  5. SNS: alert on-call team
+
+RPO: < 1 second (Aurora Global replication)
+RTO: < 5 minutes (automated failover)
+  </div>
+
+  <h2 id="exam-tips">8. Exam Tips & Cheat Sheet</h2>
+  <div class="exam-box">
+    <h4>SAP-C02 HA & DR — Critical Points</h4>
+    <ul>
+      <li><strong>RTO vs RPO:</strong> RTO = how long can we be down? RPO = how much data can we lose?</li>
+      <li><strong>Backup & Restore:</strong> Cheapest. Slowest (hours). Snapshots stored cross-region.</li>
+      <li><strong>Pilot Light:</strong> DB replica running, EC2 not running. Fast DB recovery, slow app recovery.</li>
+      <li><strong>Warm Standby:</strong> Scaled-down copy running in DR. Scale up on disaster. Minutes RTO.</li>
+      <li><strong>Active/Passive:</strong> Full capacity in DR, Route 53 failover routing. Minutes RTO with Aurora Global.</li>
+      <li><strong>Active/Active:</strong> Both regions serve traffic. Route 53 latency/weighted routing. DynamoDB Global Tables (multi-active writes). Near-zero RTO/RPO.</li>
+      <li><strong>Aurora Global Database:</strong> RPO ~1 sec, RTO ~1 min. Best for active/passive cross-region.</li>
+      <li><strong>DynamoDB Global Tables:</strong> Multi-active. Any region can write. Use for active/active.</li>
+      <li><strong>Route 53 Failover:</strong> Health checks detect failure. TTL affects switchover speed — use low TTL (30-60 sec) for DR.</li>
+      <li><strong>AWS Backup Vault Lock:</strong> WORM backups — even admins can't delete. For compliance.</li>
+      <li><strong>RDS Read Replica promotion:</strong> Manual action required. Plan DR procedure and automate it.</li>
+    </ul>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h5>DR Strategy Summary</h5>
+      <ul>
+        <li>Backup: Hours RTO/RPO, cheapest</li>
+        <li>Pilot Light: 10-60min RTO, DB running</li>
+        <li>Warm Standby: minutes RTO, scaled-down</li>
+        <li>Active/Passive: min RTO, full DR region</li>
+        <li>Active/Active: seconds RTO, both live</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Key DR Services</h5>
+      <ul>
+        <li>Aurora Global: RPO &lt;1s, RTO &lt;1min</li>
+        <li>DynamoDB Global Tables: multi-active</li>
+        <li>Route 53 Failover: automatic routing</li>
+        <li>S3 CRR: async object replication</li>
+        <li>AWS Backup: centralized snapshots</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>HA Patterns</h5>
+      <ul>
+        <li>Multi-AZ = AZ-level HA</li>
+        <li>Multi-Region = Region-level HA</li>
+        <li>Auto Scaling = compute HA</li>
+        <li>ALB health checks = traffic HA</li>
+        <li>RDS Multi-AZ = DB AZ-level HA</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>RPO/RTO Quick Math</h5>
+      <ul>
+        <li>Daily backup = RPO up to 24 hours</li>
+        <li>Hourly backup = RPO up to 1 hour</li>
+        <li>Async replication = RPO minutes</li>
+        <li>Aurora Global = RPO &lt;1 second</li>
+        <li>Manual restore = RTO hours</li>
+        <li>Route 53 failover = RTO minutes</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-section09.html" style="color:var(--orange);text-decoration:none;">← Section 09: Observability</a>
+  <a href="aws-sap-c02-section11.html" style="color:var(--orange);text-decoration:none;">Section 11: Cost Optimization →</a>
+</nav>
+</body>
+</html>
+
+</body>
+</html>

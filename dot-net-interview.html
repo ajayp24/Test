@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dot-net-interview</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 24px; line-height: 1.6; color: #333; }
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 24px; }
+    a { color: #2563eb; }
+    img { max-width: 100%; height: auto; }
+    table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+    th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    th { background: #f5f5f5; font-weight: 600; }
+    blockquote { border-left: 4px solid #2563eb; padding: 8px 16px; margin: 16px 0; color: #555; background: #f9fafb; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+    pre { background: #1f2937; color: #f9fafb; padding: 16px; border-radius: 8px; overflow-x: auto; }
+    pre code { background: none; padding: 0; color: inherit; }
+  </style>
+</head>
+<body>
+  <h1>dot-net-interview</h1>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.NET Full-Stack Interview Mastery Guide</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface2: #334155;
+    --accent: #38bdf8;
+    --accent2: #818cf8;
+    --accent3: #34d399;
+    --accent4: #fb923c;
+    --accent5: #f472b6;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --border: #475569;
+    --code-bg: #0d1117;
+    --success: #22c55e;
+    --warning: #eab308;
+    --danger: #ef4444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; scroll-behavior: smooth; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .hero { background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #042f2e 100%); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 50%, rgba(56,189,248,0.05) 0%, transparent 50%), radial-gradient(circle at 70% 50%, rgba(129,140,248,0.05) 0%, transparent 50%); animation: pulse 8s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  .hero h1 { font-size: 2.8em; background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; margin-bottom: 10px; }
+  .hero .subtitle { color: var(--text-dim); font-size: 1.2em; position: relative; }
+  .hero .stats { display: flex; justify-content: center; gap: 30px; margin-top: 25px; flex-wrap: wrap; position: relative; }
+  .hero .stat { background: var(--surface); padding: 12px 24px; border-radius: 12px; border: 1px solid var(--border); }
+  .hero .stat strong { color: var(--accent); font-size: 1.3em; display: block; }
+  .hero .stat span { color: var(--text-dim); font-size: 0.85em; }
+  .nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 20px; position: sticky; top: 0; z-index: 100; overflow-x: auto; white-space: nowrap; }
+  .nav a { display: inline-block; color: var(--text-dim); text-decoration: none; padding: 14px 16px; font-size: 0.9em; transition: all 0.2s; border-bottom: 2px solid transparent; }
+  .nav a:hover { color: var(--accent); border-bottom-color: var(--accent); background: rgba(56,189,248,0.05); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  .section { margin-bottom: 40px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; }
+  .section-header { padding: 24px 30px; background: linear-gradient(135deg, var(--surface2), var(--surface)); border-bottom: 1px solid var(--border); cursor: pointer; display: flex; align-items: center; gap: 12px; user-select: none; }
+  .section-header:hover { background: var(--surface2); }
+  .section-header .icon { font-size: 1.5em; }
+  .section-header h2 { font-size: 1.4em; flex: 1; }
+  .section-header .toggle { font-size: 1.2em; color: var(--text-dim); transition: transform 0.3s; }
+  .section-body { padding: 30px; display: none; }
+  .section.open .section-body { display: block; }
+  .section.open .toggle { transform: rotate(180deg); }
+  .topic { margin-bottom: 30px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .topic-title { background: var(--surface2); padding: 16px 20px; font-size: 1.15em; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .topic-title:hover { background: rgba(56,189,248,0.1); }
+  .topic-body { padding: 20px; display: none; }
+  .topic.open .topic-body { display: block; }
+  h3 { color: var(--accent); margin: 20px 0 10px; font-size: 1.1em; border-left: 3px solid var(--accent); padding-left: 12px; }
+  h4 { color: var(--accent2); margin: 15px 0 8px; font-size: 1em; }
+  pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 12px 0; font-size: 0.88em; line-height: 1.5; }
+  code { font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace; color: var(--accent3); }
+  pre code { color: var(--text); }
+  .keyword { color: #c084fc; } .string { color: #86efac; } .comment { color: #64748b; font-style: italic; } .annotation { color: #fbbf24; } .type { color: #67e8f9; } .number { color: #fb923c; }
+  p code, li code, td code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; border: 1px solid var(--border); }
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75em; font-weight: 600; margin: 2px; }
+  .tag-concept { background: rgba(56,189,248,0.15); color: var(--accent); }
+  .tag-example { background: rgba(52,211,153,0.15); color: var(--accent3); }
+  .tag-tricky { background: rgba(239,68,68,0.15); color: var(--danger); }
+  .tag-tip { background: rgba(234,179,8,0.15); color: var(--warning); }
+  .tag-sse { background: rgba(129,140,248,0.15); color: var(--accent2); }
+  .tag-lead { background: rgba(244,114,182,0.15); color: var(--accent5); }
+  .qa { background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.2); border-radius: 10px; padding: 16px; margin: 12px 0; }
+  .qa-q { color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+  .qa-a { color: var(--text); padding-left: 8px; }
+  .qa-tricky { background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.2); }
+  .qa-tricky .qa-q { color: var(--danger); }
+  .qa-sse { background: rgba(129,140,248,0.05); border-color: rgba(129,140,248,0.2); }
+  .qa-sse .qa-q { color: var(--accent2); }
+  .qa-lead { background: rgba(244,114,182,0.05); border-color: rgba(244,114,182,0.2); }
+  .qa-lead .qa-q { color: var(--accent5); }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th { background: var(--surface2); color: var(--accent); padding: 10px 14px; text-align: left; border-bottom: 2px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: rgba(56,189,248,0.03); }
+  ul, ol { padding-left: 24px; margin: 8px 0; }
+  li { margin-bottom: 4px; }
+  .callout { border-radius: 10px; padding: 16px; margin: 14px 0; display: flex; gap: 12px; align-items: flex-start; }
+  .callout-tip { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); }
+  .callout-warn { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.2); }
+  .callout-danger { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
+  .callout-info { background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2); }
+  .callout-icon { font-size: 1.3em; flex-shrink: 0; }
+  .callout strong { display: block; margin-bottom: 4px; }
+  .interview-round { border: 2px solid var(--accent2); border-radius: 12px; margin: 20px 0; overflow: hidden; }
+  .interview-round-header { background: linear-gradient(135deg, rgba(129,140,248,0.2), rgba(56,189,248,0.1)); padding: 16px 20px; font-weight: 700; font-size: 1.1em; border-bottom: 1px solid var(--border); }
+  .interview-exchange { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .interviewer { color: var(--accent4); font-weight: 600; margin-bottom: 6px; }
+  .candidate { color: var(--accent3); font-weight: 600; margin-bottom: 6px; }
+  .roadmap-week { background: var(--surface2); border-radius: 10px; padding: 16px 20px; margin: 10px 0; border-left: 4px solid var(--accent); position: relative; }
+  .roadmap-week h4 { color: var(--accent); margin-top: 0; }
+  .roadmap-week::before { content: ''; position: absolute; left: -8px; top: 20px; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; }
+  .search-box { max-width: 500px; margin: 20px auto; position: relative; }
+  .search-box input { width: 100%; padding: 12px 16px 12px 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 1em; outline: none; }
+  .search-box input:focus { border-color: var(--accent); }
+  .search-box::before { content: '\1F50D'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 1.1em; }
+  .progress-bar { background: var(--surface2); border-radius: 8px; height: 8px; margin: 20px 0; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 8px; transition: width 0.5s; }
+  .progress-text { text-align: center; color: var(--text-dim); font-size: 0.85em; margin-top: 4px; }
+  .controls { text-align: center; margin: 20px 0; }
+  .controls button { background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); padding: 8px 20px; border-radius: 8px; cursor: pointer; margin: 0 4px; font-size: 0.9em; transition: all 0.2s; }
+  .controls button:hover { border-color: var(--accent); color: var(--accent); }
+  .level-badge { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.75em; font-weight: 700; margin-left: 8px; }
+  .level-se { background: rgba(34,197,94,0.2); color: var(--success); }
+  .level-sse { background: rgba(129,140,248,0.2); color: var(--accent2); }
+  .level-lead { background: rgba(244,114,182,0.2); color: var(--accent5); }
+  @media print { .nav, .search-box, .hero::before { display: none; } body { background: white; color: black; } .section-body, .topic-body { display: block !important; } }
+  @media (max-width: 768px) { .hero h1 { font-size: 1.8em; } .hero .stats { gap: 12px; } .section-body, .topic-body { padding: 16px; } pre { font-size: 0.8em; padding: 12px; } .nav a { padding: 12px 10px; font-size: 0.8em; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>.NET Full-Stack Interview Mastery</h1>
+  <p class="subtitle">From C# Fundamentals to Azure Architecture &mdash; SE, SSE &amp; Lead Levels</p>
+  <div class="stats">
+    <div class="stat"><strong>200+</strong><span>Interview Questions</span></div>
+    <div class="stat"><strong>15</strong><span>Sections</span></div>
+    <div class="stat"><strong>3</strong><span>Levels (SE/SSE/Lead)</span></div>
+    <div class="stat"><strong>30</strong><span>Day Roadmap</span></div>
+  </div>
+</div>
+
+<nav class="nav">
+  <a href="#csharp-core">C# Core</a>
+  <a href="#aspnet-core">ASP.NET Core</a>
+  <a href="#ef-core">EF Core</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#azure-cloud">Azure</a>
+  <a href="#testing">Testing</a>
+  <a href="#frontend">Frontend</a>
+  <a href="#questions-50">50 Questions</a>
+  <a href="#tricky-20">Tricky 20</a>
+  <a href="#scenarios-20">Scenarios</a>
+  <a href="#system-design">System Design</a>
+  <a href="#sse-questions">SSE Level</a>
+  <a href="#lead-questions">Lead Level</a>
+  <a href="#mock-interviews">Mock Interviews</a>
+  <a href="#roadmap">30-Day Roadmap</a>
+</nav>
+
+<div class="container">
+  <div class="search-box"><input type="text" id="searchInput" placeholder="Search topics, questions, or keywords..." oninput="filterSections(this.value)"></div>
+  <div class="controls">
+    <button onclick="toggleAll(true)">Expand All</button>
+    <button onclick="toggleAll(false)">Collapse All</button>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-text" id="progressText">0 of 15 sections studied</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1: C# CORE -->
+<!-- ============================================================ -->
+<div class="section open" id="csharp-core">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#9839;</span>
+    <h2>1. C# Language Fundamentals</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic open">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> OOP, Value Types vs Reference Types, Structs vs Classes <span class="tag tag-concept">Core</span></div>
+      <div class="topic-body">
+        <h3>Value Types vs Reference Types</h3>
+        <p>This is the single most foundational concept in C#. <strong>Value types</strong> (struct, enum, primitives like <code>int</code>, <code>bool</code>, <code>double</code>) are stored on the <strong>stack</strong> (or inline within objects) and copied on assignment. <strong>Reference types</strong> (class, interface, delegate, string, arrays) are stored on the <strong>heap</strong> with a reference pointer on the stack. Understanding this determines how you reason about performance, equality, and memory in enterprise applications.</p>
+
+        <table>
+          <tr><th>Aspect</th><th>struct (Value Type)</th><th>class (Reference Type)</th></tr>
+          <tr><td>Storage</td><td>Stack / inline</td><td>Heap (GC-managed)</td></tr>
+          <tr><td>Assignment</td><td>Deep copy</td><td>Reference copy (both point to same object)</td></tr>
+          <tr><td>Default</td><td>All fields zero/null</td><td>null</td></tr>
+          <tr><td>Inheritance</td><td>Cannot inherit (sealed implicitly)</td><td>Single inheritance</td></tr>
+          <tr><td>Equality</td><td>By value (default, slow via reflection)</td><td>By reference (default)</td></tr>
+          <tr><td>Best for</td><td>Small, immutable data (&lt;16 bytes): Money, Coordinate, DateRange</td><td>Complex domain objects: Order, Customer, Account</td></tr>
+        </table>
+
+<pre><code><span class="comment">// struct: ideal for small immutable value objects</span>
+<span class="keyword">public readonly record struct</span> <span class="type">Money</span>(<span class="keyword">decimal</span> Amount, <span class="keyword">string</span> Currency)
+{
+    <span class="keyword">public</span> <span class="type">Money</span> Add(<span class="type">Money</span> other)
+    {
+        <span class="keyword">if</span> (Currency != other.Currency)
+            <span class="keyword">throw new</span> <span class="type">InvalidOperationException</span>(<span class="string">"Currency mismatch"</span>);
+        <span class="keyword">return this with</span> { Amount = Amount + other.Amount };
+    }
+}
+
+<span class="comment">// class: domain entity with identity and behavior</span>
+<span class="keyword">public class</span> <span class="type">BankAccount</span>
+{
+    <span class="keyword">public</span> <span class="type">Guid</span> Id { <span class="keyword">get</span>; <span class="keyword">private set</span>; } = <span class="type">Guid</span>.NewGuid();
+    <span class="keyword">public</span> <span class="keyword">string</span> AccountNumber { <span class="keyword">get</span>; <span class="keyword">init</span>; }
+    <span class="keyword">private</span> <span class="type">Money</span> _balance;
+
+    <span class="keyword">public void</span> Deposit(<span class="type">Money</span> amount)
+    {
+        <span class="keyword">if</span> (amount.Amount &lt;= <span class="number">0</span>)
+            <span class="keyword">throw new</span> <span class="type">ArgumentException</span>(<span class="string">"Deposit must be positive"</span>);
+        _balance = _balance.Add(amount);
+        AddDomainEvent(<span class="keyword">new</span> <span class="type">FundsDepositedEvent</span>(Id, amount));
+    }
+}</code></pre>
+
+        <div class="qa qa-tricky">
+          <div class="qa-q">Tricky: What is boxing and why is it a performance concern?</div>
+          <div class="qa-a"><strong>Boxing</strong> wraps a value type in an <code>object</code> on the heap. This happens implicitly when you assign a value type to <code>object</code>, <code>dynamic</code>, or an interface variable. Each box allocates ~12-16 bytes on the heap plus the value, and creates GC pressure. In hot paths (loops processing millions of records), boxing causes massive allocations. Avoid it by using generic collections (<code>List&lt;int&gt;</code> not <code>ArrayList</code>), generic constraints, and <code>Span&lt;T&gt;</code> for slicing.
+<pre><code><span class="comment">// Boxing happens here:</span>
+<span class="keyword">int</span> x = <span class="number">42</span>;
+<span class="keyword">object</span> boxed = x;     <span class="comment">// BOXING: allocates on heap</span>
+<span class="keyword">int</span> y = (<span class="keyword">int</span>)boxed;   <span class="comment">// UNBOXING: copies back to stack</span>
+
+<span class="comment">// No boxing with generics:</span>
+<span class="type">List</span>&lt;<span class="keyword">int</span>&gt; nums = <span class="keyword">new</span>() { <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> }; <span class="comment">// No boxing!</span></code></pre>
+          </div>
+        </div>
+
+        <div class="qa qa-tricky">
+          <div class="qa-q">Tricky: When should you use <code>record</code> vs <code>record struct</code> vs <code>class</code>?</div>
+          <div class="qa-a">
+            <ul>
+              <li><strong><code>record</code></strong> (C# 9+): Reference type with value-based equality. Perfect for DTOs, API responses, and event payloads. Supports <code>with</code> expressions for non-destructive mutation. Gets auto-generated <code>Equals</code>, <code>GetHashCode</code>, <code>ToString</code>, and deconstruction.</li>
+              <li><strong><code>record struct</code></strong> (C# 10+): Value type with value-based equality. Ideal for small value objects (Money, Coordinate) where you want stack allocation AND value semantics. Use <code>readonly record struct</code> to guarantee immutability.</li>
+              <li><strong><code>class</code></strong>: When you need identity-based equality (two <code>Customer</code> objects with the same name are still different entities), inheritance hierarchies, or mutable state with encapsulated behavior.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Generics, Delegates, Events, LINQ <span class="tag tag-concept">Core</span></div>
+      <div class="topic-body">
+        <h3>Delegates &amp; Events &mdash; Observer Pattern Built Into C#</h3>
+        <p>A <strong>delegate</strong> is a type-safe function pointer. An <strong>event</strong> is a delegate with restricted access (only the declaring class can invoke it). This is the backbone of the observer pattern in .NET &mdash; UI frameworks, domain events, and messaging all use it.</p>
+
+<pre><code><span class="comment">// Built-in delegate types</span>
+<span class="type">Func</span>&lt;<span class="keyword">string</span>, <span class="keyword">int</span>&gt; getLength = s =&gt; s.Length;  <span class="comment">// Returns a value</span>
+<span class="type">Action</span>&lt;<span class="keyword">string</span>&gt; log = msg =&gt; Console.WriteLine(msg); <span class="comment">// Void return</span>
+<span class="type">Predicate</span>&lt;<span class="keyword">int</span>&gt; isPositive = n =&gt; n &gt; <span class="number">0</span>;  <span class="comment">// Returns bool</span>
+
+<span class="comment">// Domain event pattern in enterprise app</span>
+<span class="keyword">public class</span> <span class="type">Order</span>
+{
+    <span class="keyword">public event</span> <span class="type">EventHandler</span>&lt;<span class="type">OrderStatusChangedEventArgs</span>&gt; StatusChanged;
+
+    <span class="keyword">private</span> <span class="type">OrderStatus</span> _status;
+    <span class="keyword">public</span> <span class="type">OrderStatus</span> Status
+    {
+        <span class="keyword">get</span> =&gt; _status;
+        <span class="keyword">set</span>
+        {
+            <span class="keyword">var</span> old = _status;
+            _status = <span class="keyword">value</span>;
+            StatusChanged?.Invoke(<span class="keyword">this</span>,
+                <span class="keyword">new</span> <span class="type">OrderStatusChangedEventArgs</span>(old, <span class="keyword">value</span>));
+        }
+    }
+}</code></pre>
+
+        <h3>LINQ &mdash; The Power of Declarative Data Queries</h3>
+<pre><code><span class="comment">// Real-world: E-commerce order analytics</span>
+<span class="keyword">var</span> topCustomers = orders
+    .Where(o =&gt; o.Date &gt;= <span class="type">DateTime</span>.UtcNow.AddDays(-<span class="number">30</span>))
+    .Where(o =&gt; o.Status == <span class="type">OrderStatus</span>.Completed)
+    .GroupBy(o =&gt; o.CustomerId)
+    .Select(g =&gt; <span class="keyword">new</span>
+    {
+        CustomerId = g.Key,
+        TotalSpent = g.Sum(o =&gt; o.Total),
+        OrderCount = g.Count()
+    })
+    .OrderByDescending(x =&gt; x.TotalSpent)
+    .Take(<span class="number">10</span>)
+    .ToList();
+
+<span class="comment">// CRITICAL: Deferred execution! The query runs when enumerated.</span>
+<span class="comment">// .ToList(), .Count(), foreach trigger execution.</span>
+<span class="comment">// Without materialization, the DB gets hit every time you iterate.</span></code></pre>
+
+        <div class="qa qa-tricky">
+          <div class="qa-q">Tricky: What is the difference between <code>IEnumerable&lt;T&gt;</code> and <code>IQueryable&lt;T&gt;</code>?</div>
+          <div class="qa-a"><code>IEnumerable&lt;T&gt;</code> executes in memory using delegates. <code>IQueryable&lt;T&gt;</code> builds expression trees that are translated to SQL by the ORM. If you return <code>IEnumerable</code> from a repository, the entire table is loaded into memory first, then filtered. With <code>IQueryable</code>, the WHERE clause becomes SQL WHERE and runs on the database. This difference can mean loading 10 rows vs 10 million rows. In enterprise apps, always keep queries as <code>IQueryable</code> until the very last moment, then materialize with <code>.ToListAsync()</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> async/await, Task, ValueTask, CancellationToken <span class="tag tag-tricky">Interview Favorite</span></div>
+      <div class="topic-body">
+        <h3>The Async Model in .NET</h3>
+        <p>C#'s async/await is a compiler-generated state machine. When you <code>await</code>, the method is split at the await point. The thread is released back to the pool while waiting for I/O. When the I/O completes, a thread picks up execution after the await. This allows a single web server to handle thousands of concurrent requests with very few threads.</p>
+
+<pre><code><span class="comment">// Proper async pattern in a service</span>
+<span class="keyword">public class</span> <span class="type">OrderService</span>
+{
+    <span class="keyword">private readonly</span> <span class="type">IOrderRepository</span> _repo;
+    <span class="keyword">private readonly</span> <span class="type">IPaymentGateway</span> _payments;
+    <span class="keyword">private readonly</span> <span class="type">ILogger</span>&lt;<span class="type">OrderService</span>&gt; _logger;
+
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">OrderResult</span>&gt; PlaceOrderAsync(
+        <span class="type">CreateOrderRequest</span> request,
+        <span class="type">CancellationToken</span> ct = <span class="keyword">default</span>)
+    {
+        <span class="comment">// CancellationToken: lets the caller cancel long-running work</span>
+        ct.ThrowIfCancellationRequested();
+
+        <span class="keyword">var</span> order = <span class="type">Order</span>.Create(request);
+        <span class="keyword">await</span> _repo.AddAsync(order, ct);
+
+        <span class="comment">// Parallel I/O calls with timeout</span>
+        <span class="keyword">using var</span> cts = <span class="type">CancellationTokenSource</span>
+            .CreateLinkedTokenSource(ct);
+        cts.CancelAfter(<span class="type">TimeSpan</span>.FromSeconds(<span class="number">10</span>));
+
+        <span class="keyword">var</span> paymentTask = _payments.ChargeAsync(order.Total, cts.Token);
+        <span class="keyword">var</span> inventoryTask = _inventory.ReserveAsync(order.Items, cts.Token);
+
+        <span class="keyword">await</span> <span class="type">Task</span>.WhenAll(paymentTask, inventoryTask);
+
+        <span class="keyword">return new</span> <span class="type">OrderResult</span>(order.Id, <span class="keyword">await</span> paymentTask);
+    }
+}</code></pre>
+
+        <h3>Task vs ValueTask</h3>
+        <table>
+          <tr><th>Aspect</th><th>Task&lt;T&gt;</th><th>ValueTask&lt;T&gt;</th></tr>
+          <tr><td>Allocation</td><td>Always allocates on heap</td><td>No allocation if result is synchronous</td></tr>
+          <tr><td>Await count</td><td>Can be awaited multiple times</td><td>Can be awaited ONLY ONCE</td></tr>
+          <tr><td>Best for</td><td>General async work</td><td>Hot paths where result is often cached/synchronous</td></tr>
+          <tr><td>Example</td><td>HTTP calls, DB queries</td><td>Cache lookups that usually hit</td></tr>
+        </table>
+
+        <div class="qa qa-tricky">
+          <div class="qa-q">Tricky: Why should you never use <code>async void</code> except for event handlers?</div>
+          <div class="qa-a"><code>async void</code> methods cannot be awaited, so the caller has no way to know when they complete or catch their exceptions. If an <code>async void</code> method throws, the exception goes directly to the <code>SynchronizationContext</code> and will crash the application. Always use <code>async Task</code> instead. The only exception is event handlers (e.g., button click handlers in WPF/WinForms) because the event delegate signature requires <code>void</code>.
+<pre><code><span class="comment">// WRONG: Exception crashes the app, no way to await</span>
+<span class="keyword">async void</span> ProcessPayment() { <span class="keyword">await</span> gateway.ChargeAsync(); }
+
+<span class="comment">// CORRECT: Caller can await and handle exceptions</span>
+<span class="keyword">async</span> <span class="type">Task</span> ProcessPaymentAsync() { <span class="keyword">await</span> gateway.ChargeAsync(); }</code></pre>
+          </div>
+        </div>
+
+        <div class="qa qa-tricky">
+          <div class="qa-q">Tricky: What does <code>ConfigureAwait(false)</code> do and when should you use it?</div>
+          <div class="qa-a">By default, <code>await</code> captures the <code>SynchronizationContext</code> and resumes on the same context (e.g., the UI thread in WPF). <code>ConfigureAwait(false)</code> says "I don't need to resume on the original context." Use it in <strong>library code</strong> to avoid deadlocks and improve performance. Do NOT use it in ASP.NET Core (there's no SynchronizationContext) or in UI code where you need to update the UI after the await. In ASP.NET Core, it's technically harmless but unnecessary.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> C# 10/11/12 Modern Features <span class="tag tag-concept">Modern C#</span></div>
+      <div class="topic-body">
+        <h3>Pattern Matching (C# 8-12)</h3>
+<pre><code><span class="comment">// Exhaustive pattern matching with sealed hierarchy</span>
+<span class="keyword">public abstract record</span> <span class="type">PaymentMethod</span>;
+<span class="keyword">public record</span> <span class="type">CreditCard</span>(<span class="keyword">string</span> Number, <span class="keyword">string</span> Cvv) : <span class="type">PaymentMethod</span>;
+<span class="keyword">public record</span> <span class="type">BankTransfer</span>(<span class="keyword">string</span> Iban) : <span class="type">PaymentMethod</span>;
+<span class="keyword">public record</span> <span class="type">DigitalWallet</span>(<span class="keyword">string</span> Provider, <span class="keyword">string</span> Token) : <span class="type">PaymentMethod</span>;
+
+<span class="keyword">public decimal</span> CalculateFee(<span class="type">PaymentMethod</span> method, <span class="keyword">decimal</span> amount) =&gt;
+    method <span class="keyword">switch</span>
+    {
+        <span class="type">CreditCard</span> { Number: <span class="keyword">var</span> n } <span class="keyword">when</span> n.StartsWith(<span class="string">"4"</span>)
+            =&gt; amount * <span class="number">0.025m</span>,  <span class="comment">// Visa: 2.5%</span>
+        <span class="type">CreditCard</span> =&gt; amount * <span class="number">0.029m</span>,  <span class="comment">// Other cards: 2.9%</span>
+        <span class="type">BankTransfer</span> =&gt; <span class="number">0.25m</span>,  <span class="comment">// Flat fee</span>
+        <span class="type">DigitalWallet</span> { Provider: <span class="string">"ApplePay"</span> } =&gt; amount * <span class="number">0.015m</span>,
+        <span class="type">DigitalWallet</span> =&gt; amount * <span class="number">0.02m</span>,
+    };</code></pre>
+
+        <h3>Primary Constructors (C# 12)</h3>
+<pre><code><span class="comment">// Before C# 12: constructor boilerplate</span>
+<span class="keyword">public class</span> <span class="type">OrderService</span>
+{
+    <span class="keyword">private readonly</span> <span class="type">IOrderRepository</span> _repo;
+    <span class="keyword">private readonly</span> <span class="type">ILogger</span>&lt;<span class="type">OrderService</span>&gt; _logger;
+
+    <span class="keyword">public</span> <span class="type">OrderService</span>(<span class="type">IOrderRepository</span> repo, <span class="type">ILogger</span>&lt;<span class="type">OrderService</span>&gt; logger)
+    {
+        _repo = repo;
+        _logger = logger;
+    }
+}
+
+<span class="comment">// C# 12: Primary constructor</span>
+<span class="keyword">public class</span> <span class="type">OrderService</span>(
+    <span class="type">IOrderRepository</span> repo,
+    <span class="type">ILogger</span>&lt;<span class="type">OrderService</span>&gt; logger)
+{
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">Order</span>&gt; GetAsync(<span class="type">Guid</span> id)
+    {
+        logger.LogInformation(<span class="string">"Fetching order {Id}"</span>, id);
+        <span class="keyword">return await</span> repo.FindAsync(id);
+    }
+}
+
+<span class="comment">// Collection expressions (C# 12)</span>
+<span class="type">List</span>&lt;<span class="keyword">int</span>&gt; numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];
+<span class="keyword">int</span>[] merged = [..firstArray, ..secondArray, <span class="number">99</span>];</code></pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2: ASP.NET CORE -->
+<!-- ============================================================ -->
+<div class="section" id="aspnet-core">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#127760;</span>
+    <h2>2. ASP.NET Core</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Middleware Pipeline &amp; Dependency Injection <span class="tag tag-concept">Foundation</span></div>
+      <div class="topic-body">
+        <h3>Middleware Pipeline</h3>
+        <p>Every HTTP request flows through a pipeline of middleware components in order. Each middleware can process the request, pass it to the next, and then process the response on the way back. Think of it as a series of nested Russian dolls.</p>
+
+<pre><code><span class="comment">// Order matters! Each middleware wraps the next.</span>
+<span class="keyword">var</span> app = builder.Build();
+app.UseExceptionHandler(<span class="string">"/error"</span>);  <span class="comment">// 1. Outermost: catch all errors</span>
+app.UseHttpsRedirection();              <span class="comment">// 2. Redirect HTTP to HTTPS</span>
+app.UseCors(<span class="string">"AllowFrontend"</span>);           <span class="comment">// 3. CORS headers</span>
+app.UseAuthentication();                <span class="comment">// 4. Who are you?</span>
+app.UseAuthorization();                 <span class="comment">// 5. What can you do?</span>
+app.UseRateLimiter();                   <span class="comment">// 6. Too many requests?</span>
+app.MapControllers();                   <span class="comment">// 7. Terminal: route to controller</span>
+
+<span class="comment">// Custom middleware</span>
+app.Use(<span class="keyword">async</span> (context, next) =&gt;
+{
+    <span class="keyword">var</span> sw = <span class="type">Stopwatch</span>.StartNew();
+    context.Response.Headers.Append(<span class="string">"X-Request-Id"</span>,
+        <span class="type">Guid</span>.NewGuid().ToString());
+    <span class="keyword">await</span> next(context);
+    sw.Stop();
+    logger.LogInformation(<span class="string">"Request {Path} took {Ms}ms"</span>,
+        context.Request.Path, sw.ElapsedMilliseconds);
+});</code></pre>
+
+        <h3>Service Lifetimes</h3>
+        <table>
+          <tr><th>Lifetime</th><th>Behavior</th><th>Use Case</th><th>Danger</th></tr>
+          <tr><td><code>Transient</code></td><td>New instance every time</td><td>Lightweight, stateless services</td><td>Memory churn if heavy</td></tr>
+          <tr><td><code>Scoped</code></td><td>One per HTTP request</td><td>DbContext, UnitOfWork, current user</td><td>Don't inject into Singleton!</td></tr>
+          <tr><td><code>Singleton</code></td><td>One for app lifetime</td><td>HttpClient factory, caching, config</td><td>Must be thread-safe</td></tr>
+        </table>
+
+        <div class="qa qa-tricky">
+          <div class="qa-q">Tricky: What is the "captive dependency" problem?</div>
+          <div class="qa-a">When a Singleton service depends on a Scoped or Transient service, the shorter-lived dependency is "captured" and kept alive for the lifetime of the Singleton. A Scoped <code>DbContext</code> injected into a Singleton will be shared across all requests, causing thread-safety issues and stale data. ASP.NET Core throws an <code>InvalidOperationException</code> in Development mode if you enable <code>ValidateScopes</code>. Fix: inject <code>IServiceScopeFactory</code> into the Singleton and create a new scope manually when you need the Scoped service.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> REST APIs, Minimal APIs, Validation <span class="tag tag-example">Practical</span></div>
+      <div class="topic-body">
+        <h3>Controller-Based vs Minimal APIs</h3>
+<pre><code><span class="comment">// Controller-based (traditional)</span>
+<span class="annotation">[ApiController]</span>
+<span class="annotation">[Route("api/v1/[controller]")]</span>
+<span class="keyword">public class</span> <span class="type">AccountsController</span> : <span class="type">ControllerBase</span>
+{
+    <span class="annotation">[HttpGet("{id:guid}")]</span>
+    <span class="annotation">[ProducesResponseType&lt;AccountDto&gt;(200)]</span>
+    <span class="annotation">[ProducesResponseType(404)]</span>
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">IActionResult</span>&gt; GetById(<span class="type">Guid</span> id, <span class="type">CancellationToken</span> ct)
+    {
+        <span class="keyword">var</span> account = <span class="keyword">await</span> _service.GetByIdAsync(id, ct);
+        <span class="keyword">return</span> account <span class="keyword">is null</span> ? NotFound() : Ok(account);
+    }
+
+    <span class="annotation">[HttpPost]</span>
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">IActionResult</span>&gt; Create(
+        <span class="annotation">[FromBody]</span> <span class="type">CreateAccountRequest</span> request, <span class="type">CancellationToken</span> ct)
+    {
+        <span class="keyword">var</span> result = <span class="keyword">await</span> _service.CreateAsync(request, ct);
+        <span class="keyword">return</span> CreatedAtAction(<span class="keyword">nameof</span>(GetById),
+            <span class="keyword">new</span> { id = result.Id }, result);
+    }
+}
+
+<span class="comment">// Minimal API (ASP.NET Core 7+)</span>
+<span class="keyword">var</span> group = app.MapGroup(<span class="string">"/api/v1/accounts"</span>)
+    .WithTags(<span class="string">"Accounts"</span>)
+    .RequireAuthorization();
+
+group.MapGet(<span class="string">"/{id:guid}"</span>, <span class="keyword">async</span> (<span class="type">Guid</span> id,
+    <span class="type">IAccountService</span> service, <span class="type">CancellationToken</span> ct) =&gt;
+{
+    <span class="keyword">var</span> account = <span class="keyword">await</span> service.GetByIdAsync(id, ct);
+    <span class="keyword">return</span> account <span class="keyword">is not null</span>
+        ? <span class="type">Results</span>.Ok(account)
+        : <span class="type">Results</span>.NotFound();
+});
+
+group.MapPost(<span class="string">"/"</span>, <span class="keyword">async</span> (<span class="type">CreateAccountRequest</span> request,
+    <span class="type">IAccountService</span> service, <span class="type">CancellationToken</span> ct) =&gt;
+{
+    <span class="keyword">var</span> result = <span class="keyword">await</span> service.CreateAsync(request, ct);
+    <span class="keyword">return</span> <span class="type">Results</span>.Created(<span class="string">$"/api/v1/accounts/{result.Id}"</span>, result);
+}).AddEndpointFilter&lt;<span class="type">ValidationFilter</span>&lt;<span class="type">CreateAccountRequest</span>&gt;&gt;();</code></pre>
+
+        <h3>Validation with FluentValidation</h3>
+<pre><code><span class="keyword">public class</span> <span class="type">CreateAccountValidator</span> :
+    <span class="type">AbstractValidator</span>&lt;<span class="type">CreateAccountRequest</span>&gt;
+{
+    <span class="keyword">public</span> <span class="type">CreateAccountValidator</span>()
+    {
+        RuleFor(x =&gt; x.HolderName)
+            .NotEmpty().WithMessage(<span class="string">"Name is required"</span>)
+            .MaximumLength(<span class="number">100</span>);
+
+        RuleFor(x =&gt; x.Email)
+            .NotEmpty().EmailAddress();
+
+        RuleFor(x =&gt; x.InitialDeposit)
+            .GreaterThan(<span class="number">0</span>)
+            .WithMessage(<span class="string">"Initial deposit must be positive"</span>);
+
+        RuleFor(x =&gt; x.Currency)
+            .Must(c =&gt; <span class="keyword">new</span>[] { <span class="string">"USD"</span>, <span class="string">"EUR"</span>, <span class="string">"GBP"</span> }.Contains(c))
+            .WithMessage(<span class="string">"Unsupported currency"</span>);
+    }
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Authentication &amp; Authorization <span class="tag tag-concept">Security</span></div>
+      <div class="topic-body">
+<pre><code><span class="comment">// JWT Authentication setup</span>
+builder.Services.AddAuthentication(<span class="type">JwtBearerDefaults</span>.AuthenticationScheme)
+    .AddJwtBearer(options =&gt;
+    {
+        options.TokenValidationParameters = <span class="keyword">new</span>()
+        {
+            ValidateIssuer = <span class="keyword">true</span>,
+            ValidIssuer = builder.Configuration[<span class="string">"Jwt:Issuer"</span>],
+            ValidateAudience = <span class="keyword">true</span>,
+            ValidAudience = builder.Configuration[<span class="string">"Jwt:Audience"</span>],
+            ValidateLifetime = <span class="keyword">true</span>,
+            IssuerSigningKey = <span class="keyword">new</span> <span class="type">SymmetricSecurityKey</span>(
+                <span class="type">Encoding</span>.UTF8.GetBytes(builder.Configuration[<span class="string">"Jwt:Key"</span>]!)),
+            ClockSkew = <span class="type">TimeSpan</span>.Zero
+        };
+    });
+
+<span class="comment">// Policy-based authorization</span>
+builder.Services.AddAuthorization(options =&gt;
+{
+    options.AddPolicy(<span class="string">"AdminOnly"</span>, policy =&gt;
+        policy.RequireRole(<span class="string">"Admin"</span>));
+
+    options.AddPolicy(<span class="string">"CanTransferFunds"</span>, policy =&gt;
+        policy.RequireClaim(<span class="string">"permission"</span>, <span class="string">"funds.transfer"</span>)
+              .RequireClaim(<span class="string">"account_verified"</span>, <span class="string">"true"</span>));
+});
+
+<span class="comment">// Usage on endpoint</span>
+<span class="annotation">[Authorize(Policy = "CanTransferFunds")]</span>
+<span class="annotation">[HttpPost("transfer")]</span>
+<span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">IActionResult</span>&gt; Transfer(<span class="type">TransferRequest</span> req) { }</code></pre>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> SignalR &mdash; Real-Time Communication <span class="tag tag-example">Practical</span></div>
+      <div class="topic-body">
+<pre><code><span class="comment">// SignalR Hub for live order tracking</span>
+<span class="keyword">public class</span> <span class="type">OrderTrackingHub</span> : <span class="type">Hub</span>
+{
+    <span class="keyword">public async</span> <span class="type">Task</span> JoinOrderGroup(<span class="keyword">string</span> orderId)
+    {
+        <span class="keyword">await</span> Groups.AddToGroupAsync(Context.ConnectionId, orderId);
+    }
+
+    <span class="keyword">public async</span> <span class="type">Task</span> LeaveOrderGroup(<span class="keyword">string</span> orderId)
+    {
+        <span class="keyword">await</span> Groups.RemoveFromGroupAsync(Context.ConnectionId, orderId);
+    }
+}
+
+<span class="comment">// Service pushes updates to connected clients</span>
+<span class="keyword">public class</span> <span class="type">OrderService</span>(<span class="type">IHubContext</span>&lt;<span class="type">OrderTrackingHub</span>&gt; hub)
+{
+    <span class="keyword">public async</span> <span class="type">Task</span> UpdateStatusAsync(<span class="keyword">string</span> orderId, <span class="type">OrderStatus</span> status)
+    {
+        <span class="comment">// Update DB...</span>
+        <span class="keyword">await</span> hub.Clients.Group(orderId)
+            .SendAsync(<span class="string">"OrderStatusUpdated"</span>, <span class="keyword">new</span> { orderId, status });
+    }
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3: EF CORE -->
+<!-- ============================================================ -->
+<div class="section" id="ef-core">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#128451;</span>
+    <h2>3. Entity Framework Core</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> DbContext, Change Tracking, N+1 Problem <span class="tag tag-tricky">Interview Favorite</span></div>
+      <div class="topic-body">
+        <h3>Entity Configuration &amp; Relationships</h3>
+<pre><code><span class="keyword">public class</span> <span class="type">AppDbContext</span> : <span class="type">DbContext</span>
+{
+    <span class="keyword">public</span> <span class="type">DbSet</span>&lt;<span class="type">Order</span>&gt; Orders =&gt; Set&lt;<span class="type">Order</span>&gt;();
+    <span class="keyword">public</span> <span class="type">DbSet</span>&lt;<span class="type">Customer</span>&gt; Customers =&gt; Set&lt;<span class="type">Customer</span>&gt;();
+
+    <span class="keyword">protected override void</span> OnModelCreating(<span class="type">ModelBuilder</span> mb)
+    {
+        mb.Entity&lt;<span class="type">Order</span>&gt;(e =&gt;
+        {
+            e.HasKey(o =&gt; o.Id);
+            e.Property(o =&gt; o.Total).HasPrecision(<span class="number">18</span>, <span class="number">2</span>);
+            e.HasOne(o =&gt; o.Customer)
+             .WithMany(c =&gt; c.Orders)
+             .HasForeignKey(o =&gt; o.CustomerId)
+             .OnDelete(<span class="type">DeleteBehavior</span>.Restrict);
+            e.HasIndex(o =&gt; o.CustomerId);
+            e.Property(o =&gt; o.RowVersion).IsRowVersion(); <span class="comment">// Optimistic concurrency</span>
+        });
+    }
+}
+
+<span class="comment">// N+1 Problem: 1 query for orders + N queries for each customer</span>
+<span class="keyword">var</span> orders = <span class="keyword">await</span> db.Orders.ToListAsync();
+<span class="keyword">foreach</span> (<span class="keyword">var</span> o <span class="keyword">in</span> orders)
+    Console.WriteLine(o.Customer.Name); <span class="comment">// Lazy load fires N queries!</span>
+
+<span class="comment">// FIX 1: Eager loading with Include</span>
+<span class="keyword">var</span> orders = <span class="keyword">await</span> db.Orders
+    .Include(o =&gt; o.Customer)
+    .Include(o =&gt; o.Items).ThenInclude(i =&gt; i.Product)
+    .ToListAsync();
+
+<span class="comment">// FIX 2: Split query (avoids cartesian explosion)</span>
+<span class="keyword">var</span> orders = <span class="keyword">await</span> db.Orders
+    .Include(o =&gt; o.Items)
+    .AsSplitQuery()
+    .ToListAsync();
+
+<span class="comment">// FIX 3: Projection (best performance, no tracking overhead)</span>
+<span class="keyword">var</span> dtos = <span class="keyword">await</span> db.Orders
+    .Select(o =&gt; <span class="keyword">new</span> <span class="type">OrderSummaryDto</span>
+    {
+        OrderId = o.Id,
+        CustomerName = o.Customer.Name,
+        Total = o.Total,
+        ItemCount = o.Items.Count
+    })
+    .AsNoTracking()
+    .ToListAsync();</code></pre>
+
+        <div class="qa qa-tricky">
+          <div class="qa-q">Tricky: Why should you use <code>AsNoTracking()</code> for read-only queries?</div>
+          <div class="qa-a">EF Core's change tracker creates a snapshot of every entity loaded. This consumes memory and CPU. For read-only scenarios (API GET endpoints, reports, dashboards), <code>AsNoTracking()</code> skips the tracking snapshot, giving 30-50% performance improvement on large result sets. It also prevents accidental updates &mdash; if you modify an untracked entity and call <code>SaveChanges()</code>, nothing happens. Best practice: use <code>AsNoTracking()</code> by default and only track entities when you intend to update them.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4: ARCHITECTURE -->
+<!-- ============================================================ -->
+<div class="section" id="architecture">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#127959;</span>
+    <h2>4. Architecture &amp; Design Patterns</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Clean Architecture &amp; CQRS with MediatR <span class="tag tag-concept">Architecture</span></div>
+      <div class="topic-body">
+        <h3>Clean Architecture Layers</h3>
+<pre><code>Solution Structure:
+├── src/
+│   ├── Domain/           <span class="comment">← Entities, Value Objects, Domain Events (NO dependencies)</span>
+│   ├── Application/      <span class="comment">← Use cases, CQRS handlers, interfaces (depends on Domain)</span>
+│   ├── Infrastructure/   <span class="comment">← EF Core, Email, File storage (implements Application interfaces)</span>
+│   └── WebAPI/           <span class="comment">← Controllers, middleware, DI setup (depends on all)</span>
+└── tests/
+    ├── Domain.Tests/
+    ├── Application.Tests/
+    └── Integration.Tests/</code></pre>
+
+        <h3>CQRS with MediatR</h3>
+<pre><code><span class="comment">// Command (write operation)</span>
+<span class="keyword">public record</span> <span class="type">CreateOrderCommand</span>(
+    <span class="type">Guid</span> CustomerId,
+    <span class="type">List</span>&lt;<span class="type">OrderItemDto</span>&gt; Items) : <span class="type">IRequest</span>&lt;<span class="type">Guid</span>&gt;;
+
+<span class="keyword">public class</span> <span class="type">CreateOrderHandler</span> :
+    <span class="type">IRequestHandler</span>&lt;<span class="type">CreateOrderCommand</span>, <span class="type">Guid</span>&gt;
+{
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">Guid</span>&gt; Handle(
+        <span class="type">CreateOrderCommand</span> cmd, <span class="type">CancellationToken</span> ct)
+    {
+        <span class="keyword">var</span> order = <span class="type">Order</span>.Create(cmd.CustomerId, cmd.Items);
+        <span class="keyword">await</span> _repo.AddAsync(order, ct);
+        <span class="keyword">await</span> _unitOfWork.SaveChangesAsync(ct);
+        <span class="keyword">return</span> order.Id;
+    }
+}
+
+<span class="comment">// Query (read operation)</span>
+<span class="keyword">public record</span> <span class="type">GetOrderByIdQuery</span>(<span class="type">Guid</span> Id) : <span class="type">IRequest</span>&lt;<span class="type">OrderDto</span>?&gt;;
+
+<span class="keyword">public class</span> <span class="type">GetOrderByIdHandler</span> :
+    <span class="type">IRequestHandler</span>&lt;<span class="type">GetOrderByIdQuery</span>, <span class="type">OrderDto</span>?&gt;
+{
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">OrderDto</span>?&gt; Handle(
+        <span class="type">GetOrderByIdQuery</span> query, <span class="type">CancellationToken</span> ct)
+    {
+        <span class="keyword">return await</span> _db.Orders
+            .Where(o =&gt; o.Id == query.Id)
+            .Select(o =&gt; <span class="keyword">new</span> <span class="type">OrderDto</span>(o.Id, o.Total, o.Status))
+            .AsNoTracking()
+            .FirstOrDefaultAsync(ct);
+    }
+}
+
+<span class="comment">// Pipeline behavior (cross-cutting: logging, validation)</span>
+<span class="keyword">public class</span> <span class="type">ValidationBehavior</span>&lt;<span class="type">TReq</span>, <span class="type">TRes</span>&gt; :
+    <span class="type">IPipelineBehavior</span>&lt;<span class="type">TReq</span>, <span class="type">TRes</span>&gt;
+{
+    <span class="keyword">private readonly</span> <span class="type">IEnumerable</span>&lt;<span class="type">IValidator</span>&lt;<span class="type">TReq</span>&gt;&gt; _validators;
+
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">TRes</span>&gt; Handle(<span class="type">TReq</span> request,
+        <span class="type">RequestHandlerDelegate</span>&lt;<span class="type">TRes</span>&gt; next, <span class="type">CancellationToken</span> ct)
+    {
+        <span class="keyword">var</span> failures = _validators
+            .Select(v =&gt; v.Validate(request))
+            .SelectMany(r =&gt; r.Errors)
+            .Where(f =&gt; f != <span class="keyword">null</span>)
+            .ToList();
+
+        <span class="keyword">if</span> (failures.Any())
+            <span class="keyword">throw new</span> <span class="type">ValidationException</span>(failures);
+
+        <span class="keyword">return await</span> next();
+    }
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Resilience with Polly &amp; Microservices <span class="tag tag-example">Practical</span></div>
+      <div class="topic-body">
+<pre><code><span class="comment">// Polly v8+ resilience pipeline</span>
+builder.Services.AddHttpClient&lt;<span class="type">IPaymentGateway</span>, <span class="type">StripeGateway</span>&gt;()
+    .AddResilienceHandler(<span class="string">"payment"</span>, pipeline =&gt;
+    {
+        pipeline.AddRetry(<span class="keyword">new</span> <span class="type">RetryStrategyOptions</span>&lt;<span class="type">HttpResponseMessage</span>&gt;
+        {
+            MaxRetryAttempts = <span class="number">3</span>,
+            Delay = <span class="type">TimeSpan</span>.FromMilliseconds(<span class="number">500</span>),
+            BackoffType = <span class="type">DelayBackoffType</span>.Exponential,
+            ShouldHandle = <span class="keyword">new</span> <span class="type">PredicateBuilder</span>&lt;<span class="type">HttpResponseMessage</span>&gt;()
+                .HandleResult(r =&gt; r.StatusCode == <span class="type">HttpStatusCode</span>.ServiceUnavailable)
+                .Handle&lt;<span class="type">HttpRequestException</span>&gt;()
+        });
+
+        pipeline.AddCircuitBreaker(<span class="keyword">new</span> <span class="type">CircuitBreakerStrategyOptions</span>&lt;<span class="type">HttpResponseMessage</span>&gt;
+        {
+            FailureRatio = <span class="number">0.5</span>,
+            MinimumThroughput = <span class="number">10</span>,
+            SamplingDuration = <span class="type">TimeSpan</span>.FromSeconds(<span class="number">30</span>),
+            BreakDuration = <span class="type">TimeSpan</span>.FromSeconds(<span class="number">15</span>)
+        });
+
+        pipeline.AddTimeout(<span class="type">TimeSpan</span>.FromSeconds(<span class="number">5</span>));
+    });</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5: AZURE -->
+<!-- ============================================================ -->
+<div class="section" id="azure-cloud">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#9729;</span>
+    <h2>5. Azure &amp; Cloud</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Azure Services for .NET Developers <span class="tag tag-concept">Cloud</span></div>
+      <div class="topic-body">
+        <table>
+          <tr><th>Service</th><th>Purpose</th><th>.NET Integration</th></tr>
+          <tr><td>App Service</td><td>Managed web hosting</td><td>Deploy ASP.NET Core directly, deployment slots for blue-green</td></tr>
+          <tr><td>Azure Functions</td><td>Serverless compute</td><td>Isolated worker model, triggers (HTTP, Queue, Timer, Blob)</td></tr>
+          <tr><td>AKS</td><td>Managed Kubernetes</td><td>Docker containers, Helm charts, Dapr sidecar</td></tr>
+          <tr><td>Azure SQL</td><td>Managed SQL Server</td><td>EF Core, elastic pools, auto-tuning</td></tr>
+          <tr><td>Cosmos DB</td><td>Global NoSQL database</td><td>Azure.Cosmos SDK, EF Core provider</td></tr>
+          <tr><td>Service Bus</td><td>Enterprise messaging</td><td>Azure.Messaging.ServiceBus, MassTransit</td></tr>
+          <tr><td>Key Vault</td><td>Secrets management</td><td><code>builder.Configuration.AddAzureKeyVault()</code></td></tr>
+          <tr><td>Application Insights</td><td>APM &amp; monitoring</td><td>OpenTelemetry exporter, auto-instrumentation</td></tr>
+        </table>
+
+<pre><code><span class="comment">// Azure Key Vault integration</span>
+builder.Configuration.AddAzureKeyVault(
+    <span class="keyword">new</span> <span class="type">Uri</span>(<span class="string">"https://myvault.vault.azure.net/"</span>),
+    <span class="keyword">new</span> <span class="type">DefaultAzureCredential</span>());
+
+<span class="comment">// Managed Identity: no credentials in code!</span>
+<span class="comment">// DefaultAzureCredential auto-discovers: Managed Identity in Azure,</span>
+<span class="comment">// Visual Studio credentials locally, CLI credentials, env vars</span>
+
+<span class="comment">// Azure Service Bus with MassTransit</span>
+builder.Services.AddMassTransit(x =&gt;
+{
+    x.AddConsumer&lt;<span class="type">OrderCreatedConsumer</span>&gt;();
+    x.UsingAzureServiceBus((ctx, cfg) =&gt;
+    {
+        cfg.Host(builder.Configuration[<span class="string">"ServiceBus:ConnectionString"</span>]);
+        cfg.ConfigureEndpoints(ctx);
+    });
+});</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 6: TESTING -->
+<!-- ============================================================ -->
+<div class="section" id="testing">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#128295;</span>
+    <h2>6. Testing</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Unit, Integration &amp; API Testing <span class="tag tag-example">Practical</span></div>
+      <div class="topic-body">
+<pre><code><span class="comment">// Unit test with xUnit + Moq</span>
+<span class="keyword">public class</span> <span class="type">OrderServiceTests</span>
+{
+    <span class="annotation">[Fact]</span>
+    <span class="keyword">public async</span> <span class="type">Task</span> PlaceOrder_InsufficientInventory_ThrowsException()
+    {
+        <span class="comment">// Arrange</span>
+        <span class="keyword">var</span> mockRepo = <span class="keyword">new</span> <span class="type">Mock</span>&lt;<span class="type">IOrderRepository</span>&gt;();
+        <span class="keyword">var</span> mockInventory = <span class="keyword">new</span> <span class="type">Mock</span>&lt;<span class="type">IInventoryService</span>&gt;();
+        mockInventory.Setup(x =&gt; x.CheckStockAsync(<span class="type">It</span>.IsAny&lt;<span class="keyword">string</span>&gt;(), <span class="type">It</span>.IsAny&lt;<span class="type">CancellationToken</span>&gt;()))
+            .ReturnsAsync(<span class="keyword">false</span>);
+        <span class="keyword">var</span> svc = <span class="keyword">new</span> <span class="type">OrderService</span>(mockRepo.Object, mockInventory.Object);
+
+        <span class="comment">// Act &amp; Assert</span>
+        <span class="keyword">await</span> Assert.ThrowsAsync&lt;<span class="type">InsufficientInventoryException</span>&gt;(
+            () =&gt; svc.PlaceOrderAsync(<span class="keyword">new</span> <span class="type">CreateOrderCommand</span>(<span class="comment">/*...*/</span>)));
+
+        mockRepo.Verify(x =&gt; x.AddAsync(<span class="type">It</span>.IsAny&lt;<span class="type">Order</span>&gt;(),
+            <span class="type">It</span>.IsAny&lt;<span class="type">CancellationToken</span>&gt;()), <span class="type">Times</span>.Never);
+    }
+}
+
+<span class="comment">// Integration test with WebApplicationFactory</span>
+<span class="keyword">public class</span> <span class="type">AccountsApiTests</span> :
+    <span class="type">IClassFixture</span>&lt;<span class="type">WebApplicationFactory</span>&lt;<span class="type">Program</span>&gt;&gt;
+{
+    <span class="keyword">private readonly</span> <span class="type">HttpClient</span> _client;
+
+    <span class="keyword">public</span> <span class="type">AccountsApiTests</span>(<span class="type">WebApplicationFactory</span>&lt;<span class="type">Program</span>&gt; factory)
+    {
+        _client = factory.WithWebHostBuilder(builder =&gt;
+        {
+            builder.ConfigureServices(services =&gt;
+            {
+                <span class="comment">// Replace real DB with in-memory for tests</span>
+                services.RemoveAll&lt;<span class="type">DbContextOptions</span>&lt;<span class="type">AppDbContext</span>&gt;&gt;();
+                services.AddDbContext&lt;<span class="type">AppDbContext</span>&gt;(o =&gt;
+                    o.UseInMemoryDatabase(<span class="string">"TestDb"</span>));
+            });
+        }).CreateClient();
+    }
+
+    <span class="annotation">[Fact]</span>
+    <span class="keyword">public async</span> <span class="type">Task</span> CreateAccount_ValidRequest_Returns201()
+    {
+        <span class="keyword">var</span> request = <span class="keyword">new</span> { HolderName = <span class="string">"John"</span>, InitialDeposit = <span class="number">1000</span> };
+        <span class="keyword">var</span> response = <span class="keyword">await</span> _client.PostAsJsonAsync(<span class="string">"/api/v1/accounts"</span>, request);
+
+        Assert.Equal(<span class="type">HttpStatusCode</span>.Created, response.StatusCode);
+        <span class="keyword">var</span> account = <span class="keyword">await</span> response.Content.ReadFromJsonAsync&lt;<span class="type">AccountDto</span>&gt;();
+        Assert.Equal(<span class="string">"John"</span>, account!.HolderName);
+    }
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 7: FRONTEND -->
+<!-- ============================================================ -->
+<div class="section" id="frontend">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#127912;</span>
+    <h2>7. Frontend Integration</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+    <div class="topic">
+      <div class="topic-title" onclick="toggleTopic(this)"><span>&#9654;</span> Blazor &amp; React Integration <span class="tag tag-concept">Frontend</span></div>
+      <div class="topic-body">
+        <h3>Blazor Comparison</h3>
+        <table>
+          <tr><th>Aspect</th><th>Blazor Server</th><th>Blazor WebAssembly</th><th>Blazor Hybrid</th></tr>
+          <tr><td>Execution</td><td>Server-side via SignalR</td><td>Client-side in browser (WASM)</td><td>.NET MAUI native shell</td></tr>
+          <tr><td>Startup</td><td>Fast (small download)</td><td>Slow first load (~5MB runtime)</td><td>Instant (pre-installed)</td></tr>
+          <tr><td>Offline</td><td>No (needs connection)</td><td>Yes (PWA capable)</td><td>Yes</td></tr>
+          <tr><td>Scalability</td><td>Limited by server memory (SignalR connections)</td><td>Excellent (runs on client)</td><td>N/A (desktop/mobile app)</td></tr>
+          <tr><td>Best for</td><td>Internal tools, dashboards</td><td>Public-facing SPAs</td><td>Cross-platform desktop/mobile</td></tr>
+        </table>
+
+<pre><code><span class="comment">// Blazor component calling ASP.NET Core API</span>
+<span class="annotation">@page "/orders"</span>
+<span class="annotation">@inject HttpClient Http</span>
+
+<span class="keyword">@if</span> (orders == <span class="keyword">null</span>)
+{
+    &lt;p&gt;Loading...&lt;/p&gt;
+}
+<span class="keyword">else</span>
+{
+    &lt;table&gt;
+        <span class="annotation">@foreach</span> (<span class="keyword">var</span> order <span class="keyword">in</span> orders)
+        {
+            &lt;tr&gt;
+                &lt;td&gt;<span class="annotation">@</span>order.Id&lt;/td&gt;
+                &lt;td&gt;<span class="annotation">@</span>order.Total.ToString(<span class="string">"C"</span>)&lt;/td&gt;
+                &lt;td&gt;<span class="annotation">@</span>order.Status&lt;/td&gt;
+            &lt;/tr&gt;
+        }
+    &lt;/table&gt;
+}
+
+<span class="annotation">@code</span> {
+    <span class="keyword">private</span> <span class="type">List</span>&lt;<span class="type">OrderDto</span>&gt;? orders;
+
+    <span class="keyword">protected override async</span> <span class="type">Task</span> OnInitializedAsync()
+    {
+        orders = <span class="keyword">await</span> Http.GetFromJsonAsync&lt;<span class="type">List</span>&lt;<span class="type">OrderDto</span>&gt;&gt;(<span class="string">"api/v1/orders"</span>);
+    }
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 8: 50 SE-LEVEL QUESTIONS -->
+<!-- ============================================================ -->
+<div class="section" id="questions-50">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#128221;</span>
+    <h2>50 SE-Level .NET Interview Questions</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <h3>C# Language (1-15)</h3>
+    <div class="qa"><div class="qa-q">1. What is the difference between <code>string</code> and <code>StringBuilder</code>?</div>
+    <div class="qa-a"><code>string</code> is <strong>immutable</strong> &mdash; every modification creates a new string on the heap. Concatenating in a loop creates N intermediate strings, causing O(n&sup2;) memory. <code>StringBuilder</code> maintains a mutable internal buffer and is O(n). Use <code>StringBuilder</code> when building strings in loops (e.g., CSV export, HTML generation). For simple concatenation of a few strings, <code>string</code> interpolation (<code>$"Hello {name}"</code>) is fine &mdash; the compiler optimizes it.</div></div>
+
+    <div class="qa"><div class="qa-q">2. Explain <code>ref</code>, <code>out</code>, and <code>in</code> parameter modifiers.</div>
+    <div class="qa-a"><code>ref</code>: passes by reference, must be initialized before call, can read and write. <code>out</code>: passes by reference, must be assigned inside the method, used for returning multiple values. <code>in</code>: passes by read-only reference, prevents copying large structs while guaranteeing no modification. <code>in</code> is particularly useful for <code>readonly struct</code> parameters in hot paths to avoid stack copies of large value types. In modern C#, prefer returning tuples or records over <code>out</code> parameters for cleaner APIs.</div></div>
+
+    <div class="qa"><div class="qa-q">3. What is the difference between <code>const</code> and <code>readonly</code>?</div>
+    <div class="qa-a"><code>const</code>: compile-time constant, inlined at every usage site, only primitive types and strings. If you change a const in library A, all consumers must recompile. <code>readonly</code>: runtime constant, set in constructor or declaration, can be any type including objects. <code>static readonly</code> is like a runtime constant. Use <code>const</code> for true constants (Pi, MaxRetries). Use <code>readonly</code> for values that won't change after construction but may differ per instance or need to be computed.</div></div>
+
+    <div class="qa"><div class="qa-q">4. What is <code>IDisposable</code> and why is it important?</div>
+    <div class="qa-a"><code>IDisposable</code> provides deterministic cleanup of unmanaged resources (file handles, DB connections, sockets, locks). The GC handles managed memory but doesn't know about native resources. Always wrap <code>IDisposable</code> in <code>using</code> statements. In ASP.NET Core, the DI container automatically disposes Scoped and Transient services. Forgetting to dispose <code>DbContext</code> or <code>HttpClient</code> leads to connection pool exhaustion, which manifests as random timeouts under load.</div></div>
+
+    <div class="qa"><div class="qa-q">5. Explain <code>Span&lt;T&gt;</code> and <code>Memory&lt;T&gt;</code>.</div>
+    <div class="qa-a"><code>Span&lt;T&gt;</code> is a stack-only, zero-allocation view over contiguous memory (arrays, strings, native memory). It allows slicing without copying. <code>Memory&lt;T&gt;</code> is the heap-friendly counterpart (can be stored in fields, used in async methods). Use cases: parsing large strings without allocating substrings, processing binary protocols, high-performance serialization. <code>Span</code> is a ref struct, so it cannot be used in async methods, captured by lambdas, or stored on the heap.</div></div>
+
+    <div class="qa"><div class="qa-q">6. What is the difference between abstract classes and interfaces in C#?</div>
+    <div class="qa-a">Abstract classes can have state (fields), constructors, and both implemented and abstract members. A class can inherit only one abstract class. Interfaces define contracts with no state (until C# 8 default interface methods). A class can implement multiple interfaces. Since C# 8, interfaces can have default method implementations, blurring the line. Use abstract classes for "is-a" relationships with shared state. Use interfaces for "can-do" capabilities and when you need multiple inheritance of behavior.</div></div>
+
+    <div class="qa"><div class="qa-q">7. What are nullable reference types and why were they introduced?</div>
+    <div class="qa-a">Introduced in C# 8 to combat <code>NullReferenceException</code> &mdash; Tony Hoare's "billion-dollar mistake." When enabled (<code>&lt;Nullable&gt;enable&lt;/Nullable&gt;</code>), the compiler warns if you dereference a potentially null reference without checking. <code>string</code> means non-null, <code>string?</code> means nullable. This doesn't change runtime behavior (no actual null checks are added), but provides compile-time safety. Enterprise benefit: dramatically reduces null-related production bugs.</div></div>
+
+    <div class="qa"><div class="qa-q">8. How does garbage collection work in .NET?</div>
+    <div class="qa-a">.NET uses a generational GC with three generations: Gen 0 (short-lived, collected frequently), Gen 1 (buffer between short and long-lived), Gen 2 (long-lived, collected rarely). Objects that survive a collection are promoted to the next generation. Large objects (&gt;85KB) go directly to the Large Object Heap (LOH). The GC is concurrent and uses mark-sweep-compact. Background GC in .NET 6+ minimizes pause times. Avoid: frequent LOH allocations (fragments), finalizers (delay collection by one cycle), and static collections that grow unbounded.</div></div>
+
+    <div class="qa"><div class="qa-q">9. What is pattern matching in C# and how has it evolved?</div>
+    <div class="qa-a">Pattern matching lets you test the shape and content of values. Evolution: C# 7 added <code>is</code> patterns and switch on type. C# 8 added switch expressions and property patterns. C# 9 added relational (<code>&gt;</code>, <code>&lt;</code>) and logical (<code>and</code>, <code>or</code>, <code>not</code>) patterns. C# 11 added list patterns (<code>[1, 2, ..]</code>). Real-world: replacing long if-else chains in payment processing, tax calculation, and validation logic with clear, exhaustive switch expressions.</div></div>
+
+    <div class="qa"><div class="qa-q">10. What is the difference between <code>Task.Run()</code> and <code>Task.Factory.StartNew()</code>?</div>
+    <div class="qa-a"><code>Task.Run()</code> is a safe default: it queues work on the thread pool with sensible defaults. <code>Task.Factory.StartNew()</code> gives fine-grained control but has dangerous defaults (e.g., <code>DenyChildAttach</code> is not set, <code>TaskScheduler.Current</code> might not be the thread pool). Always use <code>Task.Run()</code> unless you need specific <code>TaskCreationOptions</code>. Never use either for I/O-bound work &mdash; use <code>async</code>/<code>await</code> instead.</div></div>
+
+    <div class="qa"><div class="qa-q">11. What are extension methods and when should you use them?</div>
+    <div class="qa-a">Extension methods add functionality to existing types without modifying them. Defined as static methods in static classes with <code>this</code> on the first parameter. All of LINQ is extension methods on <code>IEnumerable&lt;T&gt;</code>. Good uses: utility methods for types you don't own (string formatting, enum display names), fluent APIs. Avoid: adding business logic as extensions (hard to mock), overusing them as a crutch for poor class design.</div></div>
+
+    <div class="qa"><div class="qa-q">12. What is the difference between <code>IEnumerable&lt;T&gt;</code>, <code>ICollection&lt;T&gt;</code>, and <code>IList&lt;T&gt;</code>?</div>
+    <div class="qa-a"><code>IEnumerable&lt;T&gt;</code>: read-only forward iteration (foreach). <code>ICollection&lt;T&gt;</code>: adds <code>Count</code>, <code>Add</code>, <code>Remove</code>, <code>Contains</code>. <code>IList&lt;T&gt;</code>: adds index-based access (<code>list[i]</code>). Return the most restrictive type from your methods. If callers only iterate, return <code>IEnumerable</code>. If they need count, return <code>ICollection</code>. For DI contracts, prefer <code>IReadOnlyList&lt;T&gt;</code> to signal immutability.</div></div>
+
+    <div class="qa"><div class="qa-q">13. What is covariance and contravariance in generics?</div>
+    <div class="qa-a"><strong>Covariance</strong> (<code>out T</code>): allows using a more derived type. <code>IEnumerable&lt;Dog&gt;</code> can be assigned to <code>IEnumerable&lt;Animal&gt;</code> because you're only reading (producing) values. <strong>Contravariance</strong> (<code>in T</code>): allows using a less derived type. <code>Action&lt;Animal&gt;</code> can be assigned to <code>Action&lt;Dog&gt;</code> because you're only writing (consuming) values. Remember: <code>out</code> = output/produce = covariant, <code>in</code> = input/consume = contravariant.</div></div>
+
+    <div class="qa"><div class="qa-q">14. How do you handle exceptions in async code?</div>
+    <div class="qa-a">Exceptions in <code>async Task</code> methods are captured and placed on the returned <code>Task</code>. When you <code>await</code> that task, the exception is re-thrown. With <code>Task.WhenAll()</code>, only the first exception is thrown; access <code>task.Exception.InnerExceptions</code> for all. For <code>async void</code>, exceptions go to the <code>SynchronizationContext</code> and typically crash the process. Best practice: always await tasks, use <code>try-catch</code> around await, and log unobserved task exceptions via <code>TaskScheduler.UnobservedTaskException</code>.</div></div>
+
+    <div class="qa"><div class="qa-q">15. What is <code>record</code> in C# and when should you use it?</div>
+    <div class="qa-a">A <code>record</code> is a reference type with value-based equality, immutability by default, and built-in <code>ToString()</code>, <code>Equals</code>, <code>GetHashCode</code>, and deconstruction. Use for: DTOs, API request/response models, domain events, CQRS commands/queries. Don't use for: entities with identity-based equality (two customers with the same name are different), mutable domain objects. <code>record struct</code> (C# 10) is the value-type variant for small, stack-allocated data.</div></div>
+
+    <h3>ASP.NET Core (16-30)</h3>
+    <div class="qa"><div class="qa-q">16. How does the ASP.NET Core middleware pipeline work?</div>
+    <div class="qa-a">Middleware components are executed in order for the request and in reverse order for the response, forming a pipeline. Each middleware receives <code>HttpContext</code> and a <code>RequestDelegate next</code>. It can: (1) short-circuit (return without calling next), (2) modify the request before calling next, (3) modify the response after next returns. Order matters: Authentication must come before Authorization, Exception handling should be first (outermost), Static files should be early to skip unnecessary processing.</div></div>
+
+    <div class="qa"><div class="qa-q">17. What are Minimal APIs and when would you use them?</div>
+    <div class="qa-a">Minimal APIs (introduced in .NET 6) let you define endpoints with lambdas instead of controller classes. Benefits: less boilerplate, faster startup, ideal for microservices with few endpoints. Drawbacks: no built-in model validation (<code>[ApiController]</code> auto-validation), no filters (use endpoint filters instead), can become messy for large APIs. Rule of thumb: Minimal APIs for microservices with &lt;10 endpoints, controllers for larger APIs with complex routing, validation, and versioning.</div></div>
+
+    <div class="qa"><div class="qa-q">18. What is the Options pattern in ASP.NET Core?</div>
+    <div class="qa-a">Strongly-typed configuration binding. Register with <code>builder.Services.Configure&lt;SmtpSettings&gt;(config.GetSection("Smtp"))</code>, inject as <code>IOptions&lt;SmtpSettings&gt;</code> (singleton snapshot), <code>IOptionsSnapshot&lt;T&gt;</code> (scoped, reloads on change), or <code>IOptionsMonitor&lt;T&gt;</code> (singleton, notifies on change). Validate with <code>.ValidateDataAnnotations().ValidateOnStart()</code> to fail fast on bad config. Never inject <code>IConfiguration</code> directly into services.</div></div>
+
+    <div class="qa"><div class="qa-q">19. How do you implement API versioning?</div>
+    <div class="qa-a">Use <code>Asp.Versioning.Http</code> package. Three strategies: (1) URL path: <code>/api/v1/orders</code>, (2) Query string: <code>?api-version=1.0</code>, (3) Header: <code>api-version: 1.0</code>. Mark deprecated versions with <code>[ApiVersion("1.0", Deprecated = true)]</code>. Use <code>[MapToApiVersion("2.0")]</code> on specific actions. For Minimal APIs: <code>group.MapGet(...).WithApiVersionSet(versionSet).MapToApiVersion(1.0)</code>.</div></div>
+
+    <div class="qa"><div class="qa-q">20. Explain the difference between <code>AddTransient</code>, <code>AddScoped</code>, and <code>AddSingleton</code>.</div>
+    <div class="qa-a"><code>Transient</code>: new instance on every resolve. Use for lightweight, stateless services. <code>Scoped</code>: one instance per scope (HTTP request in web apps). Use for <code>DbContext</code>, unit of work, current-user services. <code>Singleton</code>: one instance for app lifetime. Use for <code>HttpClient</code> (via factory), caches, configuration. Critical rule: never inject Scoped into Singleton (captive dependency). ASP.NET Core validates this in Development by default.</div></div>
+
+    <div class="qa"><div class="qa-q">21. How do you implement global exception handling in ASP.NET Core?</div>
+    <div class="qa-a">Three approaches: (1) <code>app.UseExceptionHandler()</code> middleware (recommended, handles all unhandled exceptions), (2) <code>IExceptionHandler</code> interface (.NET 8+, cleaner), (3) Exception filters (<code>IExceptionFilter</code>, only for MVC pipeline). Return RFC 7807 Problem Details format: <code>Results.Problem()</code> or <code>ProblemDetails</code> class. Always log the full exception server-side but return sanitized messages to the client (never leak stack traces in production).</div></div>
+
+    <div class="qa"><div class="qa-q">22. What is output caching vs response caching?</div>
+    <div class="qa-a"><strong>Response caching</strong>: sets HTTP cache headers (Cache-Control, ETag). Caching happens in client browsers and CDN proxies. <strong>Output caching</strong> (.NET 7+): server-side cache of the full response. <code>app.UseOutputCache()</code> stores responses in memory (or Redis). More control: tag-based invalidation, vary by query/header. Use response caching for public static content, output caching for semi-dynamic content (product listings that change every few minutes).</div></div>
+
+    <div class="qa"><div class="qa-q">23. How does model binding work in ASP.NET Core?</div>
+    <div class="qa-a">ASP.NET Core automatically maps HTTP request data to action parameters. Sources (checked in order): form values, route data, query strings. Attributes override: <code>[FromBody]</code> (JSON body), <code>[FromRoute]</code>, <code>[FromQuery]</code>, <code>[FromHeader]</code>, <code>[FromServices]</code> (DI). <code>[ApiController]</code> attribute changes defaults: complex types from body, simple types from route/query. Custom binders implement <code>IModelBinder</code> for non-standard formats.</div></div>
+
+    <div class="qa"><div class="qa-q">24. What is Health Checks and how do you implement them?</div>
+    <div class="qa-a">Health checks report app readiness for traffic. <code>builder.Services.AddHealthChecks().AddSqlServer(connString).AddRedis(redisConn)</code>. Map endpoints: <code>app.MapHealthChecks("/healthz")</code>. Kubernetes uses these: liveness probe (is the app alive?) and readiness probe (can it accept traffic?). Custom health checks implement <code>IHealthCheck</code>. Use <code>AspNetCore.HealthChecks.UI</code> for a dashboard. Never expose detailed health info publicly.</div></div>
+
+    <div class="qa"><div class="qa-q">25. How do you implement rate limiting in ASP.NET Core?</div>
+    <div class="qa-a">.NET 7+ has built-in rate limiting middleware. Four algorithms: Fixed Window, Sliding Window, Token Bucket, Concurrency limiter. Configure: <code>builder.Services.AddRateLimiter(options => options.AddFixedWindowLimiter("api", o => { o.PermitLimit = 100; o.Window = TimeSpan.FromMinutes(1); }))</code>. Apply per-endpoint: <code>.RequireRateLimiting("api")</code>. Returns 503 with Retry-After header. For distributed rate limiting, use Redis-backed implementations.</div></div>
+
+    <div class="qa"><div class="qa-q">26. What is the difference between <code>IActionResult</code> and <code>ActionResult&lt;T&gt;</code>?</div>
+    <div class="qa-a"><code>IActionResult</code>: can return any result type (Ok, NotFound, BadRequest) but Swagger can't infer the response type automatically. <code>ActionResult&lt;T&gt;</code>: typed result that supports implicit conversion from both <code>T</code> and <code>ActionResult</code>. Swagger automatically documents the 200 response type. Prefer <code>ActionResult&lt;T&gt;</code> with <code>[ProducesResponseType]</code> attributes for OpenAPI documentation.</div></div>
+
+    <div class="qa"><div class="qa-q">27. How do you implement background tasks in ASP.NET Core?</div>
+    <div class="qa-a"><code>IHostedService</code>: low-level interface for long-running background work. <code>BackgroundService</code>: base class with <code>ExecuteAsync</code> (preferred). Use cases: queue processing, periodic cleanup, health monitoring. For DI, create a scope manually (<code>IServiceScopeFactory</code>) since hosted services are singletons. For complex job scheduling, use Hangfire or Quartz.NET. Never block the startup pipeline &mdash; return a running <code>Task</code> from <code>ExecuteAsync</code>.</div></div>
+
+    <div class="qa"><div class="qa-q">28. What is SignalR and when would you use it?</div>
+    <div class="qa-a">SignalR is a library for real-time bidirectional communication. It abstracts WebSocket, Server-Sent Events, and Long Polling (auto-negotiates best transport). Use cases: live dashboards, chat, real-time notifications, collaborative editing, live order tracking. Hubs define server-callable methods. Clients can be grouped. For scale-out across multiple servers, use Redis backplane or Azure SignalR Service.</div></div>
+
+    <div class="qa"><div class="qa-q">29. How do you configure CORS in ASP.NET Core?</div>
+    <div class="qa-a"><code>builder.Services.AddCors(o => o.AddPolicy("Frontend", p => p.WithOrigins("https://app.example.com").AllowAnyMethod().AllowAnyHeader().AllowCredentials()))</code>. Apply globally with <code>app.UseCors("Frontend")</code> or per-endpoint with <code>[EnableCors("Frontend")]</code>. Common mistake: <code>AllowAnyOrigin()</code> with <code>AllowCredentials()</code> is rejected by browsers. For preflight caching, set <code>SetPreflightMaxAge(TimeSpan.FromHours(1))</code>.</div></div>
+
+    <div class="qa"><div class="qa-q">30. What is the difference between filters and middleware?</div>
+    <div class="qa-a"><strong>Middleware</strong>: runs for every HTTP request, before/after the MVC pipeline. Access to <code>HttpContext</code> only. <strong>Filters</strong>: run within the MVC pipeline, have access to action context (controller, action, model state). Filter types: Authorization, Resource, Action, Exception, Result. Filters can be applied globally, per controller, or per action. Use middleware for cross-cutting concerns (logging, CORS). Use filters for MVC-specific concerns (validation, response caching, auditing).</div></div>
+
+    <h3>Database &amp; EF Core (31-40)</h3>
+    <div class="qa"><div class="qa-q">31. What is the N+1 query problem and how do you solve it in EF Core?</div>
+    <div class="qa-a">Loading N child entities for each of N parents results in N+1 database queries. Example: loading 100 orders and their customers fires 1 query for orders + 100 queries for each customer. Solutions: (1) <code>.Include(o => o.Customer)</code> eager loading (single JOIN query), (2) <code>.AsSplitQuery()</code> (separate queries, avoids cartesian explosion with multiple includes), (3) Projection with <code>.Select()</code> (loads only needed columns), (4) Explicit loading with <code>Entry().Collection().LoadAsync()</code>. Detect with EF Core logging or MiniProfiler.</div></div>
+
+    <div class="qa"><div class="qa-q">32. Explain optimistic vs pessimistic concurrency in EF Core.</div>
+    <div class="qa-a"><strong>Optimistic</strong>: Add a <code>[Timestamp]</code> or <code>byte[] RowVersion</code> property. EF Core adds <code>WHERE RowVersion = @original</code> to UPDATE. If another transaction changed the row, <code>DbUpdateConcurrencyException</code> is thrown. Best for low-contention scenarios. <strong>Pessimistic</strong>: Use raw SQL <code>SELECT ... FOR UPDATE</code> or <code>SET LOCK_TIMEOUT</code>. Holds a DB lock until transaction commits. Best for high-contention (seat booking, inventory). EF Core doesn't have built-in pessimistic locking &mdash; use raw SQL or stored procedures.</div></div>
+
+    <div class="qa"><div class="qa-q">33. What are EF Core migrations and how do you use them in production?</div>
+    <div class="qa-a">Migrations version-control your database schema. <code>dotnet ef migrations add CreateOrdersTable</code> generates C# code. <code>dotnet ef database update</code> applies it. In production: generate SQL scripts with <code>dotnet ef migrations script --idempotent</code> and run them in CI/CD or a Kubernetes init container. Never call <code>Database.Migrate()</code> in <code>Program.cs</code> in production &mdash; it causes startup delays and race conditions with multiple instances.</div></div>
+
+    <div class="qa"><div class="qa-q">34. When should you use <code>AsNoTracking()</code>?</div>
+    <div class="qa-a">Use for all read-only queries (GET endpoints, reports, dashboards). Benefits: 30-50% faster, less memory, prevents accidental modifications. The change tracker creates identity map entries for every loaded entity; <code>AsNoTracking()</code> skips this entirely. Set globally: <code>optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)</code>. Only enable tracking when you intend to call <code>SaveChangesAsync()</code>.</div></div>
+
+    <div class="qa"><div class="qa-q">35. What is the Repository pattern debate in EF Core?</div>
+    <div class="qa-a">EF Core's <code>DbContext</code> is already a Unit of Work and <code>DbSet&lt;T&gt;</code> is a repository. Adding another layer is debated. <strong>Pro Repository</strong>: abstraction for testability, hides EF-specific details, encapsulates complex queries. <strong>Anti Repository</strong>: leaky abstraction (you can't abstract LINQ), adds boilerplate, <code>DbContext</code> is already testable with InMemory provider. Compromise: use thin repositories that expose <code>IQueryable&lt;T&gt;</code> for simple CRUD, and dedicated query services for complex queries.</div></div>
+
+    <div class="qa"><div class="qa-q">36. How do you handle database transactions in EF Core?</div>
+    <div class="qa-a"><code>SaveChangesAsync()</code> is automatically wrapped in a transaction. For multiple <code>SaveChanges</code> calls or cross-context operations, use explicit transactions: <code>await using var transaction = await db.Database.BeginTransactionAsync(); try { ... await db.SaveChangesAsync(); await transaction.CommitAsync(); } catch { await transaction.RollbackAsync(); throw; }</code>. For distributed transactions across databases, use the Outbox pattern instead of TransactionScope.</div></div>
+
+    <div class="qa"><div class="qa-q">37. What are compiled queries and when should you use them?</div>
+    <div class="qa-a">Compiled queries cache the LINQ-to-SQL translation. Normal queries re-translate expression trees on every call. <code>private static readonly Func&lt;AppDbContext, Guid, Task&lt;Order?&gt;&gt; _getById = EF.CompileAsyncQuery((AppDbContext db, Guid id) => db.Orders.FirstOrDefault(o => o.Id == id));</code> Use for queries called thousands of times per second (hot paths). The translation overhead is ~0.5ms per call, so it only matters at very high throughput.</div></div>
+
+    <div class="qa"><div class="qa-q">38. How do you handle soft deletes in EF Core?</div>
+    <div class="qa-a">Add <code>bool IsDeleted</code> property. Use Global Query Filters: <code>modelBuilder.Entity&lt;Order&gt;().HasQueryFilter(o => !o.IsDeleted)</code>. All queries automatically exclude deleted records. To include deleted: <code>.IgnoreQueryFilters()</code>. Override <code>SaveChanges</code> to intercept <code>Deleted</code> entries and change them to <code>Modified</code> with <code>IsDeleted = true</code>. Consider: soft deletes make unique constraints harder (need composite index with IsDeleted).</div></div>
+
+    <div class="qa"><div class="qa-q">39. What is the difference between <code>Add</code>, <code>Attach</code>, and <code>Update</code> in EF Core?</div>
+    <div class="qa-a"><code>Add</code>: marks entity as <code>Added</code> (INSERT). <code>Attach</code>: marks as <code>Unchanged</code> (starts tracking without changes). <code>Update</code>: marks as <code>Modified</code> (UPDATE all columns). <code>Attach</code> is useful when you have an entity from a disconnected scenario (e.g., deserialized from API) and want to change specific properties: <code>db.Attach(entity); entity.Name = "new"; await db.SaveChangesAsync();</code> &mdash; only the Name column is updated.</div></div>
+
+    <div class="qa"><div class="qa-q">40. How do you implement bulk operations in EF Core?</div>
+    <div class="qa-a">EF Core 7+ has built-in: <code>await db.Orders.Where(o => o.Status == "Cancelled").ExecuteDeleteAsync()</code> and <code>ExecuteUpdateAsync(s => s.SetProperty(o => o.Status, "Archived"))</code>. These execute single SQL statements without loading entities. For bulk inserts, use <code>EFCore.BulkExtensions</code> NuGet: <code>await db.BulkInsertAsync(orders)</code>. Without these, inserting 10K records fires 10K INSERT statements &mdash; bulk insert uses SQL bulk copy for orders-of-magnitude speed improvement.</div></div>
+
+    <h3>Architecture &amp; DevOps (41-50)</h3>
+    <div class="qa"><div class="qa-q">41. What is CQRS and when would you use it?</div>
+    <div class="qa-a">Command Query Responsibility Segregation: separate models for reads and writes. Commands (CreateOrder, TransferFunds) modify state through domain logic. Queries (GetOrderSummary, SearchProducts) read directly from optimized read models. Use when: read and write patterns differ drastically (e.g., complex writes + denormalized reads), high scalability needed, event sourcing. Overkill for simple CRUD apps. MediatR is the standard .NET implementation.</div></div>
+
+    <div class="qa"><div class="qa-q">42. What is the Outbox pattern?</div>
+    <div class="qa-a">Solves reliable event publishing in distributed systems. Instead of updating DB then publishing to message bus (risk: app crashes between the two), write the event to an "outbox" table in the same DB transaction. A background process reads the outbox and publishes to Kafka/Service Bus. Guarantees at-least-once delivery. Libraries: MassTransit has built-in outbox support, or implement with <code>BackgroundService</code> polling.</div></div>
+
+    <div class="qa"><div class="qa-q">43. How do you implement health checks in a microservices architecture?</div>
+    <div class="qa-a">Each service exposes <code>/healthz</code> (liveness: is the process running?) and <code>/readyz</code> (readiness: can it handle requests? checks DB, cache, dependencies). Kubernetes probes hit these endpoints. Implement with <code>AddHealthChecks()</code>. Check: database connectivity, Redis availability, disk space, downstream service availability. Don't check: things that would cause cascading failures (if service A goes unhealthy because B is down, traffic gets shifted but the problem was B).</div></div>
+
+    <div class="qa"><div class="qa-q">44. Explain Docker multi-stage builds for .NET.</div>
+    <div class="qa-a">Stage 1 (SDK image, ~700MB): restore packages, build, publish. Stage 2 (runtime image, ~100MB): copy published output only. Result: production image is tiny, secure (no build tools), and contains only the runtime. Use <code>mcr.microsoft.com/dotnet/sdk:8.0</code> for build, <code>mcr.microsoft.com/dotnet/aspnet:8.0-alpine</code> for runtime. Alpine-based images are even smaller (~50MB). Add <code>USER app</code> for non-root execution.</div></div>
+
+    <div class="qa"><div class="qa-q">45. What is the difference between gRPC and REST?</div>
+    <div class="qa-a">REST: text-based (JSON), HTTP/1.1, human-readable, broad tooling. gRPC: binary (Protocol Buffers), HTTP/2, code-generated clients, streaming support. gRPC is 5-10x faster for service-to-service communication. Use REST for public APIs (browser-compatible). Use gRPC for internal microservice communication where performance matters. ASP.NET Core supports both simultaneously.</div></div>
+
+    <div class="qa"><div class="qa-q">46. How do you manage configuration in .NET microservices?</div>
+    <div class="qa-a">Layers (highest priority wins): (1) Environment variables, (2) <code>appsettings.{Environment}.json</code>, (3) <code>appsettings.json</code>, (4) User secrets (dev only). For distributed config: Azure App Configuration or HashiCorp Consul. For secrets: Azure Key Vault with Managed Identity. Use the Options pattern (<code>IOptions&lt;T&gt;</code>) for strongly-typed configuration. <code>IOptionsMonitor&lt;T&gt;</code> for hot-reload without restart.</div></div>
+
+    <div class="qa"><div class="qa-q">47. What is OpenTelemetry and how do you use it in .NET?</div>
+    <div class="qa-a">OpenTelemetry is a vendor-neutral observability standard providing three pillars: traces (request flow across services), metrics (counters, histograms), logs (structured events). .NET integration: <code>builder.Services.AddOpenTelemetry().WithTracing(t => t.AddAspNetCoreInstrumentation().AddHttpClientInstrumentation().AddOtlpExporter())</code>. Exports to Jaeger, Zipkin, Grafana Tempo, or Datadog. ASP.NET Core auto-instruments HTTP requests, EF Core queries, and HttpClient calls.</div></div>
+
+    <div class="qa"><div class="qa-q">48. How do you implement CI/CD for .NET applications?</div>
+    <div class="qa-a">Pipeline stages: (1) Build + test: <code>dotnet build</code>, <code>dotnet test</code> with code coverage, (2) Static analysis: SonarQube or Roslyn analyzers, (3) Docker build: multi-stage image, (4) Push to registry: ACR, ECR, Docker Hub, (5) Deploy: Kubernetes rolling update or Azure App Service deployment slots. Blue-green deployment: deploy to inactive slot, run smoke tests, swap slots. Canary: gradually shift traffic percentage.</div></div>
+
+    <div class="qa"><div class="qa-q">49. What is the Strangler Fig pattern?</div>
+    <div class="qa-a">Gradually migrate a monolith to microservices by routing new requests to new services while keeping existing functionality in the monolith. Place an API Gateway (YARP in .NET) in front. New feature? Build as microservice, route at gateway. Existing feature ready to migrate? Rewrite as microservice, redirect route, decommission monolith code. Continue until the monolith is empty. Much safer than big-bang rewrites.</div></div>
+
+    <div class="qa"><div class="qa-q">50. How do you handle distributed transactions across microservices?</div>
+    <div class="qa-a">Traditional two-phase commit doesn't scale. Use the SAGA pattern: a sequence of local transactions with compensating actions. Two implementations: (1) <strong>Choreography</strong>: services publish events, others react (simple but hard to track). (2) <strong>Orchestration</strong>: a central coordinator manages the flow (clearer but single point of complexity). MassTransit provides saga state machines. Always design operations to be idempotent (safe to retry). Use the Outbox pattern for reliable event publishing.</div></div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 9: TRICKY 20 -->
+<!-- ============================================================ -->
+<div class="section" id="tricky-20">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#129300;</span>
+    <h2>20 Tricky C#/.NET Questions</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="qa qa-tricky"><div class="qa-q">1. What is the output: <code>string a = "hello"; string b = "hel" + "lo"; Console.WriteLine(a == b); Console.WriteLine(ReferenceEquals(a, b));</code></div>
+    <div class="qa-a">Both print <code>True</code>. The compiler evaluates <code>"hel" + "lo"</code> at compile time (constant folding) into <code>"hello"</code>. String interning means both <code>a</code> and <code>b</code> reference the same string object in the intern pool. But if <code>b</code> were computed at runtime (e.g., <code>string.Concat("hel", "lo")</code>), <code>ReferenceEquals</code> would be <code>False</code> while <code>==</code> would still be <code>True</code> (because <code>string</code> overrides <code>==</code> for content comparison).</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">2. Why is <code>async void</code> dangerous?</div>
+    <div class="qa-a">Exceptions in <code>async void</code> methods can't be caught by the caller. They're posted to the <code>SynchronizationContext</code> and will crash the application with an unhandled exception. The caller has no <code>Task</code> to await, so it can't know when the work completes. This leads to race conditions in tests and fire-and-forget behavior in production. Only acceptable for UI event handlers where the delegate signature requires <code>void</code>.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">3. What is a closure capture issue in loops?</div>
+    <div class="qa-a">
+<pre><code><span class="keyword">var</span> actions = <span class="keyword">new</span> <span class="type">List</span>&lt;<span class="type">Action</span>&gt;();
+<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)
+    actions.Add(() =&gt; Console.WriteLine(i));
+actions.ForEach(a =&gt; a()); <span class="comment">// Prints 5, 5, 5, 5, 5 (not 0,1,2,3,4!)</span>
+<span class="comment">// The lambda captures the VARIABLE i, not its value.</span>
+<span class="comment">// By the time lambdas execute, i is 5.</span>
+<span class="comment">// Fix: var copy = i; actions.Add(() => Console.WriteLine(copy));</span></code></pre>
+    </div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">4. What happens when you call <code>.Result</code> or <code>.Wait()</code> on a Task in ASP.NET?</div>
+    <div class="qa-a">In ASP.NET Framework (not Core), this causes a <strong>deadlock</strong>. The async method captures the <code>SynchronizationContext</code> and tries to resume on the original thread, but <code>.Wait()</code> is blocking that thread. In ASP.NET Core, there's no <code>SynchronizationContext</code>, so it won't deadlock, but it still blocks a thread pool thread, reducing scalability. Always use <code>await</code> instead. If you must call async from sync (rare), use <code>Task.Run(() => AsyncMethod()).GetAwaiter().GetResult()</code>.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">5. What is the difference between <code>throw</code> and <code>throw ex</code>?</div>
+    <div class="qa-a"><code>throw;</code> re-throws the current exception preserving the original stack trace. <code>throw ex;</code> resets the stack trace to the current line, losing the information about where the error actually occurred. Always use <code>throw;</code> in catch blocks. If you need to wrap: <code>throw new CustomException("message", ex);</code> preserves the inner exception.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">6. Can a struct have a default constructor in C#?</div>
+    <div class="qa-a">Since C# 10, yes. Before C# 10, structs always had an implicit parameterless constructor that zeroed all fields. With C# 10, you can define a custom default constructor, but be aware: <code>new MyStruct[10]</code> and <code>default(MyStruct)</code> still zero-initialize without calling your constructor. Only <code>new MyStruct()</code> calls it. This can lead to surprising bugs if your constructor sets non-zero defaults.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">7. What is the <code>volatile</code> keyword in C#?</div>
+    <div class="qa-a"><code>volatile</code> prevents compiler and CPU reordering of reads/writes to a field. Without it, the JIT compiler may cache a field value in a register, so other threads never see updates. <code>volatile</code> ensures each read fetches from memory and each write goes to memory. However, it does NOT provide atomicity for compound operations (<code>volatile int x; x++</code> is still not thread-safe). For atomic operations, use <code>Interlocked</code> class.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">8. What is the difference between <code>==</code> and <code>.Equals()</code> for reference types?</div>
+    <div class="qa-a"><code>==</code> can be overloaded (and is for <code>string</code> and records). <code>.Equals()</code> can be overridden. For most reference types, <code>==</code> compares references by default. <code>string</code> overloads <code>==</code> for content comparison. Records generate both for value-based equality. Gotcha: if the compile-time type is <code>object</code>, <code>==</code> always does reference comparison even if the runtime type overloads it. <code>.Equals()</code> is virtual and dispatches correctly.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">9. What happens if you modify a dictionary while iterating over it?</div>
+    <div class="qa-a"><code>InvalidOperationException: Collection was modified</code>. Even in single-threaded code. The enumerator checks a version counter on each MoveNext(). Solutions: iterate over a snapshot (<code>dict.ToList()</code>), collect keys to remove then remove after loop, or use <code>ConcurrentDictionary</code> which allows concurrent modification (but iteration may not see all changes).</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">10. What is the <code>stackalloc</code> keyword?</div>
+    <div class="qa-a"><code>stackalloc</code> allocates memory on the stack instead of the heap, avoiding GC pressure. Used with <code>Span&lt;T&gt;</code>: <code>Span&lt;byte&gt; buffer = stackalloc byte[256];</code>. The memory is automatically freed when the method returns. Danger: stack is limited (~1MB by default). Only use for small, known-size allocations in performance-critical code (parsing, serialization). Stack overflow if too large.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">11. Can you catch and rethrow an exception in a different thread?</div>
+    <div class="qa-a">Yes, using <code>ExceptionDispatchInfo.Capture(ex).Throw()</code>. This preserves the original stack trace, unlike <code>throw ex</code>. This is exactly how <code>await</code> works internally &mdash; the exception from the async state machine is captured and re-thrown on the awaiting thread with the original stack trace intact.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">12. Why should <code>GetHashCode()</code> be consistent with <code>Equals()</code>?</div>
+    <div class="qa-a">If two objects are equal (<code>Equals()</code> returns true), they must return the same hash code. If they don't, <code>Dictionary</code> and <code>HashSet</code> break: you can add an object but never find it because the lookup checks a different bucket. Records auto-generate consistent implementations. For classes: if you override <code>Equals</code>, always override <code>GetHashCode</code>. Use <code>HashCode.Combine(field1, field2)</code> for clean implementation.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">13. What are the pitfalls of <code>Task.WhenAll()</code>?</div>
+    <div class="qa-a"><code>WhenAll</code> waits for all tasks even if one fails early. Only the first exception is thrown when awaited; others are in <code>task.Exception.InnerExceptions</code>. If a task is never awaited, its exception is silently swallowed (unless you subscribe to <code>TaskScheduler.UnobservedTaskException</code>). Performance: if task 1 of 5 fails immediately, you still wait for the other 4. Consider <code>Task.WhenAll</code> with <code>CancellationToken</code> to cancel remaining work on first failure.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">14. What is the <code>required</code> modifier in C# 11?</div>
+    <div class="qa-a"><code>required</code> forces callers to set a property during initialization. <code>public required string Name { get; init; }</code>. Unlike constructor parameters, it works with object initializer syntax. The compiler enforces it at the call site. Useful for DTOs and configuration objects where you want required properties without constructor parameters. Works with <code>[SetsRequiredMembers]</code> attribute on constructors to opt out of the requirement.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">15. What is the difference between <code>Thread</code>, <code>Task</code>, and <code>ValueTask</code>?</div>
+    <div class="qa-a"><code>Thread</code>: OS-level thread (expensive: ~1MB stack, kernel context switch). <code>Task</code>: work item on the thread pool (cheap, pooled threads, always heap-allocated). <code>ValueTask</code>: struct wrapper that avoids heap allocation when the result is already available (synchronous completion). Use <code>Thread</code> almost never (only for dedicated long-running work). Use <code>Task</code> for general async. Use <code>ValueTask</code> for hot paths with frequent synchronous completion (cache hits).</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">16. How does <code>string</code> interning work in .NET?</div>
+    <div class="qa-a">The CLR maintains an intern pool of unique string instances. All string literals are automatically interned. Runtime-created strings are not interned unless you call <code>string.Intern()</code>. <code>string.IsInterned()</code> checks without adding. Interning saves memory when the same string appears many times (e.g., country codes in a million-row dataset) but the interned strings are never garbage collected, so interning dynamic user input leaks memory.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">17. What is the <code>lock</code> statement actually doing?</div>
+    <div class="qa-a"><code>lock(obj)</code> compiles to <code>Monitor.Enter(obj)</code> and <code>Monitor.Exit(obj)</code> in a try-finally. It's a mutual exclusion lock &mdash; only one thread can hold it. Lock on a dedicated <code>private readonly object _lock = new();</code> Never lock on <code>this</code> (external code could also lock on your instance), <code>typeof(T)</code> (shared across AppDomains), or strings (interned, shared globally).</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">18. What is the <code>CallerArgumentExpression</code> attribute?</div>
+    <div class="qa-a">C# 10 feature that captures the text of an argument at compile time. Used in <code>ArgumentNullException.ThrowIfNull(param)</code> &mdash; it automatically includes the parameter name in the error message without <code>nameof()</code>. Also useful for custom guard clauses and assertion libraries: <code>Guard.Against.Null(order.Customer)</code> can say "order.Customer was null" without the caller passing the name.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">19. What is the <code>init</code> accessor?</div>
+    <div class="qa-a"><code>init</code> (C# 9) makes a property settable only during object initialization (constructor or object initializer syntax). After construction, it's read-only. Enables immutable objects with object initializer syntax: <code>var order = new Order { Id = 1, Total = 99.99m };</code> You can't later do <code>order.Id = 2;</code>. Internally, <code>init</code> uses a special <code>modreq</code> that the compiler enforces.</div></div>
+
+    <div class="qa qa-tricky"><div class="qa-q">20. What happens when a finalizer throws an exception?</div>
+    <div class="qa-a">The exception is swallowed and the object is considered finalized. The runtime does not propagate finalizer exceptions &mdash; doing so would crash the finalizer thread and prevent other objects from being finalized. This is one reason why finalizers are discouraged: you can't reliably handle errors. Use <code>IDisposable</code>/<code>IAsyncDisposable</code> with <code>using</code> statements instead. If cleanup can fail, log the error in a <code>try-catch</code> inside <code>Dispose</code>.</div></div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 10: SCENARIO-BASED -->
+<!-- ============================================================ -->
+<div class="section" id="scenarios-20">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#127919;</span>
+    <h2>20 ASP.NET Core Scenario-Based Questions</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="qa"><div class="qa-q">1. Your API returns 500 errors under load but works fine with light traffic. How do you diagnose?</div>
+    <div class="qa-a">Likely causes: (1) Connection pool exhaustion &mdash; check <code>DbContext</code> disposal (are you using <code>using</code>/<code>Scoped</code> lifetime?), check <code>HttpClient</code> socket exhaustion (use <code>IHttpClientFactory</code>). (2) Thread pool starvation &mdash; check for <code>.Result</code>/<code>.Wait()</code> calls blocking async code. (3) Memory pressure &mdash; check for LOH allocations or missing <code>Dispose</code>. Diagnosis: Application Insights or Prometheus metrics for thread count, connection pool size, GC pauses. <code>dotnet-counters monitor</code> for live thread pool stats.</div></div>
+
+    <div class="qa"><div class="qa-q">2. Your EF Core query takes 10 seconds. How do you optimize it?</div>
+    <div class="qa-a">(1) Enable EF Core query logging to see generated SQL, (2) Run <code>EXPLAIN ANALYZE</code> on the SQL in the database, (3) Check for N+1 (add <code>.Include()</code>), (4) Add <code>.AsNoTracking()</code> for read-only, (5) Use projection (<code>.Select()</code>) instead of loading full entities, (6) Add database indexes on WHERE/ORDER BY columns, (7) Consider <code>.AsSplitQuery()</code> if multiple Includes cause cartesian explosion, (8) For complex reports, use raw SQL or Dapper.</div></div>
+
+    <div class="qa"><div class="qa-q">3. How do you implement multi-tenancy in ASP.NET Core?</div>
+    <div class="qa-a">Three strategies: (1) <strong>Separate databases</strong>: resolve connection string per tenant using middleware that reads tenant from JWT/subdomain/header, configure <code>DbContext</code> with tenant-specific connection. (2) <strong>Shared database, schema per tenant</strong>: set EF Core schema in <code>OnModelCreating</code>. (3) <strong>Shared schema, tenant column</strong>: add <code>TenantId</code> to all entities, use EF Core Global Query Filters to auto-filter. Inject <code>ITenantAccessor</code> (similar to <code>IHttpContextAccessor</code>) into DbContext.</div></div>
+
+    <div class="qa"><div class="qa-q">4. How do you handle file uploads safely?</div>
+    <div class="qa-a">(1) Set size limits: <code>options.MultipartBodyLengthLimit</code>, (2) Stream to storage (S3/Blob) without buffering entire file in memory: use <code>IFormFile.CopyToAsync(stream)</code>, (3) Validate file type by magic bytes (not extension), (4) Scan for viruses (ClamAV), (5) Store with random generated names (prevent path traversal), (6) Never serve user uploads from the same origin (use a separate CDN domain). For large files, use chunked uploads with resumability.</div></div>
+
+    <div class="qa"><div class="qa-q">5. How do you implement distributed caching with Redis?</div>
+    <div class="qa-a"><code>builder.Services.AddStackExchangeRedisCache(o => o.Configuration = "redis:6379")</code>. Inject <code>IDistributedCache</code>. Use cache-aside pattern: check cache, miss &rarr; fetch from DB, store in cache with TTL. For complex objects, use <code>IDistributedCache</code> with JSON serialization. For high-throughput, use <code>StackExchange.Redis</code> directly with <code>IConnectionMultiplexer</code>. Cache invalidation: event-driven (publish invalidation events via Redis pub/sub or Kafka) or TTL-based.</div></div>
+
+    <div class="qa"><div class="qa-q">6. Your deployed app has a memory leak. How do you find it?</div>
+    <div class="qa-a">(1) Enable heap dump on OOM or capture manually with <code>dotnet-dump collect</code>, (2) Analyze with <code>dotnet-dump analyze</code> or Visual Studio Diagnostics, (3) Look for growing object counts with <code>dotnet-counters monitor</code>, (4) Common causes: event handlers not unsubscribed, <code>IDisposable</code> not disposed, static collections growing, <code>HttpClient</code> instances not from factory, <code>CancellationTokenSource</code> not disposed, <code>Timer</code> instances not stopped. (5) Use <code>dotnet-gcdump</code> to see allocation patterns.</div></div>
+
+    <div class="qa"><div class="qa-q">7. How do you implement API rate limiting per customer tier?</div>
+    <div class="qa-a">Use .NET 7+ built-in rate limiting with custom <code>IRateLimiterPolicy</code>: extract customer tier from JWT claims, apply different limits (Free: 100/hour, Pro: 1000/hour, Enterprise: unlimited). Store counters in Redis for distributed scenarios. Return 429 with <code>Retry-After</code> header and <code>X-RateLimit-Remaining</code>. Consider sliding window algorithm for fairness. Implement a fallback queue for burst traffic from premium customers instead of hard rejection.</div></div>
+
+    <div class="qa"><div class="qa-q">8. How do you implement zero-downtime database migrations?</div>
+    <div class="qa-a">Expand-contract pattern: (1) Add new column (nullable), deploy. (2) Deploy code writing to both old and new columns, backfill. (3) Deploy code reading from new column. (4) Drop old column. Never rename or delete columns in one step. Generate idempotent migration scripts. Run migrations in a separate init container or CI/CD step, not in app startup. Test rollback scenarios. Use Flyway-style versioned migrations with checksums.</div></div>
+
+    <div class="qa"><div class="qa-q">9. Your microservice calls 5 downstream services. One is slow. What happens?</div>
+    <div class="qa-a">Without resilience: thread pool exhaustion &mdash; all threads wait for the slow service, new requests queue up, cascading failure. Solution: (1) Timeouts on every HTTP call (5 seconds max), (2) Circuit breaker with Polly (stop calling after 50% failure rate), (3) Bulkhead isolation (limit concurrent calls to each downstream service), (4) Fallback responses (cached data or degraded response), (5) Parallel calls with <code>Task.WhenAll()</code> + per-task CancellationToken. This is why resilience patterns are critical in microservices.</div></div>
+
+    <div class="qa"><div class="qa-q">10. How do you implement real-time notifications?</div>
+    <div class="qa-a">Three approaches: (1) <strong>SignalR</strong>: bidirectional, best for interactive features (chat, collaborative editing). Requires sticky sessions or Redis backplane for scale. (2) <strong>Server-Sent Events (SSE)</strong>: unidirectional server-to-client, simpler, works with HTTP/2. (3) <strong>WebSocket</strong>: raw bidirectional, most control but most work. For a notification system: use SignalR with Azure SignalR Service for managed scaling. Group connections by user ID. Send from any service via <code>IHubContext&lt;NotificationHub&gt;</code>.</div></div>
+
+    <div class="qa"><div class="qa-q">11. How do you handle long-running API requests?</div>
+    <div class="qa-a">Return 202 Accepted with a job ID and a location header for status polling: <code>Location: /api/jobs/{jobId}</code>. Process in background with <code>BackgroundService</code> or message queue. Client polls <code>GET /api/jobs/{jobId}</code> which returns progress (pending/processing/completed/failed). Alternative: use SignalR or SSE for push-based status updates. Store job status in Redis for fast reads. Set HTTP timeout higher on the client but always prefer async processing for anything over 5 seconds.</div></div>
+
+    <div class="qa"><div class="qa-q">12. How do you implement feature flags in .NET?</div>
+    <div class="qa-a"><code>Microsoft.FeatureManagement</code> library: <code>builder.Services.AddFeatureManagement()</code>. Define in <code>appsettings.json</code> or Azure App Configuration. Check with <code>IFeatureManager.IsEnabledAsync("NewCheckout")</code>. Supports: percentage rollout, targeting (specific users/groups), time window activation. For dynamic updates without restart, use Azure App Configuration with sentinel key. In controllers: <code>[FeatureGate("NewCheckout")]</code>. Always clean up old flags to prevent tech debt.</div></div>
+
+    <div class="qa"><div class="qa-q">13. How do you secure inter-service communication?</div>
+    <div class="qa-a">(1) mTLS: mutual TLS certificates between services (Kubernetes service mesh like Istio handles this automatically), (2) Internal JWT: API Gateway validates external JWT, issues internal tokens for downstream services, (3) API keys: simple but less secure, rotate regularly, (4) Network policies: Kubernetes network policies restrict which pods can talk to each other. Never rely solely on network isolation &mdash; defense in depth. Use Managed Identity in Azure to eliminate credentials.</div></div>
+
+    <div class="qa"><div class="qa-q">14. How do you implement graceful shutdown in ASP.NET Core?</div>
+    <div class="qa-a"><code>builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(30))</code>. On SIGTERM: (1) Stop accepting new requests, (2) Complete in-flight requests (up to timeout), (3) Run <code>IHostedService.StopAsync()</code> for background services, (4) Dispose DI container. In Kubernetes: set <code>terminationGracePeriodSeconds</code> &gt; shutdown timeout. Add <code>preStop</code> hook with sleep to allow load balancer to drain connections. Register <code>IHostApplicationLifetime.ApplicationStopping</code> for custom cleanup.</div></div>
+
+    <div class="qa"><div class="qa-q">15. How do you handle database connection pool exhaustion?</div>
+    <div class="qa-a">Symptoms: random timeouts, "timeout expired" exceptions. Causes: long-running queries holding connections, missing <code>using</code>/<code>Dispose</code> on DbContext, blocking async code (<code>.Result</code>). Fix: (1) Ensure DbContext is Scoped (disposed per request), (2) Set <code>Max Pool Size</code> and <code>Connection Lifetime</code> in connection string, (3) Add query timeouts (<code>CommandTimeout</code>), (4) Monitor with <code>dotnet-counters</code> or Application Insights custom metrics. Default pool size is 100; rarely need more &mdash; fix the leak instead.</div></div>
+
+    <div class="qa"><div class="qa-q">16. How do you implement audit logging?</div>
+    <div class="qa-a">Override <code>SaveChangesAsync()</code> in DbContext to intercept all entity changes. Log: who (from <code>IHttpContextAccessor</code> claims), what (entity type, changed properties), when (UTC timestamp), old values, new values. Store in a separate audit table or Elasticsearch. EF Core <code>ChangeTracker.Entries()</code> gives you entity state (Added/Modified/Deleted) and original/current values. Mask sensitive data (PII, card numbers). Make audit records immutable (append-only, no UPDATE/DELETE).</div></div>
+
+    <div class="qa"><div class="qa-q">17. How do you implement CQRS with separate read/write databases?</div>
+    <div class="qa-a">Write side: normalized PostgreSQL with EF Core for commands. Read side: denormalized views in Elasticsearch, Redis, or a read replica. Sync via: (1) Domain events published to Kafka/Service Bus, consumed by read-side projections, (2) Change Data Capture (Debezium), (3) Database triggers (less recommended). Accept eventual consistency on the read side. Client handles: after a write, either read from the write DB briefly (read-your-own-writes) or show optimistic UI.</div></div>
+
+    <div class="qa"><div class="qa-q">18. How do you handle bulk data imports (100K+ records)?</div>
+    <div class="qa-a">(1) Return 202 Accepted, process asynchronously, (2) Parse CSV/Excel with streaming (don't load entire file into memory), (3) Validate all records first, report errors, (4) Insert in batches: <code>EFCore.BulkExtensions</code> for EF Core or <code>SqlBulkCopy</code> for raw SQL, (5) Use Channels or a message queue for backpressure, (6) Provide progress endpoint with percentage complete, (7) Wrap in explicit transaction with savepoints for partial rollback.</div></div>
+
+    <div class="qa"><div class="qa-q">19. How do you manage secrets in a .NET microservices environment?</div>
+    <div class="qa-a">(1) Development: User Secrets (<code>dotnet user-secrets</code>), (2) Production: Azure Key Vault with Managed Identity (no credentials in code), (3) Kubernetes: Secrets mounted as environment variables (encrypted at rest), External Secrets Operator for syncing from Key Vault, (4) CI/CD: GitHub Secrets or Azure DevOps variable groups. Never commit secrets to source control. Use <code>.gitignore</code> for <code>appsettings.Development.json</code>. Rotate secrets regularly with zero-downtime using <code>IOptionsMonitor</code>.</div></div>
+
+    <div class="qa"><div class="qa-q">20. How do you implement a retry-with-exponential-backoff for external API calls?</div>
+    <div class="qa-a">Use Polly with <code>IHttpClientFactory</code>: exponential delay (500ms, 1s, 2s, 4s) with jitter to prevent thundering herd. Only retry on transient failures (5xx, network errors), never on 4xx (client errors). Add a circuit breaker that opens after 50% failures in a 30-second window, preventing requests to a service that's clearly down. Set an overall timeout as the outer policy. Log each retry attempt with the attempt number and delay. MassTransit provides retry policies for message consumers.</div></div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 11: SYSTEM DESIGN -->
+<!-- ============================================================ -->
+<div class="section" id="system-design">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#128736;</span>
+    <h2>10 System Design Questions</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+    <div class="qa"><div class="qa-q">1. Design an Online Banking System with .NET</div>
+    <div class="qa-a"><strong>Services:</strong> Auth Service (ASP.NET Core + Identity + JWT), Account Service (EF Core + PostgreSQL with pessimistic locking for transfers), Transaction Service (SAGA with MassTransit), Notification Service (Azure Service Bus + SendGrid/Twilio), Audit Service (append-only Elasticsearch). <strong>Key decisions:</strong> ACID for money movement, eventually consistent notifications, Redis for session/rate limiting, read replicas for dashboards, Polly circuit breakers on all inter-service calls, Azure Key Vault for secrets.</div></div>
+
+    <div class="qa"><div class="qa-q">2. Design an E-Commerce Platform</div>
+    <div class="qa-a"><strong>Architecture:</strong> Product Catalog (Elasticsearch for search + Redis cache), Cart (Redis with 24h TTL), Orders (CQRS with MediatR, PostgreSQL write, Elasticsearch read), Payments (Stripe integration with idempotency keys, Polly retry), Inventory (distributed locks with Redis, event-driven stock updates). <strong>Patterns:</strong> Outbox for reliable events, SAGA for order fulfillment, BFF pattern for mobile/web, CDN for images, Azure Front Door for global routing.</div></div>
+
+    <div class="qa"><div class="qa-q">3. Design a Real-Time Dashboard</div>
+    <div class="qa-a"><strong>Tech:</strong> ASP.NET Core API + SignalR for live updates. Data pipeline: services emit events to Kafka, a stream processor (Azure Stream Analytics or custom consumer) aggregates metrics, pushes to Redis, SignalR hub reads from Redis and pushes to connected clients. For historical data: Time-series DB (TimescaleDB) or pre-aggregated tables. Frontend: React with WebSocket connection. Scale: Azure SignalR Service (managed, handles millions of connections).</div></div>
+
+    <div class="qa"><div class="qa-q">4. Design a Multi-Tenant SaaS Platform</div>
+    <div class="qa-a"><strong>Tenancy model:</strong> Shared database with tenant_id column (cost-effective for many small tenants) + separate database option for enterprise tenants (isolation). <strong>Implementation:</strong> Middleware resolves tenant from subdomain/JWT. DbContext Global Query Filters enforce tenant isolation. Separate Redis key prefix per tenant. <strong>Billing:</strong> Usage metering via middleware, aggregated nightly. <strong>Scale:</strong> Horizontal scaling with stateless services, tenant-aware rate limiting.</div></div>
+
+    <div class="qa"><div class="qa-q">5. Design an Event-Driven Order Processing System</div>
+    <div class="qa-a"><strong>Flow:</strong> Order Created &rarr; Payment Processing &rarr; Inventory Reserved &rarr; Shipping Scheduled &rarr; Customer Notified. Each step is a separate service communicating via Azure Service Bus. <strong>SAGA:</strong> MassTransit state machine orchestrator. Compensations: Payment Refund, Inventory Release. <strong>Idempotency:</strong> Each message has a unique ID; consumers use <code>IdempotentConsumer</code> to prevent duplicate processing. <strong>DLQ:</strong> Failed messages go to dead-letter queue for manual review.</div></div>
+
+    <div class="qa"><div class="qa-q">6. Design a URL Shortener</div>
+    <div class="qa-a"><strong>Core:</strong> Base62 encode auto-increment ID or use pre-generated random keys in a key pool. <strong>Storage:</strong> PostgreSQL for URL mappings, Redis for hot URLs (80/20 rule). <strong>API:</strong> <code>POST /shorten</code> returns short URL, <code>GET /{code}</code> returns 301 redirect. <strong>Analytics:</strong> Click events &rarr; Kafka &rarr; ClickHouse for aggregation. <strong>Scale:</strong> Read-heavy (100:1), shard by hash of short code, CDN caching for popular links with TTL headers.</div></div>
+
+    <div class="qa"><div class="qa-q">7. Design a Notification Service</div>
+    <div class="qa-a"><strong>Components:</strong> API accepts notification requests, Priority Queue (Azure Service Bus with sessions), Dispatch Service routes to channels (Email/SendGrid, SMS/Twilio, Push/Firebase), Template Engine (Razor templates), Preference Service (user opt-in/out per channel). <strong>Patterns:</strong> Fan-out for push, batch for email digests (nightly aggregation), DLQ for permanently failed deliveries, dedup with Redis SET (message ID TTL). <strong>Scale:</strong> Multiple consumer instances competing on the queue.</div></div>
+
+    <div class="qa"><div class="qa-q">8. Design a Document Management System</div>
+    <div class="qa-a"><strong>Storage:</strong> Azure Blob Storage for files, PostgreSQL for metadata (name, path, permissions, version history, tags). <strong>Upload:</strong> Presigned URLs for direct-to-blob upload (no backend bottleneck). <strong>Versioning:</strong> Each save creates a new blob version; metadata tracks history. <strong>Search:</strong> Azure Cognitive Search for full-text search in documents. <strong>Permissions:</strong> ACL-based with inheritance (folder permissions cascade). <strong>Sharing:</strong> Time-limited share links with optional password.</div></div>
+
+    <div class="qa"><div class="qa-q">9. Design a Job Scheduling System</div>
+    <div class="qa-a"><strong>Requirements:</strong> One-time and recurring jobs, retry with exponential backoff, distributed execution. <strong>Design:</strong> Job metadata in PostgreSQL (cron expression, handler type, retry policy). Workers use distributed lock (Redis SETNX) to claim jobs. <strong>Tech:</strong> Hangfire (built-in dashboard, Redis backend) or Quartz.NET (more flexible scheduling). <strong>Challenges:</strong> Exactly-once via idempotency, clock skew (use UTC), worker failover (lock TTL), at-least-once delivery with DLQ.</div></div>
+
+    <div class="qa"><div class="qa-q">10. Design a CI/CD Platform for .NET Microservices</div>
+    <div class="qa-a"><strong>Pipeline:</strong> Git push &rarr; Build (dotnet build) &rarr; Unit tests &rarr; Integration tests (Testcontainers) &rarr; Static analysis (SonarQube) &rarr; Security scan (Snyk) &rarr; Docker build (multi-stage) &rarr; Push to ACR &rarr; Deploy to AKS (Helm chart). <strong>Environments:</strong> Dev (auto-deploy on merge to develop), Staging (manual approval), Prod (canary with 5% traffic then full rollout). <strong>Rollback:</strong> Previous Helm revision with <code>helm rollback</code>. <strong>Monitoring:</strong> Post-deploy health checks, error rate alerts via Application Insights.</div></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 12: SSE-LEVEL QUESTIONS -->
+<!-- ============================================================ -->
+<div class="section" id="sse-questions">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#11088;</span>
+    <h2>25 Senior Software Engineer (SSE) Level Questions</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="callout callout-info"><span class="callout-icon">&#128161;</span><div><strong>SSE-level interviews</strong> focus on architecture decisions, performance optimization, mentoring, cross-cutting concerns, and the ability to own complex subsystems end-to-end. You're expected to discuss trade-offs, not just solutions.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">1. How would you design the migration strategy for moving a monolithic .NET Framework 4.8 application to .NET 8 microservices?</div>
+    <div class="qa-a">Phase 1: <strong>Assess</strong> &mdash; inventory dependencies, identify bounded contexts with DDD event storming, catalog shared database tables. Use <code>.NET Upgrade Assistant</code> for compatibility analysis. Phase 2: <strong>Strangle</strong> &mdash; put YARP reverse proxy in front. Route new features to new .NET 8 microservices. Phase 3: <strong>Extract</strong> &mdash; start with the least-coupled module (e.g., notifications). Create anti-corruption layer between old and new. Phase 4: <strong>Data</strong> &mdash; split the shared database gradually (dual-write period, then cutover). Key: never big-bang rewrite. Each phase delivers value. Maintain feature parity, automate regression testing. Budget 12-18 months for a medium-sized monolith.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">2. How do you identify and fix performance bottlenecks in a high-traffic .NET API?</div>
+    <div class="qa-a">Systematic approach: (1) <strong>Measure</strong>: Application Insights or OpenTelemetry traces to identify slow endpoints. (2) <strong>Profile</strong>: <code>dotnet-trace</code> for CPU profiling, <code>dotnet-dump</code> for memory analysis. (3) <strong>Common fixes</strong>: add <code>AsNoTracking()</code> to read queries, add database indexes (check <code>EXPLAIN ANALYZE</code>), add response caching or Redis cache for hot data, use <code>Span&lt;T&gt;</code> for string parsing, reduce allocations in hot paths. (4) <strong>Architecture-level</strong>: read replicas, CQRS to separate read/write models, async processing for non-critical work. (5) <strong>Load test</strong>: k6 or NBomber to verify improvements under realistic traffic. Always profile before optimizing &mdash; intuition is often wrong about where the bottleneck is.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">3. How do you design a caching strategy for a complex e-commerce platform?</div>
+    <div class="qa-a"><strong>Multi-layer caching:</strong> (1) CDN: static assets, product images. (2) Output cache: product listing pages (5 min TTL). (3) Redis distributed cache: product details, user sessions, cart data. (4) In-memory cache: config, feature flags, reference data (using <code>IMemoryCache</code> with lazy initialization). <strong>Invalidation:</strong> Event-driven via Kafka (product updated event &rarr; invalidate Redis + purge CDN). Staggered TTLs to prevent cache stampede. Cache-aside pattern with fallback. <strong>Monitoring:</strong> Hit ratio, eviction rate, memory usage. Target: 90%+ hit ratio on product catalog. Handle thundering herd with distributed locking on cache miss.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">4. How do you conduct effective code reviews for your team?</div>
+    <div class="qa-a">Structure: (1) <strong>Automated first</strong>: linting, formatting (editorconfig), Roslyn analyzers, SonarQube in CI eliminate style debates. (2) <strong>Architecture check</strong>: does it follow our Clean Architecture boundaries? Is the right pattern used (CQRS for complex, simple service for CRUD)? (3) <strong>Correctness</strong>: edge cases, error handling, concurrency issues, SQL injection via raw queries. (4) <strong>Testability</strong>: are the tests testing behavior or implementation details? (5) <strong>Knowledge sharing</strong>: explain WHY, not just what to change. Link to docs. Ask questions instead of dictating. Keep reviews under 400 lines &mdash; larger PRs get superficial reviews. Approve with minor comments to avoid blocking.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">5. How do you implement observability in a distributed .NET system?</div>
+    <div class="qa-a"><strong>Three pillars:</strong> (1) <strong>Structured logging</strong>: Serilog with JSON output, correlation IDs via <code>Activity.Current.TraceId</code>, enrichers for user/tenant context. Ship to Elasticsearch or Loki. (2) <strong>Metrics</strong>: Micrometer + Prometheus. Custom metrics: orders/sec, payment failure rate, cache hit ratio. USE method for infrastructure, RED method for services. (3) <strong>Distributed tracing</strong>: OpenTelemetry with auto-instrumentation for ASP.NET Core, EF Core, HttpClient. Export to Jaeger or Grafana Tempo. Build dashboards with golden signals. Set alerts on SLOs (99.9% availability, p99 latency &lt; 500ms). Runbook for each alert.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">6. How do you handle data consistency across microservices?</div>
+    <div class="qa-a">Accept that strong consistency across services is impractical. Use eventual consistency with compensation. <strong>Patterns:</strong> (1) SAGA for multi-service transactions (orchestration with MassTransit state machines). (2) Outbox pattern for reliable event publishing (write event to outbox table in same DB transaction). (3) Idempotent consumers (deduplicate by message ID in Redis). (4) Read-your-own-writes: after a write command, query the write DB briefly instead of the read model. (5) Conflict resolution: last-writer-wins with vector clocks for collaborative data, or domain-specific merge logic. Document the consistency guarantees for each workflow.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">7. How do you design APIs for backward compatibility?</div>
+    <div class="qa-a">(1) <strong>Versioning</strong>: URL path versioning (<code>/api/v1/</code>) for clarity. (2) <strong>Additive changes only</strong>: add fields (never remove or rename). New optional parameters with defaults. (3) <strong>Deprecation</strong>: sunset headers, migration guides, usage metrics to know when it's safe to remove. (4) <strong>Contract testing</strong>: Pact tests ensure consumers aren't broken. (5) <strong>API gateway</strong>: transform requests between versions at the gateway. (6) <strong>OpenAPI schema</strong>: auto-generate SDKs, detect breaking changes in CI with spectral or optic. Plan for at least 2 versions running concurrently.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">8. How do you approach security hardening for a .NET application?</div>
+    <div class="qa-a"><strong>OWASP Top 10 checklist:</strong> (1) Input validation at every boundary (FluentValidation). (2) Parameterized queries (EF Core does this automatically, watch for raw SQL). (3) Output encoding (Razor auto-encodes, watch for <code>@Html.Raw()</code>). (4) Authentication: JWT with short expiry + refresh tokens. (5) Authorization: claims-based with policy enforcement. (6) HTTPS everywhere + HSTS headers. (7) CSP headers. (8) Rate limiting. (9) Dependency scanning (Snyk, Dependabot). (10) Secret rotation with Key Vault. <strong>Pen testing:</strong> OWASP ZAP in CI pipeline. <strong>Security reviews:</strong> for any code touching auth, payments, or PII.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">9. How do you mentor junior developers effectively?</div>
+    <div class="qa-a">(1) <strong>Pair programming</strong> on real features (not toy examples). Think aloud to model problem-solving. (2) <strong>Graduated autonomy</strong>: start with well-defined tasks, gradually give open-ended problems. (3) <strong>Code review as teaching</strong>: explain the why, link to resources, ask "what would happen if...?" questions. (4) <strong>Architecture discussions</strong>: include juniors in design reviews even if they're mostly listening. (5) <strong>Document patterns</strong>: ADRs (Architecture Decision Records) capture reasoning. (6) <strong>Safe failure</strong>: let them make recoverable mistakes (caught in code review or staging). (7) <strong>1-on-1s</strong>: understand their goals, unblock frustrations. The goal is to make yourself replaceable.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">10. How would you implement event sourcing in .NET?</div>
+    <div class="qa-a"><strong>Concept:</strong> Store events (OrderPlaced, ItemAdded, PaymentProcessed) instead of current state. Rebuild state by replaying events. <strong>Implementation:</strong> EventStoreDB or Marten (PostgreSQL-based). <strong>Projections:</strong> Read models built by consuming events. <strong>When to use:</strong> Audit-heavy domains (finance, healthcare), complex domain logic, need to answer "what happened and when?" <strong>When NOT to use:</strong> Simple CRUD, performance-critical reads (projection lag), team unfamiliar with the pattern. <strong>Snapshots:</strong> Periodically save state to avoid replaying thousands of events on load.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">11. How do you design database schemas for evolving requirements?</div>
+    <div class="qa-a">(1) Start normalized, denormalize only when performance demands it. (2) Use JSON columns for flexible attributes (EF Core supports <code>ToJson()</code> mapping). (3) Always add indexes for foreign keys and frequently filtered columns. (4) Migrations: expand-contract pattern for zero-downtime changes. (5) Soft deletes with Global Query Filters. (6) Audit columns (<code>CreatedAt</code>, <code>ModifiedAt</code>, <code>CreatedBy</code>) on every table via interceptor. (7) Version column for optimistic concurrency. (8) Avoid stored procedures for business logic (keep logic in the application layer for testability).</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">12. How do you handle cross-cutting concerns in a Clean Architecture?</div>
+    <div class="qa-a">Use MediatR pipeline behaviors for concerns that apply to all commands/queries: (1) <code>ValidationBehavior</code>: runs FluentValidation before handler. (2) <code>LoggingBehavior</code>: logs request/response with timing. (3) <code>TransactionBehavior</code>: wraps commands in DB transactions. (4) <code>CachingBehavior</code>: caches query results with TTL. (5) <code>AuthorizationBehavior</code>: checks permissions before handler. Each behavior implements <code>IPipelineBehavior&lt;TReq, TRes&gt;</code>. They compose like middleware but are type-safe and testable. Register with DI using open generics.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">13. When would you choose gRPC over REST for service communication?</div>
+    <div class="qa-a"><strong>Choose gRPC:</strong> Internal service-to-service calls (binary format, 5-10x faster), streaming scenarios (server/client/bidirectional), strongly-typed contracts (code generation from .proto files), polyglot environments. <strong>Choose REST:</strong> Public APIs (browser-compatible), simpler tooling (curl, Postman), third-party integrations, teams unfamiliar with gRPC. <strong>Hybrid:</strong> REST for public API at the edge, gRPC between internal services. ASP.NET Core supports both on the same server with different ports.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">14. How do you implement a robust CI/CD pipeline for .NET microservices?</div>
+    <div class="qa-a"><strong>Pipeline stages:</strong> (1) Build + unit tests (parallel per service), (2) Integration tests with Testcontainers, (3) Security scan (Snyk/Trivy), (4) Docker build (multi-stage), (5) Push to container registry, (6) Deploy to staging (Kubernetes), (7) E2E smoke tests, (8) Manual approval gate, (9) Canary deploy to production (5% traffic), (10) Monitor error rates, (11) Full rollout or rollback. <strong>Branch strategy:</strong> trunk-based development with short-lived feature branches. Every commit to main is deployable. Feature flags for incomplete features.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">15. How do you handle technical debt in a growing codebase?</div>
+    <div class="qa-a">(1) <strong>Track it</strong>: dedicated backlog with categories (architecture, testing, performance, security). (2) <strong>Budget</strong>: allocate 15-20% of each sprint to debt reduction. (3) <strong>Prioritize</strong>: focus on debt that slows down current work (boy scout rule: leave code cleaner than you found it). (4) <strong>Prevent</strong>: definition of done includes tests, ADR for architecture decisions, CI quality gates. (5) <strong>Measure</strong>: code coverage trends, cyclomatic complexity, build times, deployment frequency. (6) <strong>Communicate</strong>: explain to stakeholders in business terms ("this debt adds 2 days to every feature in this area").</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">16. How do you design for horizontal scalability?</div>
+    <div class="qa-a">(1) <strong>Stateless services</strong>: no server-side sessions (use Redis for session state). (2) <strong>Database</strong>: read replicas for query scaling, partitioning for write scaling. (3) <strong>Caching</strong>: Redis cluster for distributed caching, CDN for static content. (4) <strong>Async processing</strong>: message queues decouple producers from consumers, allowing independent scaling. (5) <strong>Kubernetes</strong>: HPA (Horizontal Pod Autoscaler) based on CPU/memory/custom metrics. (6) <strong>Database connections</strong>: PgBouncer or connection pooling to prevent connection exhaustion during scale-out.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">17. How do you approach database query optimization systematically?</div>
+    <div class="qa-a">(1) <strong>Identify</strong>: slow query log, Application Insights dependency tracking, EF Core logging. (2) <strong>Analyze</strong>: <code>EXPLAIN ANALYZE</code> to see execution plan &mdash; look for sequential scans, missing indexes, large sorts. (3) <strong>Fix</strong>: add composite indexes for common query patterns, use covering indexes for hot queries, replace <code>Include()</code> with <code>Select()</code> projection, add <code>AsSplitQuery()</code> for multi-include cartesian explosions. (4) <strong>Verify</strong>: compare execution time before/after with realistic data volume. (5) <strong>Monitor</strong>: automated alerts when query p95 exceeds threshold.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">18. How do you handle configuration management across environments?</div>
+    <div class="qa-a"><strong>Strategy:</strong> (1) Default config in <code>appsettings.json</code> (checked into git, non-sensitive). (2) Environment overrides in <code>appsettings.{Env}.json</code> (dev, staging, prod). (3) Secrets in Azure Key Vault (never in git). (4) Feature flags in Azure App Configuration (hot-reload without deploy). (5) Environment variables for infrastructure config (database URLs, external service endpoints). Use the Options pattern with validation: <code>.ValidateDataAnnotations().ValidateOnStart()</code> &mdash; fail fast on missing config instead of NullReferenceException at runtime.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">19. How do you design idempotent APIs?</div>
+    <div class="qa-a"><strong>Why:</strong> Network retries, queue redeliveries, and client-side retries mean your API will receive duplicate requests. <strong>Implementation:</strong> (1) Client sends <code>Idempotency-Key</code> header (UUID). (2) Server checks Redis: if key exists, return cached response. (3) If not, process request, store result with the key (TTL 24h), return result. (4) Natural idempotency: GET is always idempotent, PUT (upsert) is idempotent by definition, DELETE should be idempotent (delete non-existent = 204). (5) POST with idempotency key makes create operations safe to retry. Essential for payment processing.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">20. How do you approach breaking a monolithic database?</div>
+    <div class="qa-a">The hardest part of monolith-to-microservices. <strong>Steps:</strong> (1) Identify table ownership by bounded context. (2) Create views or APIs for cross-context reads. (3) <strong>Dual-write transition</strong>: new service writes to both old and new DB. Validate consistency. (4) <strong>Cutover reads</strong>: switch reads to new DB. (5) <strong>Stop writing to old DB</strong>. (6) Remove old tables. <strong>For shared tables</strong>: extract to a shared service or replicate via events. <strong>For joins across contexts</strong>: API composition or materialized views updated by events. Accept temporary data duplication as a migration cost.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">21. How do you implement distributed locking?</div>
+    <div class="qa-a"><strong>Redis distributed lock</strong> (Redlock algorithm): <code>SET key value NX PX 30000</code> (set if not exists, with 30s expiry). Libraries: <code>RedLock.net</code>. <strong>Use cases:</strong> preventing double-processing (payment dedup), leader election, rate limiting. <strong>Pitfalls:</strong> Always set TTL (prevent deadlock on crash). Use unique lock value (prevent accidental release by another process). Clock skew between Redis nodes can cause issues. <strong>Alternative:</strong> Database advisory locks for simpler cases.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">22. How do you approach API design for a public developer platform?</div>
+    <div class="qa-a">(1) <strong>API-first design</strong>: write OpenAPI spec before code, review with stakeholders. (2) <strong>RESTful conventions</strong>: consistent naming, standard HTTP status codes, HATEOAS links. (3) <strong>Pagination</strong>: cursor-based for large datasets (keyset), offset for small. (4) <strong>Filtering/sorting</strong>: standardized query parameters. (5) <strong>Versioning</strong>: URL path, 2 versions active, clear deprecation timeline. (6) <strong>Rate limiting</strong>: per-API-key with tiered limits. (7) <strong>SDK generation</strong>: auto-generate from OpenAPI. (8) <strong>Developer portal</strong>: interactive docs (Swagger UI), quickstart guides, changelog. (9) <strong>Webhook</strong> support for event-driven integrations.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">23. How do you implement a reliable messaging system?</div>
+    <div class="qa-a"><strong>At-least-once delivery</strong> with idempotent consumers. <strong>Implementation:</strong> (1) Outbox pattern: write event to DB in same transaction as business data. (2) Publisher reads outbox, publishes to Azure Service Bus/RabbitMQ, marks as published. (3) Consumer processes message idempotently (check processed message ID in Redis/DB). (4) Dead-letter queue for poison messages (max 5 retries with exponential backoff). (5) Monitoring: queue depth, processing latency, DLQ size with alerts. MassTransit provides all this out of the box with <code>.UseMessageRetry()</code> and <code>.UseInMemoryOutbox()</code>.</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">24. How do you handle backward-compatible database migrations in production?</div>
+    <div class="qa-a"><strong>Expand-contract pattern:</strong> Phase 1 (Expand): add new column, nullable. Deploy migration. Phase 2 (Migrate): deploy code that writes to both old and new columns. Backfill old rows. Phase 3 (Contract): deploy code that reads from new column only. Phase 4 (Cleanup): drop old column in next release. <strong>Rules:</strong> Never rename columns. Never change column types without a new column. Always make new columns nullable initially. Generate idempotent scripts. Test rollback. Run migrations separate from application deployment (init container or CI step).</div></div>
+
+    <div class="qa qa-sse"><div class="qa-q">25. How do you evaluate build-vs-buy decisions for infrastructure components?</div>
+    <div class="qa-a"><strong>Framework:</strong> (1) <strong>Core competency test</strong>: does this differentiate our product? If no, buy. (2) <strong>Total cost of ownership</strong>: license + integration + maintenance + training vs. build + test + operate + on-call. (3) <strong>Time to market</strong>: buying is faster but may need customization. (4) <strong>Lock-in risk</strong>: assess vendor stability, data portability, contract terms. (5) <strong>Team capability</strong>: do we have expertise to build and maintain? (6) <strong>Evaluation process</strong>: POC with real requirements, not just demos. Examples: always buy auth (Auth0/Azure AD B2C), buy search (Elasticsearch), consider building domain-specific workflow engines, always buy monitoring (Datadog/Application Insights).</div></div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 13: LEAD-LEVEL QUESTIONS -->
+<!-- ============================================================ -->
+<div class="section" id="lead-questions">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#128081;</span>
+    <h2>25 Tech Lead Level Questions</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="callout callout-info"><span class="callout-icon">&#128161;</span><div><strong>Lead-level interviews</strong> focus on technical strategy, organizational impact, people management, cross-team alignment, and the ability to make decisions with incomplete information. You're evaluated on judgment, communication, and systems thinking &mdash; not just technical depth.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">1. You're leading a team of 8 engineers. How do you balance feature delivery with technical quality?</div>
+    <div class="qa-a">Establish a sustainable rhythm: (1) <strong>70/20/10 rule</strong>: 70% features, 20% tech debt/improvements, 10% exploration/spikes. (2) <strong>Definition of Done</strong> includes tests, documentation, monitoring &mdash; quality is built in, not bolted on. (3) <strong>Architecture fitness functions</strong>: automated checks in CI (test coverage thresholds, dependency analysis, performance benchmarks). (4) <strong>Tech debt backlog</strong>: visible, prioritized by business impact. (5) <strong>Communicate in business language</strong>: "Addressing this database performance issue prevents the 3 customer-reported outages we had last quarter." (6) <strong>Lead by example</strong>: if the lead cuts corners, the team will too.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">2. How do you make technology selection decisions for a new project?</div>
+    <div class="qa-a"><strong>Decision framework:</strong> (1) <strong>Requirements</strong>: performance needs, team expertise, ecosystem maturity, vendor support. (2) <strong>Proof of Concept</strong>: 1-2 week spike with the actual requirements, not a toy example. (3) <strong>Reversibility</strong>: how costly to change this decision later? Database choice is hard to reverse; UI framework less so. (4) <strong>Team factor</strong>: a technology the team knows well at 80% fit beats a perfect technology no one knows. (5) <strong>Document</strong>: ADR (Architecture Decision Record) capturing context, options considered, decision, and consequences. (6) <strong>Community</strong>: Stack Overflow activity, GitHub stars trend, conference talks &mdash; is this technology growing or dying?</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">3. How do you handle a major production incident?</div>
+    <div class="qa-a"><strong>During:</strong> (1) Declare incident commander (usually the lead). (2) Communicate to stakeholders: what's happening, ETA, customer impact. (3) Assign roles: investigation, communication, customer support liaison. (4) Fix forward or rollback &mdash; whichever is faster. (5) Status page updates every 30 minutes. <strong>After:</strong> (1) Blameless post-mortem within 48 hours. (2) Timeline of events. (3) Root cause analysis (5 Whys). (4) Action items with owners and deadlines. (5) Classify: detection time, mitigation time, customer impact. (6) Share learnings broadly. (7) Implement preventive measures. The goal is learning, not blame.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">4. How do you drive adoption of new architectural patterns across a large team?</div>
+    <div class="qa-a">(1) <strong>Start with why</strong>: demonstrate the problem with current approach (metrics, pain points, developer survey). (2) <strong>Pilot project</strong>: implement in one non-critical service, document lessons learned. (3) <strong>Reference implementation</strong>: create a template/archetype project with best practices baked in. (4) <strong>Inner-source model</strong>: champions in each team who advocate and assist. (5) <strong>Documentation</strong>: ADRs, runbooks, video walkthroughs, lunch-and-learn sessions. (6) <strong>Gradual migration</strong>: new services use new pattern, retrofit existing services opportunistically. (7) <strong>Measure success</strong>: developer satisfaction, deployment frequency, incident rates.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">5. How do you design an engineering org structure for a microservices platform?</div>
+    <div class="qa-a"><strong>Conway's Law</strong>: org structure mirrors system architecture. (1) <strong>Domain-aligned teams</strong>: each team owns 2-3 microservices in a bounded context (Payments team, Orders team, Customer team). (2) <strong>Platform team</strong>: provides shared infrastructure (CI/CD, observability, service mesh, developer experience). (3) <strong>Team Topologies</strong>: stream-aligned teams (feature delivery), platform teams (infrastructure), enabling teams (coaching), complicated subsystem teams (ML, security). (4) <strong>Two-pizza rule</strong>: 5-8 engineers per team. (5) <strong>API contracts</strong> between teams, not code dependencies. Teams deploy independently.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">6. A key engineer wants to leave. How do you handle knowledge transfer?</div>
+    <div class="qa-a"><strong>Immediate:</strong> (1) Understand why &mdash; can you address the root cause? (2) Ask them to document the top 10 things only they know. (3) Pair programming sessions with remaining team members on critical systems. <strong>Long-term prevention:</strong> (1) Bus factor analysis: identify single points of knowledge, assign backup owners. (2) ADRs for all major decisions. (3) Runbooks for operational procedures. (4) Code ownership rotation. (5) Recorded design reviews. (6) Cross-training sprints. The goal: no single person should be irreplaceable for any system. The best time to fix bus factor is before someone leaves.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">7. How do you evaluate and hire senior engineers?</div>
+    <div class="qa-a"><strong>Process:</strong> (1) Resume screen: look for impact, not just technologies. (2) Technical phone screen: problem-solving approach, communication. (3) System design round: open-ended problem, evaluate trade-off thinking and asking clarifying questions. (4) Code review round: give them real code to review, evaluate what they catch and how they communicate feedback. (5) Team fit: not culture fit (that leads to homogeneity), but values alignment. <strong>Evaluate:</strong> Do they ask questions or make assumptions? Can they explain complex concepts simply? Do they consider operational concerns? Can they say "I don't know"? Senior engineers should elevate the team, not just write good code.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">8. How do you manage a platform that serves multiple product teams?</div>
+    <div class="qa-a">(1) <strong>Product mindset</strong>: treat internal platform as a product. Internal teams are your customers. (2) <strong>Self-service</strong>: templates, CLI tools, documentation that enables teams to work independently. (3) <strong>SLAs</strong>: define and publish platform reliability targets. (4) <strong>Intake process</strong>: prioritize requests by business impact, not who shouts loudest. (5) <strong>Inner-source</strong>: accept contributions from product teams with reviews. (6) <strong>Developer experience</strong>: golden path (paved road that's easiest to follow), measure developer satisfaction quarterly. (7) <strong>Avoid</strong>: becoming a bottleneck, building features product teams should own, mandating without enabling.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">9. How do you make decisions with incomplete information?</div>
+    <div class="qa-a"><strong>Framework:</strong> (1) <strong>Reversibility</strong>: Is this a one-way or two-way door? Two-way doors: decide fast, iterate. One-way doors: invest more in analysis. (2) <strong>Time-box research</strong>: "We'll spend 2 days investigating, then decide with what we have." (3) <strong>Minimum viable decision</strong>: what's the smallest commitment that lets us learn? (4) <strong>Document assumptions</strong>: "We're choosing X because we assume Y. If Y turns out to be wrong, we'll switch to Z." (5) <strong>Disagree and commit</strong>: after discussion, the team aligns even if not everyone agrees. Revisit decision when new data arrives. Perfect information never arrives &mdash; 70% confidence is often enough to move.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">10. How do you reduce deployment risk?</div>
+    <div class="qa-a">(1) <strong>Feature flags</strong>: deploy dark (code in production, feature disabled), enable gradually. (2) <strong>Canary deployments</strong>: 5% &rarr; 25% &rarr; 100% with automated rollback on error rate spike. (3) <strong>Blue-green</strong>: instant switch with instant rollback. (4) <strong>Automated testing</strong>: unit, integration, contract, E2E smoke tests in pipeline. (5) <strong>Preview environments</strong>: per-PR deployment for review. (6) <strong>Database migrations</strong>: backward-compatible, run separately from app deploy. (7) <strong>Observability</strong>: deployment markers on dashboards, automated alerts on error rate delta. (8) <strong>Deploy frequency</strong>: small, frequent deploys are safer than large, infrequent ones.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">11. How do you define and track engineering metrics?</div>
+    <div class="qa-a"><strong>DORA metrics:</strong> (1) Deployment frequency (target: daily). (2) Lead time for changes (commit to production, target: &lt;1 day). (3) Change failure rate (target: &lt;15%). (4) Mean time to recovery (target: &lt;1 hour). <strong>Additional:</strong> Sprint velocity trends, code review turnaround time, test coverage trends, developer satisfaction (quarterly survey), on-call burden distribution. <strong>Anti-patterns to avoid:</strong> Lines of code, number of commits, individual performance metrics. Metrics should drive team improvement, not individual evaluation. Share dashboards openly.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">12. How do you manage technical strategy for a 3-year horizon?</div>
+    <div class="qa-a">(1) <strong>Tech radar</strong>: categorize technologies as Adopt, Trial, Assess, Hold. Review quarterly. (2) <strong>Architecture roadmap</strong>: aligned with product roadmap. What capabilities do we need in 12-18 months? (3) <strong>Investment areas</strong>: developer productivity, scalability, security, reliability. (4) <strong>Build alignment</strong>: regular architecture guild meetings across teams. (5) <strong>Manage risk</strong>: diversify technology bets, avoid single-vendor lock-in for critical components. (6) <strong>Communication</strong>: quarterly tech strategy presentations to engineering and product leadership. Keep it grounded in customer outcomes, not technology for its own sake.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">13. How do you handle disagreements between team members on technical approach?</div>
+    <div class="qa-a">(1) <strong>Facilitate, don't dictate</strong>: ensure all perspectives are heard. (2) <strong>Data over opinions</strong>: run a time-boxed spike to gather evidence. (3) <strong>Decision criteria</strong>: agree on evaluation criteria before comparing options (performance, maintainability, team familiarity, time to implement). (4) <strong>Document the decision</strong>: ADR capturing all options, trade-offs, and the chosen path. (5) <strong>Disagree and commit</strong>: once decided, everyone aligns. Revisit if significant new information emerges. (6) <strong>Avoid HIPPO</strong>: "Highest Paid Person's Opinion" shouldn't automatically win.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">14. How do you plan for disaster recovery and business continuity?</div>
+    <div class="qa-a">(1) <strong>RTO/RPO</strong>: define Recovery Time Objective (how fast to recover) and Recovery Point Objective (how much data loss is acceptable) per service. (2) <strong>Multi-region</strong>: active-passive (cheaper) or active-active (faster failover). (3) <strong>Backup strategy</strong>: automated daily backups, tested monthly, stored cross-region. (4) <strong>Runbooks</strong>: step-by-step recovery procedures for each failure scenario. (5) <strong>Chaos engineering</strong>: regularly inject failures (kill pods, simulate region failure). (6) <strong>Game days</strong>: quarterly DR drills. The plan you don't test is the plan that fails. (7) <strong>Communication plan</strong>: who contacts customers, what's the status page process.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">15. How do you foster a culture of continuous improvement?</div>
+    <div class="qa-a">(1) <strong>Retrospectives</strong>: regular, action-oriented, follow up on previous actions. (2) <strong>Blameless post-mortems</strong>: every incident is a learning opportunity. (3) <strong>20% time</strong>: dedicated time for exploration, learning, and innovation. (4) <strong>Tech talks</strong>: team members present what they've learned. (5) <strong>Book clubs</strong>: read and discuss engineering books together. (6) <strong>Conference budget</strong>: per-person annual budget for conferences and training. (7) <strong>Celebrate improvements</strong>: publicly recognize when someone improves a process, reduces tech debt, or mentors effectively. (8) <strong>Psychological safety</strong>: it's safe to ask "dumb" questions, propose wild ideas, and admit mistakes.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">16. How do you handle legacy systems that "just work" but are unmaintainable?</div>
+    <div class="qa-a">(1) <strong>Risk assessment</strong>: bus factor (how many people understand it?), security vulnerabilities, scalability limits, cost of changes. (2) <strong>Business case</strong>: quantify the cost of status quo (developer hours spent working around issues, outage risk, opportunity cost). (3) <strong>Strangler fig</strong>: incrementally replace, not big-bang rewrite. (4) <strong>Add observability first</strong>: you can't migrate what you don't understand. (5) <strong>Characterization tests</strong>: wrap legacy system in tests that capture current behavior before changing anything. (6) <strong>Anti-corruption layer</strong>: new code talks to legacy via an adapter, not directly. (7) <strong>Timeline</strong>: realistic multi-quarter plan with intermediate milestones that deliver value.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">17. How do you approach cost optimization for cloud infrastructure?</div>
+    <div class="qa-a">(1) <strong>Right-sizing</strong>: analyze actual CPU/memory utilization, downsize over-provisioned instances. (2) <strong>Reserved instances</strong>: commit to 1-3 year reservations for stable workloads (up to 72% savings). (3) <strong>Spot/preemptible</strong>: for batch processing, CI/CD runners, non-critical workloads. (4) <strong>Auto-scaling</strong>: scale down during off-hours and weekends for non-production environments. (5) <strong>Storage tiering</strong>: move old data to cold/archive storage. (6) <strong>FinOps practice</strong>: tag all resources by team/project, monthly cost review, set budget alerts. (7) <strong>Architecture</strong>: serverless for spiky workloads, reduce inter-region data transfer.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">18. How do you manage on-call and incident response across the team?</div>
+    <div class="qa-a">(1) <strong>Fair rotation</strong>: weekly rotation, every engineer participates (including lead). (2) <strong>Runbooks</strong>: step-by-step guides for common alerts with decision trees. (3) <strong>Escalation policy</strong>: primary &rarr; secondary &rarr; lead &rarr; manager with auto-escalation timeouts. (4) <strong>Alert quality</strong>: every alert should be actionable. Review and tune monthly. Eliminate noisy alerts. (5) <strong>Compensation</strong>: on-call pay or compensatory time off. (6) <strong>Post-incident</strong>: blameless post-mortem, action items to prevent recurrence. (7) <strong>Burnout prevention</strong>: track per-person page volume, distribute evenly, adjust rotation if someone is disproportionately paged.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">19. How do you onboard new engineers effectively?</div>
+    <div class="qa-a">(1) <strong>Pre-day-1</strong>: accounts, hardware, welcome email with reading list. (2) <strong>Week 1</strong>: architecture overview, dev environment setup (scripted/automated), pair with buddy on a small PR. (3) <strong>Week 2-3</strong>: own a small feature end-to-end with buddy support. (4) <strong>Month 1</strong>: first on-call shadow rotation, attend design review. (5) <strong>30-60-90 plan</strong>: clear expectations and milestones. (6) <strong>Documentation</strong>: architecture diagrams, service catalog, ADRs, contribution guide. (7) <strong>Measure</strong>: time to first PR merged, time to first independent on-call. Target: productive in 2-3 weeks, fully autonomous in 2-3 months.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">20. How do you drive engineering standards across multiple teams?</div>
+    <div class="qa-a">(1) <strong>Engineering guild</strong>: cross-team working group that proposes and reviews standards. (2) <strong>Template repositories</strong>: starter projects with best practices baked in (logging, health checks, CI/CD, testing). (3) <strong>Automated enforcement</strong>: linting, architecture tests (ArchUnitNET), dependency analysis in CI. (4) <strong>Golden path</strong>: make the right thing the easy thing. (5) <strong>RFCs</strong>: for significant changes, write a proposal, gather feedback, iterate. (6) <strong>Inner-source</strong>: shared libraries that teams contribute to. (7) <strong>Influence, not mandate</strong>: if a standard isn't worth automating enforcement for, it's probably not worth having.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">21. How do you assess whether a team is healthy and performing well?</div>
+    <div class="qa-a"><strong>Signals:</strong> (1) <strong>Delivery</strong>: DORA metrics trending in the right direction. (2) <strong>Quality</strong>: declining incident rate, improving code review turnaround. (3) <strong>Morale</strong>: low attrition, high engagement survey scores, psychological safety (people challenge ideas openly). (4) <strong>Growth</strong>: team members are learning new skills, taking on new challenges, mentoring others. (5) <strong>Sustainability</strong>: reasonable work hours, on-call burden distributed evenly, tech debt is manageable. <strong>Red flags:</strong> hero culture (one person saving everything), blame culture, growing on-call burden, increasing deployment lead time.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">22. How do you make the case for a major infrastructure investment to leadership?</div>
+    <div class="qa-a">(1) <strong>Quantify the problem</strong>: "We had 15 incidents in Q1 costing ~$200K in engineering time and lost revenue." (2) <strong>Propose the solution</strong>: clear scope, timeline, and cost. (3) <strong>Show ROI</strong>: "This investment reduces incident frequency by 80%, saving ~$160K/quarter." (4) <strong>Risk of inaction</strong>: "Without this, we'll hit scaling limits in Q3, blocking the product launch." (5) <strong>Phased approach</strong>: break into incremental milestones that deliver value along the way. (6) <strong>Comparable examples</strong>: what did similar companies do? (7) <strong>Align with business goals</strong>: reliability, customer satisfaction, developer productivity &mdash; whichever resonates most with leadership.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">23. How do you manage a remote/distributed engineering team?</div>
+    <div class="qa-a">(1) <strong>Over-communicate</strong>: written communication by default, recorded meetings for async consumption. (2) <strong>Async-first</strong>: RFCs, PRs, Slack threads over synchronous meetings. (3) <strong>Overlap hours</strong>: establish 4-hour window where all time zones overlap for meetings and pairing. (4) <strong>Documentation</strong>: everything is written down (decisions, context, processes). (5) <strong>Social connection</strong>: virtual coffee chats, team offsites 2x/year, interest channels. (6) <strong>Trust</strong>: measure outcomes, not activity. (7) <strong>Tools</strong>: good video conferencing, collaborative whiteboarding (Miro), async standups (Slack/Notion).</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">24. How do you balance innovation with stability?</div>
+    <div class="qa-a">(1) <strong>Innovation sprints</strong>: quarterly hackathons or "innovation weeks" with demos. (2) <strong>Spike budget</strong>: 10% of sprint capacity for exploration and prototyping. (3) <strong>Boring technology club</strong>: Dan McKinley's principle &mdash; use proven tech for critical paths, save innovation budget for where it matters most. (4) <strong>Blast radius control</strong>: experiment in non-critical services or behind feature flags. (5) <strong>Pilot &rarr; scale</strong>: prove value in one service, then expand. (6) <strong>Kill criteria</strong>: define upfront what "failure" looks like for an experiment. Kill fast if it doesn't work. (7) <strong>Learning budget</strong>: each engineer gets time and budget for courses, conferences, and experimentation.</div></div>
+
+    <div class="qa qa-lead"><div class="qa-q">25. How do you prepare your team for a 10x scale increase?</div>
+    <div class="qa-a">(1) <strong>Load testing now</strong>: identify bottlenecks before they're urgent (k6, NBomber). (2) <strong>Database</strong>: read replicas, connection pooling, query optimization, consider sharding for writes. (3) <strong>Caching</strong>: multi-layer (CDN, Redis, in-memory) with proper invalidation. (4) <strong>Async processing</strong>: move non-critical work to message queues. (5) <strong>Auto-scaling</strong>: HPA in Kubernetes, right-size resource requests. (6) <strong>Observability</strong>: dashboards for saturation metrics, alerts at 70% capacity. (7) <strong>Architecture</strong>: identify single points of failure, add redundancy. (8) <strong>Team</strong>: hire ahead of the curve, build expertise in the bottleneck areas. (9) <strong>Game days</strong>: simulate 10x traffic and observe what breaks.</div></div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 14: MOCK INTERVIEWS -->
+<!-- ============================================================ -->
+<div class="section" id="mock-interviews">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#127908;</span>
+    <h2>3 Mock Interview Rounds</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="interview-round">
+      <div class="interview-round-header">Round 1: SE Level &mdash; C# &amp; ASP.NET Core (45 min)</div>
+      <div class="interview-exchange">
+        <div class="interviewer">Interviewer: Explain the difference between <code>async/await</code> and running code on a background thread with <code>Task.Run()</code>.</div>
+        <div class="candidate">Candidate: <code>async/await</code> is for I/O-bound work &mdash; when the method awaits a database call or HTTP request, the thread is released back to the thread pool while waiting for the I/O to complete. No thread is consumed during the wait. <code>Task.Run()</code> is for CPU-bound work &mdash; it queues a delegate to run on a thread pool thread, consuming a thread for the duration. In a web server, using <code>Task.Run()</code> for I/O just moves the blocking from one thread to another, which is worse because it adds thread pool overhead. Always use <code>async/await</code> with native async APIs for I/O (e.g., <code>HttpClient.GetAsync()</code>, <code>DbContext.SaveChangesAsync()</code>).</div>
+      </div>
+      <div class="interview-exchange">
+        <div class="interviewer">Interviewer: Write a method that processes a list of orders in parallel, calling an external payment API for each, with a maximum concurrency of 5 and a per-call timeout of 3 seconds.</div>
+        <div class="candidate">Candidate:
+<pre><code><span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">List</span>&lt;<span class="type">PaymentResult</span>&gt;&gt; ProcessPaymentsAsync(
+    <span class="type">List</span>&lt;<span class="type">Order</span>&gt; orders, <span class="type">CancellationToken</span> ct)
+{
+    <span class="keyword">var</span> semaphore = <span class="keyword">new</span> <span class="type">SemaphoreSlim</span>(<span class="number">5</span>);
+    <span class="keyword">var</span> tasks = orders.Select(<span class="keyword">async</span> order =&gt;
+    {
+        <span class="keyword">await</span> semaphore.WaitAsync(ct);
+        <span class="keyword">try</span>
+        {
+            <span class="keyword">using var</span> cts = <span class="type">CancellationTokenSource</span>
+                .CreateLinkedTokenSource(ct);
+            cts.CancelAfter(<span class="type">TimeSpan</span>.FromSeconds(<span class="number">3</span>));
+            <span class="keyword">return await</span> _paymentGateway.ChargeAsync(order, cts.Token);
+        }
+        <span class="keyword">finally</span>
+        {
+            semaphore.Release();
+        }
+    });
+    <span class="keyword">return</span> (<span class="keyword">await</span> <span class="type">Task</span>.WhenAll(tasks)).ToList();
+}</code></pre>
+I use <code>SemaphoreSlim</code> for concurrency control, linked <code>CancellationTokenSource</code> for per-call timeout that also respects the parent cancellation token, and <code>Task.WhenAll</code> to await all results.</div>
+      </div>
+    </div>
+
+    <div class="interview-round">
+      <div class="interview-round-header">Round 2: SSE Level &mdash; Architecture &amp; Design (45 min)</div>
+      <div class="interview-exchange">
+        <div class="interviewer">Interviewer: Design a real-time order tracking system for a food delivery platform. Walk me through the architecture.</div>
+        <div class="candidate">Candidate: I'd design this with five key services. <strong>Order Service</strong> manages the order lifecycle (created &rarr; accepted &rarr; preparing &rarr; picked up &rarr; delivered). <strong>Driver Service</strong> handles driver assignment and GPS location updates every 5 seconds. <strong>Tracking Service</strong> is the real-time component &mdash; it receives driver location events from Kafka, stores the latest position in Redis (key: <code>driver:{id}:location</code>, TTL 30s), and pushes updates to connected clients via SignalR groups (one group per active order). <strong>Notification Service</strong> sends push notifications at key state changes. <strong>API Gateway</strong> (YARP) handles routing and authentication.
+
+For the SignalR scaling challenge: I'd use Azure SignalR Service which manages the WebSocket connections and scales automatically. The Tracking Service publishes to Azure SignalR's Redis backplane, so any instance can push to any client's connection.
+
+For reliability: driver location updates go through Kafka (buffered), so if the Tracking Service is temporarily down, updates are replayed from the Kafka offset. The client app also has a polling fallback with 10-second interval if the WebSocket connection drops.</div>
+      </div>
+    </div>
+
+    <div class="interview-round">
+      <div class="interview-round-header">Round 3: Lead Level &mdash; Strategy &amp; Leadership (45 min)</div>
+      <div class="interview-exchange">
+        <div class="interviewer">Interviewer: You've inherited a team with high tech debt, declining test coverage, and increasing incident rate. What's your 90-day plan?</div>
+        <div class="candidate">Candidate: <strong>Days 1-30 (Understand):</strong> Listen more than talk. 1-on-1s with every team member: what's frustrating, what works, what would you change? Analyze DORA metrics, incident history, code hotspots (git log analysis). Shadow on-call rotation. Map the architecture and identify the highest-risk components. Don't change anything yet &mdash; earn trust first.
+
+<strong>Days 31-60 (Stabilize):</strong> Address the highest-impact incidents first. Implement runbooks for top 5 recurring alerts. Add critical path test coverage (not aiming for 80%, just covering the code that breaks most). Fix the most painful developer experience issues. Establish a "no new tech debt" rule for new code (code review standards, CI quality gates). Start a visible tech debt backlog.
+
+<strong>Days 61-90 (Build Momentum):</strong> Allocate 20% sprint capacity to tech debt reduction, targeting the areas that cause the most pain. Set up observability dashboards. Celebrate wins publicly. Share the incident trend graph showing improvement. Present a 6-month technical roadmap to leadership with the team's input. By now, the team should feel heard, the bleeding should be stopped, and there's a credible plan for improvement.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 15: 30-DAY ROADMAP -->
+<!-- ============================================================ -->
+<div class="section" id="roadmap">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="icon">&#128197;</span>
+    <h2>30-Day Preparation Roadmap</h2>
+    <span class="toggle">&#9660;</span>
+  </div>
+  <div class="section-body">
+
+    <div class="callout callout-info"><span class="callout-icon">&#128161;</span><div><strong>Daily Schedule</strong>: 2-3 hours/day. Morning = Theory + Code. Evening = Practice Questions + Mock.</div></div>
+
+    <h3>Week 1: C# &amp; .NET Foundations</h3>
+    <div class="roadmap-week"><h4>Day 1-2: C# Language Deep Dive</h4>
+      <ul><li>Value types vs reference types, boxing, structs vs classes</li><li>Records, pattern matching, nullable reference types</li><li>Practice: implement Money value object, payment hierarchy with pattern matching</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 3-4: async/await &amp; Collections</h4>
+      <ul><li>Task vs ValueTask, CancellationToken, SemaphoreSlim</li><li>LINQ deep dive: deferred execution, IQueryable vs IEnumerable</li><li>Practice: parallel API calls with throttling and timeout</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 5-6: ASP.NET Core Fundamentals</h4>
+      <ul><li>Middleware pipeline, DI service lifetimes</li><li>REST APIs: controllers, validation, exception handling</li><li>Practice: build a banking API with JWT auth</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 7: EF Core &amp; Database</h4>
+      <ul><li>Entity configuration, migrations, N+1 problem</li><li>AsNoTracking, projections, compiled queries</li><li>Review: 20 tricky C# questions</li></ul>
+    </div>
+
+    <h3>Week 2: Architecture &amp; Patterns</h3>
+    <div class="roadmap-week"><h4>Day 8-9: Clean Architecture &amp; CQRS</h4>
+      <ul><li>Clean Architecture layers, dependency rule</li><li>MediatR: commands, queries, pipeline behaviors</li><li>Practice: refactor a CRUD app to Clean Architecture</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 10-11: Microservices &amp; Resilience</h4>
+      <ul><li>API Gateway (YARP), service discovery, config management</li><li>Polly: retry, circuit breaker, timeout, bulkhead</li><li>Practice: implement resilient HTTP client</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 12-13: Event-Driven &amp; Messaging</h4>
+      <ul><li>SAGA pattern, Outbox pattern, MassTransit basics</li><li>Azure Service Bus / RabbitMQ</li><li>Practice: implement order processing saga</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 14: Testing</h4>
+      <ul><li>xUnit + Moq for unit tests</li><li>WebApplicationFactory for integration tests</li><li>Practice: test the API you've been building</li></ul>
+    </div>
+
+    <h3>Week 3: Cloud &amp; Advanced Topics</h3>
+    <div class="roadmap-week"><h4>Day 15-16: Azure Services</h4>
+      <ul><li>App Service, Functions, AKS, Key Vault</li><li>Application Insights, Azure Monitor</li><li>Practice: deploy to Azure with Docker</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 17-18: System Design Practice</h4>
+      <ul><li>Practice 3 system design problems (30 min each)</li><li>Focus: requirements, high-level design, trade-offs, data model</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 19-20: SSE Topics</h4>
+      <ul><li>Performance optimization, caching strategies</li><li>Observability, security hardening</li><li>Review: 25 SSE-level questions</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 21: Lead Topics (if applicable)</h4>
+      <ul><li>Technical strategy, team management, incident handling</li><li>Review: 25 Lead-level questions</li></ul>
+    </div>
+
+    <h3>Week 4: Review &amp; Mock Interviews</h3>
+    <div class="roadmap-week"><h4>Day 22-24: Mock Interviews</h4>
+      <ul><li>Day 22: SE-level mock (C# + ASP.NET Core coding)</li><li>Day 23: SSE-level mock (architecture + design)</li><li>Day 24: Full-stack mock (frontend + backend + system design)</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 25-27: Weak Areas</h4>
+      <ul><li>Revisit topics you struggled with in mocks</li><li>Practice coding problems in those areas</li><li>Review scenario-based questions</li></ul>
+    </div>
+    <div class="roadmap-week"><h4>Day 28-29: Final Review</h4>
+      <ul><li>Review all 50 SE questions + 20 tricky questions</li><li>Review all scenario-based questions</li><li>Prepare behavioral STAR stories</li></ul>
+    </div>
+    <div class="roadmap-week" style="border-left-color: var(--success);"><h4>Day 30: Final Preparation</h4>
+      <ul><li>Light review only &mdash; don't cram</li><li>Prepare your introduction and questions for interviewer</li><li>Get good sleep. You're ready!</li></ul>
+    </div>
+
+  </div>
+</div>
+
+</div> <!-- /container -->
+
+<div style="text-align:center; padding:40px 20px; color:var(--text-dim); border-top:1px solid var(--border); margin-top:40px;">
+  <p style="font-size:1.1em; margin-bottom:8px;">.NET Full-Stack Interview Mastery Guide</p>
+  <p>SE, SSE &amp; Lead Level Preparation &bull; Keep learning, keep building</p>
+</div>
+
+<script>
+function toggleSection(header) { header.parentElement.classList.toggle('open'); updateProgress(); }
+function toggleTopic(title) { title.parentElement.classList.toggle('open'); }
+function toggleAll(open) {
+  document.querySelectorAll('.section').forEach(s => s.classList.toggle('open', open));
+  document.querySelectorAll('.topic').forEach(t => t.classList.toggle('open', open));
+  updateProgress();
+}
+function updateProgress() {
+  const sections = document.querySelectorAll('.section');
+  const opened = document.querySelectorAll('.section.open');
+  const pct = Math.round((opened.length / sections.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = opened.length + ' of ' + sections.length + ' sections studied';
+}
+function filterSections(query) {
+  if (!query) { document.querySelectorAll('.section, .topic, .qa').forEach(el => el.style.display = ''); return; }
+  const q = query.toLowerCase();
+  document.querySelectorAll('.section').forEach(section => {
+    const match = section.textContent.toLowerCase().includes(q);
+    section.style.display = match ? '' : 'none';
+    if (match) section.classList.add('open');
+  });
+  document.querySelectorAll('.topic').forEach(topic => {
+    if (topic.textContent.toLowerCase().includes(q)) topic.classList.add('open');
+  });
+}
+document.querySelectorAll('.nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) { target.classList.add('open'); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); updateProgress(); }
+  });
+});
+updateProgress();
+</script>
+</body>
+</html>
+
+</body>
+</html>

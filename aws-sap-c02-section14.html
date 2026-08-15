@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section14</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 14 – Practice Questions | SAP-C02</title>
+<style>
+  :root{--orange:#FF9900;--dark:#232F3E;--blue:#1A73E8;--green:#2E7D32;--red:#C62828;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1100px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  p{color:#c9d1d9;margin:8px 0;font-size:0.95em;}
+  ul,ol{color:#c9d1d9;margin:8px 0 8px 22px;}
+  li{margin:5px 0;font-size:0.93em;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .difficulty-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.75em;font-weight:700;margin-bottom:12px;}
+  .easy{background:rgba(46,125,50,0.25);color:#81c784;border:1px solid rgba(46,125,50,0.4);}
+  .medium{background:rgba(255,153,0,0.15);color:#FFB74D;border:1px solid rgba(255,153,0,0.4);}
+  .hard{background:rgba(198,40,40,0.2);color:#EF9A9A;border:1px solid rgba(198,40,40,0.4);}
+  .professional{background:rgba(106,27,154,0.2);color:#CE93D8;border:1px solid rgba(106,27,154,0.4);}
+  .question-card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:24px;margin:24px 0;}
+  .question-card h4{color:#e6edf3;font-size:1.05em;margin-bottom:14px;line-height:1.5;}
+  .options{list-style:none;margin:0 0 16px 0;}
+  .options li{padding:10px 14px;border:1px solid #30363d;border-radius:6px;margin:6px 0;cursor:default;color:#c9d1d9;font-size:0.9em;}
+  .options li.correct{background:rgba(46,125,50,0.15);border-color:rgba(46,125,50,0.5);color:#81c784;}
+  .options li.wrong{background:rgba(198,40,40,0.08);border-color:rgba(198,40,40,0.3);color:#EF9A9A;}
+  .answer-block{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:16px;margin-top:12px;}
+  .answer-block strong{color:var(--orange);}
+  .answer-block p{font-size:0.88em;color:#8b949e;}
+  .answer-block .correct-label{color:#81c784;font-weight:700;}
+  .filter-bar{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px 20px;margin:20px 0;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .filter-bar span{color:#8b949e;font-size:0.85em;}
+  .qnum{color:#8b949e;font-size:0.8em;font-weight:700;margin-bottom:4px;}
+  .domain-label{font-size:0.78em;color:#58a6ff;margin-bottom:6px;}
+  details summary{cursor:pointer;color:var(--orange);font-size:0.9em;font-weight:600;padding:8px 0;}
+  details summary:hover{color:#FFB74D;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 14</div>
+  <h1>300 Practice Questions</h1>
+  <p>Scenario-based SAP-C02 questions organized by domain and difficulty with detailed explanations</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#easy">Easy (Q1–60)</a>
+  <a href="#medium">Medium (Q61–150)</a>
+  <a href="#hard">Hard (Q151–240)</a>
+  <a href="#professional">Professional (Q241–300)</a>
+  <a href="aws-sap-c02-section15.html">Section 15 →</a>
+</nav>
+<div class="main">
+
+  <div class="filter-bar">
+    <span>Questions: 300 total</span>
+    <span class="easy">Easy: 60</span>
+    <span class="medium">Medium: 90</span>
+    <span class="hard">Hard: 90</span>
+    <span class="professional">Professional: 60</span>
+  </div>
+
+  <h2 id="easy">Easy Questions (Q1–60)</h2>
+  <p><em>Core knowledge, single-service recall, foundational concepts</em></p>
+
+  <!-- Q1 -->
+  <div class="question-card">
+    <div class="qnum">Q1</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 1: Organizational Complexity</div>
+    <h4>A company wants to apply a policy that prevents any IAM user in member accounts from disabling AWS CloudTrail. Which AWS service feature should the Solutions Architect use?</h4>
+    <ul class="options">
+      <li class="correct">A) Service Control Policies (SCPs) in AWS Organizations</li>
+      <li class="wrong">B) IAM Permission Boundaries on each user</li>
+      <li class="wrong">C) AWS Config rules with auto-remediation</li>
+      <li class="wrong">D) AWS CloudTrail log file integrity validation</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A</p>
+      <p><strong>Why A:</strong> SCPs in Organizations apply to all accounts in the OU/Organization. A Deny SCP on cloudtrail:StopLogging applies organization-wide and cannot be overridden by local IAM policies.</p>
+      <p><strong>Why B is wrong:</strong> Permission Boundaries must be applied per user — not scalable across hundreds of accounts.</p>
+      <p><strong>Why C is wrong:</strong> Config rules detect violations but don't prevent them in real-time.</p>
+      <p><strong>Why D is wrong:</strong> Log integrity validation detects tampering after the fact — it doesn't prevent disabling.</p>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card">
+    <div class="qnum">Q2</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 2: New Solutions — Networking</div>
+    <h4>A company's Lambda function in a private subnet needs to access Amazon S3 without traffic traversing the internet. What is the MOST cost-effective solution?</h4>
+    <ul class="options">
+      <li class="wrong">A) Deploy a NAT Gateway in the public subnet</li>
+      <li class="correct">B) Create a Gateway VPC Endpoint for S3</li>
+      <li class="wrong">C) Create an Interface VPC Endpoint for S3</li>
+      <li class="wrong">D) Configure a VPN connection to S3</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> Gateway VPC Endpoints for S3 and DynamoDB are FREE — no hourly charge and no per-GB charge. Traffic stays in the AWS network.</p>
+      <p><strong>Why A is wrong:</strong> NAT Gateway costs $0.045/hour + $0.045/GB. Very expensive for S3 traffic.</p>
+      <p><strong>Why C is wrong:</strong> Interface Endpoint for S3 exists but has an hourly cost ($0.01/hour per AZ). Gateway Endpoint is free.</p>
+      <p><strong>Why D is wrong:</strong> VPN to S3 doesn't make architectural sense — S3 is not on-prem.</p>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card">
+    <div class="qnum">Q3</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 2: New Solutions — Storage</div>
+    <h4>A solutions architect needs to choose an S3 storage class for data that is accessed unpredictably — sometimes daily, sometimes not for months. The company wants to minimize cost without managing lifecycle policies manually. Which storage class should be used?</h4>
+    <ul class="options">
+      <li class="wrong">A) S3 Standard</li>
+      <li class="correct">B) S3 Intelligent-Tiering</li>
+      <li class="wrong">C) S3 One Zone-IA</li>
+      <li class="wrong">D) S3 Glacier Instant Retrieval</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> S3 Intelligent-Tiering automatically moves objects between access tiers (Frequent, Infrequent, Archive Instant) based on access patterns. No retrieval fees. Perfect for unknown/unpredictable access.</p>
+      <p><strong>Why A is wrong:</strong> Standard doesn't automatically tier down — more expensive for rarely-accessed data.</p>
+      <p><strong>Why C is wrong:</strong> One Zone-IA is for infrequently accessed but predictably so, with known lower resilience.</p>
+      <p><strong>Why D is wrong:</strong> Glacier Instant Retrieval is for data accessed once a quarter or less.</p>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card">
+    <div class="qnum">Q4</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 2: New Solutions — Databases</div>
+    <h4>A company needs a managed relational database with automatic failover across Availability Zones. If the primary instance fails, the database should automatically recover with minimal downtime. Which solution provides this?</h4>
+    <ul class="options">
+      <li class="wrong">A) RDS with Read Replicas in another AZ</li>
+      <li class="correct">B) RDS with Multi-AZ deployment</li>
+      <li class="wrong">C) RDS with automatic backups enabled</li>
+      <li class="wrong">D) RDS with manual snapshot replication to another AZ</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> RDS Multi-AZ maintains a synchronous standby replica in a different AZ. Failover is automatic (~60-120 seconds) via DNS endpoint switch.</p>
+      <p><strong>Why A is wrong:</strong> Read Replicas use ASYNC replication and do NOT automatically failover. Manual promotion is required.</p>
+      <p><strong>Why C is wrong:</strong> Backups help with point-in-time recovery but don't provide automatic failover.</p>
+      <p><strong>Why D is wrong:</strong> Manual snapshots require manual restore — no automatic failover.</p>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card">
+    <div class="qnum">Q5</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 4: Migration</div>
+    <h4>A company wants to migrate an Oracle database to Amazon Aurora PostgreSQL. The schema needs to be converted. Which combination of AWS services should be used?</h4>
+    <ul class="options">
+      <li class="wrong">A) AWS MGN and AWS DataSync</li>
+      <li class="correct">B) AWS Schema Conversion Tool (SCT) and AWS Database Migration Service (DMS)</li>
+      <li class="wrong">C) AWS DMS only — it handles both schema and data migration</li>
+      <li class="wrong">D) AWS Snowball and DMS</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> For heterogeneous migrations (different DB engines), SCT converts the schema/stored procedures first. DMS then migrates the data (Full Load + CDC for minimal downtime).</p>
+      <p><strong>Why C is wrong:</strong> DMS only migrates data — it does NOT convert schemas between different database engines.</p>
+      <p><strong>Why A is wrong:</strong> MGN is for server migrations (EC2), not database schema/data migration.</p>
+      <p><strong>Why D is wrong:</strong> Snowball is for large-scale data transfer to S3, not database migration to Aurora.</p>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card">
+    <div class="qnum">Q6</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 2: Security</div>
+    <h4>A company wants to detect unauthorized API calls and potentially malicious activity in their AWS account by analyzing VPC Flow Logs, CloudTrail logs, and DNS logs. Which AWS service should they enable?</h4>
+    <ul class="options">
+      <li class="wrong">A) AWS Macie</li>
+      <li class="wrong">B) AWS Inspector</li>
+      <li class="correct">C) Amazon GuardDuty</li>
+      <li class="wrong">D) AWS Security Hub</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: C</p>
+      <p><strong>Why C:</strong> GuardDuty is a threat detection service that continuously analyzes CloudTrail, VPC Flow Logs, and DNS logs using ML to identify threats like crypto mining, compromised credentials, and lateral movement.</p>
+      <p><strong>Why A is wrong:</strong> Macie finds sensitive data (PII) in S3 — it doesn't analyze VPC Flow Logs or CloudTrail for threats.</p>
+      <p><strong>Why B is wrong:</strong> Inspector assesses EC2/ECR for vulnerabilities (CVEs) — it doesn't detect real-time threats.</p>
+      <p><strong>Why D is wrong:</strong> Security Hub aggregates findings from GuardDuty and other services — but doesn't detect threats itself.</p>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card">
+    <div class="qnum">Q7</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 2: Compute</div>
+    <h4>A company is running a web application on a fleet of EC2 instances behind an Application Load Balancer. They want the number of instances to automatically increase when CPU utilization exceeds 70%. Which Auto Scaling policy type should they use?</h4>
+    <ul class="options">
+      <li class="wrong">A) Scheduled Scaling</li>
+      <li class="wrong">B) Step Scaling</li>
+      <li class="correct">C) Target Tracking Scaling</li>
+      <li class="wrong">D) Simple Scaling</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: C</p>
+      <p><strong>Why C:</strong> Target Tracking Scaling automatically adjusts capacity to maintain a specified metric at a target value (e.g., CPU at 70%). AWS manages scaling up and down automatically.</p>
+      <p><strong>Why A is wrong:</strong> Scheduled Scaling adjusts at fixed times — not based on real-time CPU metrics.</p>
+      <p><strong>Why B is wrong:</strong> Step Scaling requires manual definition of step adjustments — more complex configuration. Target Tracking is simpler and recommended by AWS for metric-based scaling.</p>
+      <p><strong>Why D is wrong:</strong> Simple Scaling is the oldest type — it adds/removes one fixed amount and has a cooldown period. Target Tracking is more responsive.</p>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-card">
+    <div class="qnum">Q8</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 3: Continuous Improvement</div>
+    <h4>A company needs to ensure compliance — every EC2 instance must have specific tags (CostCenter, Environment). When a non-compliant instance is detected, it should be automatically tagged. Which AWS service combination achieves this?</h4>
+    <ul class="options">
+      <li class="correct">A) AWS Config with a custom Config rule and auto-remediation using SSM Automation</li>
+      <li class="wrong">B) AWS CloudTrail with a CloudWatch Alarm and Lambda function</li>
+      <li class="wrong">C) AWS Trusted Advisor with automated email alerts</li>
+      <li class="wrong">D) AWS Systems Manager Patch Manager</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A</p>
+      <p><strong>Why A:</strong> AWS Config's required-tags rule detects non-compliant resources. Auto-remediation via SSM Automation can automatically apply tags to the non-compliant instance.</p>
+      <p><strong>Why B is wrong:</strong> CloudTrail + CloudWatch can detect the event but the combination is more complex than using Config's built-in remediation feature.</p>
+      <p><strong>Why C is wrong:</strong> Trusted Advisor checks best practices but doesn't auto-remediate tag compliance.</p>
+      <p><strong>Why D is wrong:</strong> Patch Manager is for OS patching — not tag compliance.</p>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-card">
+    <div class="qnum">Q9</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 2: Networking</div>
+    <h4>A company has 20 VPCs across different AWS accounts and needs them to communicate with each other. New VPCs are being added monthly. Which solution provides the MOST scalable hub-and-spoke connectivity model?</h4>
+    <ul class="options">
+      <li class="wrong">A) VPC Peering connections between all VPCs</li>
+      <li class="correct">B) AWS Transit Gateway</li>
+      <li class="wrong">C) AWS PrivateLink</li>
+      <li class="wrong">D) AWS Direct Connect with a VGW in each VPC</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> Transit Gateway acts as a central hub. Each VPC connects once to TGW — no direct peering between VPCs needed. Adding a new VPC requires only one TGW attachment. Supports transitive routing.</p>
+      <p><strong>Why A is wrong:</strong> VPC Peering is non-transitive. 20 VPCs need (20×19/2)=190 peering connections — not scalable. Requires route table updates for each pairing.</p>
+      <p><strong>Why C is wrong:</strong> PrivateLink exposes specific services, not general VPC-to-VPC connectivity.</p>
+      <p><strong>Why D is wrong:</strong> Direct Connect is for on-prem to AWS — not VPC-to-VPC connectivity.</p>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question-card">
+    <div class="qnum">Q10</div>
+    <div class="difficulty-badge easy">Easy</div>
+    <div class="domain-label">Domain 2: Compute</div>
+    <h4>An application has spiky, unpredictable traffic. Sometimes it processes 1,000 requests/minute, other times 0. The company wants the LOWEST cost with NO idle capacity charges. Which compute option is best?</h4>
+    <ul class="options">
+      <li class="wrong">A) EC2 Reserved Instances</li>
+      <li class="wrong">B) EC2 On-Demand with Auto Scaling</li>
+      <li class="correct">C) AWS Lambda</li>
+      <li class="wrong">D) Amazon ECS with Fargate (always-on)</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: C</p>
+      <p><strong>Why C:</strong> Lambda charges only for compute time during invocations (milliseconds). Zero cost when idle. Perfect for spiky/unpredictable workloads. 1M free requests/month.</p>
+      <p><strong>Why A is wrong:</strong> Reserved Instances pay 24/7 regardless of traffic — wasteful for variable workloads.</p>
+      <p><strong>Why B is wrong:</strong> Auto Scaling reduces waste but minimum capacity still runs 24/7. Lambda is cheaper for spiky patterns.</p>
+      <p><strong>Why D is wrong:</strong> Fargate always-on charges for CPU/memory at all times — not ideal when traffic can be 0.</p>
+    </div>
+  </div>
+
+  <h2 id="medium">Medium Questions (Q61–150)</h2>
+  <p><em>Scenario-based, multi-service selection, constraint-driven architecture decisions</em></p>
+
+  <!-- Q61 -->
+  <div class="question-card">
+    <div class="qnum">Q61</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 1: Organizational Complexity</div>
+    <h4>A company has a multi-account AWS Organizations structure. The security team wants to ensure CloudTrail is enabled in all accounts and cannot be disabled. They also want all CloudTrail logs centralized in a dedicated Log Archive account. What is the MOST efficient approach?</h4>
+    <ul class="options">
+      <li class="wrong">A) Enable CloudTrail in each account manually and ship logs via Kinesis Firehose to the Log Archive account</li>
+      <li class="correct">B) Create an Organization Trail from the management account, with log delivery to an S3 bucket in the Log Archive account. Apply an SCP that denies cloudtrail:DeleteTrail and cloudtrail:StopLogging to all member accounts</li>
+      <li class="wrong">C) Use AWS Control Tower to manage CloudTrail independently per account</li>
+      <li class="wrong">D) Use AWS Config to enable CloudTrail with auto-remediation in each account</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> Organization Trail automatically logs all accounts — no per-account setup. Logs go to centralized S3. SCP prevents anyone from stopping logging. This is the AWS recommended multi-account logging pattern.</p>
+      <p><strong>Why A is wrong:</strong> Per-account CloudTrail configuration doesn't prevent admins from disabling it in their own accounts.</p>
+      <p><strong>Why C is wrong:</strong> Control Tower does set up CloudTrail, but the question asks for enforcement via prevention — SCPs are the mechanism.</p>
+      <p><strong>Why D is wrong:</strong> Config auto-remediation re-enables CloudTrail after it's been disabled — there's a window of non-compliance. SCP prevents disable in the first place.</p>
+    </div>
+  </div>
+
+  <!-- Q62 -->
+  <div class="question-card">
+    <div class="qnum">Q62</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 2: New Solutions — DR</div>
+    <h4>A financial services company has an RTO of 15 minutes and an RPO of 1 minute for their core banking application hosted in us-east-1. They need a DR strategy to eu-west-1. What should the architect recommend? (Select TWO)</h4>
+    <ul class="options">
+      <li class="correct">A) Deploy Aurora Global Database with the primary in us-east-1 and a read replica cluster in eu-west-1</li>
+      <li class="wrong">B) Enable daily RDS snapshots with cross-region copy to eu-west-1</li>
+      <li class="correct">C) Maintain a warm standby of ECS Fargate tasks at 25% capacity in eu-west-1, configured with Route 53 Failover routing</li>
+      <li class="wrong">D) Use Backup &amp; Restore with AMIs copied to eu-west-1</li>
+      <li class="wrong">E) Deploy DynamoDB with a Read Replica in eu-west-1</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A and C</p>
+      <p><strong>Why A:</strong> Aurora Global has ~&lt;1 sec replication lag (RPO &lt;1 min satisfied). Can be promoted in &lt;1 minute (contributes to RTO).</p>
+      <p><strong>Why C:</strong> Warm Standby with 25% capacity + Route 53 Failover routing meets 15-minute RTO: DNS failover ~1 min + scale up to 100% ~10 min = ~11 min RTO.</p>
+      <p><strong>Why B is wrong:</strong> Daily snapshots = up to 24 hours RPO — far exceeds the 1-minute requirement.</p>
+      <p><strong>Why D is wrong:</strong> Backup &amp; Restore has hours RTO — doesn't meet 15-minute requirement.</p>
+      <p><strong>Why E is wrong:</strong> DynamoDB doesn't have "Read Replicas" — it has Global Tables (multi-active). Also, the question context implies a relational banking application using Aurora.</p>
+    </div>
+  </div>
+
+  <!-- Q63 -->
+  <div class="question-card">
+    <div class="qnum">Q63</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 2: Security</div>
+    <h4>A company stores sensitive customer PII in multiple S3 buckets across the organization. The CISO wants automated discovery of PII and notification when new PII is found in any bucket. Which solution should the architect implement?</h4>
+    <ul class="options">
+      <li class="wrong">A) Enable GuardDuty and configure an EventBridge rule to trigger when S3 data events are detected</li>
+      <li class="correct">B) Enable Amazon Macie at the Organization level in the management account, configure discovery jobs, and route Macie findings to Security Hub and EventBridge for notifications</li>
+      <li class="wrong">C) Write custom Lambda functions with Amazon Comprehend to scan S3 objects and detect PII</li>
+      <li class="wrong">D) Enable AWS Inspector and configure S3 scanning in all accounts</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> Macie is purpose-built for PII discovery in S3. Organization-level enablement covers all accounts. Findings route to Security Hub (central view) and EventBridge (notifications/automation). This is the exact use case Macie was designed for.</p>
+      <p><strong>Why A is wrong:</strong> GuardDuty detects security threats, not PII content in objects.</p>
+      <p><strong>Why C is wrong:</strong> Custom Lambda + Comprehend would work technically but is NOT the "least operational overhead" answer — Macie is the managed solution.</p>
+      <p><strong>Why D is wrong:</strong> Inspector scans for CVEs in EC2/ECR — it doesn't scan S3 object content for PII.</p>
+    </div>
+  </div>
+
+  <!-- Q64 -->
+  <div class="question-card">
+    <div class="qnum">Q64</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 3: Continuous Improvement</div>
+    <h4>A company runs 500 EC2 instances across 20 accounts. The infrastructure team suspects many instances are oversized. They want automated, ML-based right-sizing recommendations with minimal operational overhead. What should they implement?</h4>
+    <ul class="options">
+      <li class="correct">A) Enable AWS Compute Optimizer at the organization level and review recommendations per service (EC2, ASG, Lambda, EBS)</li>
+      <li class="wrong">B) Use AWS Cost Explorer Reserved Instance recommendations</li>
+      <li class="wrong">C) Install the CloudWatch agent on all instances and build custom dashboards</li>
+      <li class="wrong">D) Use AWS Trusted Advisor to identify underutilized instances</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A</p>
+      <p><strong>Why A:</strong> Compute Optimizer uses ML on 14 days of CloudWatch metrics to generate right-sizing recommendations for EC2, Auto Scaling Groups, Lambda, EBS, and Fargate. Organization-level enrollment covers all accounts automatically.</p>
+      <p><strong>Why B is wrong:</strong> Cost Explorer RI recommendations are for purchasing commitments — not for right-sizing existing instances.</p>
+      <p><strong>Why C is wrong:</strong> Custom dashboards require manual analysis — not ML-based automated recommendations.</p>
+      <p><strong>Why D is wrong:</strong> Trusted Advisor checks basic thresholds (e.g., CPU &lt;10%) but doesn't use ML for specific right-sizing recommendations like Compute Optimizer does.</p>
+    </div>
+  </div>
+
+  <!-- Q65 -->
+  <div class="question-card">
+    <div class="qnum">Q65</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 2: Application Integration</div>
+    <h4>An e-commerce platform needs to process orders reliably. Each order must be processed EXACTLY ONCE in the order received, with no duplicates. Orders are sent from multiple microservices. Which solution meets these requirements?</h4>
+    <ul class="options">
+      <li class="wrong">A) Amazon SQS Standard Queue with Lambda as consumer</li>
+      <li class="correct">B) Amazon SQS FIFO Queue with content-based deduplication enabled</li>
+      <li class="wrong">C) Amazon SNS with Lambda subscribers</li>
+      <li class="wrong">D) Amazon Kinesis Data Streams with Lambda</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> SQS FIFO provides: (1) exactly-once processing via deduplication ID; (2) strict message ordering (FIFO). Content-based deduplication uses SHA-256 hash of body to detect and discard duplicates.</p>
+      <p><strong>Why A is wrong:</strong> SQS Standard is at-least-once delivery with best-effort ordering — duplicates possible, order not guaranteed.</p>
+      <p><strong>Why C is wrong:</strong> SNS is a pub/sub push system — it doesn't guarantee ordering or exactly-once delivery.</p>
+      <p><strong>Why D is wrong:</strong> Kinesis provides ordering within a shard but not exactly-once — duplicate processing possible with Lambda retries.</p>
+    </div>
+  </div>
+
+  <!-- Q66 -->
+  <div class="question-card">
+    <div class="qnum">Q66</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 2: Networking</div>
+    <h4>A company has a Direct Connect connection to AWS. They want to provide a backup connectivity path in case Direct Connect fails. They need the backup to be encrypted. What should the architect configure?</h4>
+    <ul class="options">
+      <li class="wrong">A) A second Direct Connect connection from a different provider</li>
+      <li class="correct">B) An AWS Site-to-Site VPN as a failover for Direct Connect, configured on the same Virtual Private Gateway</li>
+      <li class="wrong">C) S3 Transfer Acceleration as a backup data path</li>
+      <li class="wrong">D) A public Direct Connect VIF with encryption enabled</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> Site-to-Site VPN over internet provides encrypted backup. Using the same VGW means BGP routing prefers Direct Connect when available and automatically fails over to VPN. IPSec encryption satisfies the encryption requirement (Direct Connect itself is not encrypted by default).</p>
+      <p><strong>Why A is wrong:</strong> A second Direct Connect is more expensive and takes weeks to provision — not ideal as a quick backup. Also, Direct Connect isn't encrypted natively.</p>
+      <p><strong>Why C is wrong:</strong> S3 Transfer Acceleration is for S3 upload acceleration, not general network connectivity backup.</p>
+      <p><strong>Why D is wrong:</strong> Public VIF carries public AWS service traffic — it doesn't replace private connectivity to your VPC.</p>
+    </div>
+  </div>
+
+  <!-- Q67 -->
+  <div class="question-card">
+    <div class="qnum">Q67</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 2: Compute</div>
+    <h4>A machine learning team needs to run training jobs that can be interrupted and restarted. Jobs take 6-8 hours. The training data is in S3. Cost optimization is the TOP priority. Which EC2 purchase option and configuration should be used?</h4>
+    <ul class="options">
+      <li class="wrong">A) On-Demand P3 instances with EBS for checkpointing</li>
+      <li class="correct">B) Spot Instances (P3 or G4dn) with checkpointing to S3, and a Spot Fleet across multiple instance types and AZs</li>
+      <li class="wrong">C) Reserved P3 Instances (1-year, All Upfront) for maximum discount</li>
+      <li class="wrong">D) AWS Batch with Fargate</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> Spot Instances save up to 90% on GPU instances. ML training is a perfect Spot use case: fault-tolerant (checkpoint to S3), can be restarted. Spot Fleet across multiple instance types ensures Spot interruptions are rare. S3 checkpointing allows resuming from last checkpoint.</p>
+      <p><strong>Why A is wrong:</strong> On-Demand P3 is very expensive when cost is top priority. Spot is 90% cheaper.</p>
+      <p><strong>Why C is wrong:</strong> Reserved for ML training is wasteful — training runs aren't 24/7. Spot for batch ML jobs saves more.</p>
+      <p><strong>Why D is wrong:</strong> Fargate doesn't support GPU instances — not suitable for GPU-based ML training.</p>
+    </div>
+  </div>
+
+  <!-- Q68 -->
+  <div class="question-card">
+    <div class="qnum">Q68</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 2: Databases</div>
+    <h4>A social media application has a read-heavy workload (95% reads, 5% writes). The DynamoDB table handles 100,000 reads per second at peak. Response time must be under 1 millisecond for user profile lookups. What should the architect add?</h4>
+    <ul class="options">
+      <li class="wrong">A) DynamoDB Global Secondary Index (GSI)</li>
+      <li class="correct">B) Amazon DynamoDB Accelerator (DAX)</li>
+      <li class="wrong">C) Amazon ElastiCache for Memcached</li>
+      <li class="wrong">D) DynamoDB Streams with Lambda pre-caching</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> DAX is an in-memory cache specifically for DynamoDB. It provides microsecond read latency (&lt;1ms), is API-compatible with DynamoDB (no app code changes needed), and handles read-heavy workloads by caching GetItem and Query results.</p>
+      <p><strong>Why A is wrong:</strong> GSI is for query flexibility (access patterns) — it doesn't reduce latency to sub-millisecond.</p>
+      <p><strong>Why C is wrong:</strong> ElastiCache Memcached can cache data but requires application-level cache management code changes. DAX is transparent (same API).</p>
+      <p><strong>Why D is wrong:</strong> DynamoDB Streams + Lambda pre-caching is a complex custom solution — DAX is purpose-built and managed.</p>
+    </div>
+  </div>
+
+  <!-- Q69 -->
+  <div class="question-card">
+    <div class="qnum">Q69</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 4: Migration</div>
+    <h4>A company wants to migrate 200 TB of data from on-premises NAS storage to Amazon S3. The data center has a 10 Gbps internet connection shared with production traffic. The migration needs to complete within 2 weeks. Which approach should the architect recommend?</h4>
+    <ul class="options">
+      <li class="wrong">A) AWS DataSync over the existing internet connection</li>
+      <li class="correct">B) AWS Snowball Edge Storage Optimized devices</li>
+      <li class="wrong">C) AWS Storage Gateway — Volume Gateway</li>
+      <li class="wrong">D) S3 multipart upload with AWS CLI</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> 200 TB over internet: at 10 Gbps (1.25 GB/s), theoretical minimum = 200,000 GB / 1.25 = 160,000 seconds ≈ 44 hours. But the connection is SHARED — actual available bandwidth is much less. Plus DataSync overhead. Snowball Edge (80 TB usable each) = 3 devices. Shipped to AWS, ingested in days. No impact on production network.</p>
+      <p><strong>Why A is wrong:</strong> With shared 10 Gbps, effective DataSync throughput might be 2-3 Gbps. 200 TB would take 200+ hours just for transfer + shared impact on production.</p>
+      <p><strong>Why C is wrong:</strong> Storage Gateway Volume is for ongoing hybrid integration — not a bulk migration tool.</p>
+      <p><strong>Why D is wrong:</strong> AWS CLI multipart upload has the same bandwidth constraint as option A — same network limitation applies.</p>
+    </div>
+  </div>
+
+  <!-- Q70 -->
+  <div class="question-card">
+    <div class="qnum">Q70</div>
+    <div class="difficulty-badge medium">Medium</div>
+    <div class="domain-label">Domain 1: IAM &amp; Federation</div>
+    <h4>A company uses Microsoft Active Directory on-premises. Employees need to access the AWS Management Console in multiple AWS accounts without separate IAM users. The company wants to use their existing AD credentials. Which solution provides this with the LEAST operational overhead?</h4>
+    <ul class="options">
+      <li class="wrong">A) Configure SAML 2.0 federation with individual IAM Identity Providers in each AWS account</li>
+      <li class="correct">B) Set up AWS IAM Identity Center (formerly SSO) integrated with AWS Managed Microsoft AD or AD Connector, assigning permission sets to groups</li>
+      <li class="wrong">C) Create IAM users in each account mirroring AD users, and sync passwords via a custom Lambda function</li>
+      <li class="wrong">D) Use Amazon Cognito User Pools with AD federation in each account</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> IAM Identity Center is designed for multi-account SSO. Connect to AD via AD Connector (or AWS Managed AD). Map AD groups to Permission Sets in IAM Identity Center. Users log in once and access multiple accounts via the SSO portal — no IAM users needed anywhere.</p>
+      <p><strong>Why A is wrong:</strong> Per-account SAML federation is possible but operationally heavy — you must configure trust in each account separately and manage IAM roles in each account.</p>
+      <p><strong>Why C is wrong:</strong> Creating IAM users defeats the purpose — huge operational burden and security risk.</p>
+      <p><strong>Why D is wrong:</strong> Cognito is for application authentication (web/mobile apps) — not AWS account console access.</p>
+    </div>
+  </div>
+
+  <h2 id="hard">Hard Questions (Q151–240)</h2>
+  <p><em>Complex multi-constraint scenarios, architectural trade-off analysis, advanced service interactions</em></p>
+
+  <!-- Q151 -->
+  <div class="question-card">
+    <div class="qnum">Q151</div>
+    <div class="difficulty-badge hard">Hard</div>
+    <div class="domain-label">Domain 1: Organizational Complexity</div>
+    <h4>A company has a multi-account AWS structure with a Management account, 3 OUs (Security, Production, Development), and 40 member accounts. A new regulatory requirement mandates that ALL S3 buckets must enforce server-side encryption with KMS keys managed by the Security OU's centralized KMS account. The policy must be enforced even if account admins try to disable it. What combination achieves this with the LEAST complexity? (Select TWO)</h4>
+    <ul class="options">
+      <li class="correct">A) Apply an SCP to the Production and Development OUs that denies s3:PutObject unless the request header includes SSE-KMS encryption with specific KMS key ARNs from the Security account</li>
+      <li class="wrong">B) Create CloudWatch Events rules in each account to detect non-encrypted uploads and trigger Lambda to delete the object</li>
+      <li class="correct">C) Enable S3 default encryption on all buckets using bucket policies that require SSE-KMS and reference the centralized KMS key ARN cross-account</li>
+      <li class="wrong">D) Use AWS Config with auto-remediation to enable KMS encryption on non-compliant buckets every 24 hours</li>
+      <li class="wrong">E) Deploy AWS Macie in the Security account to detect unencrypted S3 objects and alert</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A and C</p>
+      <p><strong>Why A:</strong> SCP with Deny unless SSE-KMS with specific key ARN prevents ANY S3 PutObject without encryption — enforced at the org level, cannot be overridden. This is a preventative control.</p>
+      <p><strong>Why C:</strong> S3 default bucket encryption ensures objects are encrypted when no encryption is specified at upload. Combined with the SCP (A), it forms a complete defense-in-depth.</p>
+      <p><strong>Why B is wrong:</strong> Deleting objects after upload is reactive — you've already stored unencrypted data momentarily. Regulatory requirements need preventative controls.</p>
+      <p><strong>Why D is wrong:</strong> 24-hour auto-remediation means up to 24 hours of non-compliant state — unacceptable for regulation.</p>
+      <p><strong>Why E is wrong:</strong> Macie detects PII — it doesn't detect or enforce encryption requirements.</p>
+    </div>
+  </div>
+
+  <!-- Q152 -->
+  <div class="question-card">
+    <div class="qnum">Q152</div>
+    <div class="difficulty-badge hard">Hard</div>
+    <div class="domain-label">Domain 2: Complex Networking</div>
+    <h4>A company runs a multi-tenant SaaS platform. Each tenant's VPC uses the 10.x.0.0/16 CIDR range (all tenants use the same CIDR block). The company needs to route traffic from a shared services VPC (172.16.0.0/16) to each tenant VPC individually for monitoring purposes, without VPC peering CIDR conflicts. Which networking solution allows this?</h4>
+    <ul class="options">
+      <li class="wrong">A) VPC Peering between the shared services VPC and each tenant VPC</li>
+      <li class="wrong">B) AWS Transit Gateway connecting all tenant VPCs</li>
+      <li class="correct">C) AWS PrivateLink — each tenant exposes a Network Load Balancer, and the shared services VPC accesses each tenant via Interface VPC Endpoints</li>
+      <li class="wrong">D) NAT Gateway in each tenant VPC pointing to the shared services VPC</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: C</p>
+      <p><strong>Why C:</strong> PrivateLink allows service access from one VPC to another regardless of overlapping CIDR blocks. Each tenant's NLB exposes a PrivateLink service. The shared services VPC connects via Interface Endpoints (private IPs from shared services CIDR). No route tables needed, no CIDR conflicts.</p>
+      <p><strong>Why A is wrong:</strong> VPC Peering REQUIRES non-overlapping CIDRs. 40 tenant VPCs all using 10.x.0.0/16 cannot be peered with each other or with the shared VPC.</p>
+      <p><strong>Why B is wrong:</strong> Transit Gateway also requires non-overlapping CIDRs between connected VPCs for routing. Overlapping CIDRs would create routing ambiguity.</p>
+      <p><strong>Why D is wrong:</strong> NAT Gateway doesn't solve routing to specific tenant VPCs with overlapping CIDRs.</p>
+    </div>
+  </div>
+
+  <!-- Q153 -->
+  <div class="question-card">
+    <div class="qnum">Q153</div>
+    <div class="difficulty-badge hard">Hard</div>
+    <div class="domain-label">Domain 2: Databases</div>
+    <h4>A gaming company's DynamoDB table handles 500,000 reads/second at peak. The game has a leaderboard feature that shows the top 100 players in real-time. The current implementation performs a DynamoDB Scan operation which is slow and expensive. How should the architect redesign this? (Select TWO)</h4>
+    <ul class="options">
+      <li class="wrong">A) Increase RCU provisioned capacity by 10x to handle more Scans</li>
+      <li class="correct">B) Create a Global Secondary Index (GSI) on the score attribute with a sort key for descending order, allowing an efficient Query for top-N players</li>
+      <li class="correct">C) Use DynamoDB Streams + Lambda to maintain a separate sorted leaderboard table updated on each score change, and cache the top 100 in ElastiCache Redis with a 5-second TTL</li>
+      <li class="wrong">D) Switch to Amazon RDS Aurora for the leaderboard query since SQL ORDER BY handles this better</li>
+      <li class="wrong">E) Add a DynamoDB DAX cluster to cache the Scan results</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B and C</p>
+      <p><strong>Why B:</strong> GSI on score allows an efficient Query with ScanIndexForward=false (descending) using a partition key like "LEADERBOARD" and score as sort key — O(log n) instead of O(n) table scan.</p>
+      <p><strong>Why C:</strong> DynamoDB Streams trigger Lambda on writes → maintain a pre-sorted leaderboard table. ElastiCache Redis caches the top 100 at microsecond latency. This is the pattern for real-time leaderboards at scale.</p>
+      <p><strong>Why A is wrong:</strong> More RCU for Scans still reads the ENTIRE table — linear cost growth, no performance improvement per query.</p>
+      <p><strong>Why D is wrong:</strong> Migrating to Aurora to fix a DynamoDB query pattern is not the right approach. Fix the data model first.</p>
+      <p><strong>Why E is wrong:</strong> DAX caches exact query results. If the Scan is cached, it's only fast for repeated identical scans — but the leaderboard changes frequently, so cached scan results would be stale.</p>
+    </div>
+  </div>
+
+  <!-- Q154 -->
+  <div class="question-card">
+    <div class="qnum">Q154</div>
+    <div class="difficulty-badge hard">Hard</div>
+    <div class="domain-label">Domain 3: Continuous Improvement</div>
+    <h4>A company is deploying a new version of their microservice and wants to shift 10% of traffic to the new version initially, monitor error rates, and if error rate stays below 1%, gradually increase traffic to 100% over 2 hours. If error rate exceeds 1%, automatically roll back. Which deployment strategy and services implement this?</h4>
+    <ul class="options">
+      <li class="wrong">A) Blue/Green deployment using Route 53 weighted routing, with CloudWatch Alarms triggering Lambda to change weights</li>
+      <li class="correct">B) AWS CodeDeploy linear or canary deployment on ECS or Lambda, with CloudWatch Alarms configured as deployment rollback triggers</li>
+      <li class="wrong">C) Application Load Balancer weighted target groups with CloudWatch Alarm → SNS → manual intervention</li>
+      <li class="wrong">D) AWS Elastic Beanstalk rolling deployment with health check-based rollback</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> CodeDeploy on ECS/Lambda supports canary (10% → 100%) and linear deployment strategies with built-in CloudWatch Alarm integration. If the alarm fires, CodeDeploy automatically rolls back the deployment — no custom automation needed.</p>
+      <p><strong>Why A is wrong:</strong> Route 53 + Lambda works but requires custom automation for the gradual traffic shift and rollback logic. More operational overhead than CodeDeploy's native capability.</p>
+      <p><strong>Why C is wrong:</strong> ALB weighted TGs + SNS = manual intervention in rollback path. Not automated enough for this requirement.</p>
+      <p><strong>Why D is wrong:</strong> Elastic Beanstalk rolling deploys sequentially to batches of instances — it's not a canary/weighted traffic shift strategy.</p>
+    </div>
+  </div>
+
+  <!-- Q155 -->
+  <div class="question-card">
+    <div class="qnum">Q155</div>
+    <div class="difficulty-badge hard">Hard</div>
+    <div class="domain-label">Domain 1: IAM &amp; Cross-Account</div>
+    <h4>A company's Data Science team (in Account A) needs to read from an S3 bucket (in Account B) and write results to another S3 bucket (in Account A). The Data Science EC2 instances use an IAM role. What is the CORRECT and MOST SECURE cross-account access approach?</h4>
+    <ul class="options">
+      <li class="wrong">A) Create IAM access keys in Account B and store them in the EC2 instance profile in Account A</li>
+      <li class="correct">B) In Account B, create an IAM role with S3 read permission, trust policy allowing Account A's EC2 role to assume it. In Account A's EC2 instance role, grant sts:AssumeRole permission targeting the Account B role. Update the Account B S3 bucket policy to allow the Account B role.</li>
+      <li class="wrong">C) Enable S3 Cross-Region Replication from Account B to Account A so the data is available locally</li>
+      <li class="wrong">D) Add the Account A EC2 instance role's ARN directly to the Account B S3 bucket policy</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> The standard cross-account pattern: (1) Account B role with trust policy permitting Account A's EC2 role. (2) Account A EC2 role has sts:AssumeRole permission. (3) Bucket policy grants the Account B role access. EC2 assumes the Account B role via STS, gets temporary credentials, reads S3. Most secure — no long-term credentials stored anywhere.</p>
+      <p><strong>Why A is wrong:</strong> Long-term access keys are a security anti-pattern — they can be leaked, stolen, and don't auto-rotate.</p>
+      <p><strong>Why C is wrong:</strong> CRR copies data but doesn't enable direct cross-account S3 API access. It would also duplicate data unnecessarily.</p>
+      <p><strong>Why D is wrong:</strong> Adding Account A's EC2 role ARN to Account B's bucket policy CAN work for same-region same-account buckets, but for cross-account, the bucket policy alone doesn't grant access to principals from another account without the target account also having permission. The role assumption pattern (B) is more secure and explicit.</p>
+    </div>
+  </div>
+
+  <h2 id="professional">Professional Questions (Q241–300)</h2>
+  <p><em>Highly complex multi-service architectures, enterprise-scale trade-offs, real-world migration challenges</em></p>
+
+  <!-- Q241 -->
+  <div class="question-card">
+    <div class="qnum">Q241</div>
+    <div class="difficulty-badge professional">Professional</div>
+    <div class="domain-label">Domain 1: Enterprise Complexity</div>
+    <h4>A global bank is designing a multi-region AWS architecture for its trading platform. Requirements: (1) Writes in us-east-1 ONLY during normal operations; (2) Reads served from the nearest region; (3) Automatic regional failover with RPO &lt; 5 seconds; (4) Cross-region data must be encrypted in transit using customer-managed keys; (5) Audit all data access globally. Which architecture satisfies ALL requirements? (Select THREE)</h4>
+    <ul class="options">
+      <li class="correct">A) Aurora Global Database: primary writer in us-east-1, read-only replicas in eu-west-1 and ap-southeast-1. Global cluster replication &lt;1 sec. On failover, promote a secondary to primary.</li>
+      <li class="wrong">B) DynamoDB Global Tables with multi-active writes enabled in all regions</li>
+      <li class="correct">C) Route 53 Latency routing with health checks: direct reads to nearest region's Aurora endpoint; detect us-east-1 failure and failover writes to secondary region</li>
+      <li class="correct">D) AWS KMS with a multi-region CMK replicated to eu-west-1 and ap-southeast-1 for consistent encryption of Aurora storage and data in transit</li>
+      <li class="wrong">E) CloudTrail enabled per-region with separate logging for each regional account</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A, C, and D</p>
+      <p><strong>Why A:</strong> Aurora Global Database provides &lt;1 sec replication (satisfies RPO &lt;5 sec). Primary writer in us-east-1. Read replicas in other regions for local reads. Manual or automated promote on failover.</p>
+      <p><strong>Why C:</strong> Route 53 Latency routing serves reads from nearest region (Aurora read endpoints). Health checks detect us-east-1 failure for automatic write failover. TTL of 30s for quick DNS propagation.</p>
+      <p><strong>Why D:</strong> KMS multi-region keys replicate the same key material to all regions — needed for consistent encryption/decryption of Aurora data across regions. Satisfies requirement 4.</p>
+      <p><strong>Why B is wrong:</strong> DynamoDB Global Tables allows writes in ALL regions — requirement 1 says writes ONLY in us-east-1 during normal operations. Aurora Global is the right choice here for strict write locality.</p>
+      <p><strong>Why E is wrong:</strong> Separate per-region CloudTrail doesn't satisfy "audit globally" — an Organization Trail with central S3 in a Log Archive account provides unified global audit.</p>
+    </div>
+  </div>
+
+  <!-- Q242 -->
+  <div class="question-card">
+    <div class="qnum">Q242</div>
+    <div class="difficulty-badge professional">Professional</div>
+    <div class="domain-label">Domain 4: Migration &amp; Modernization</div>
+    <h4>A company is running a legacy monolithic Java application on-premises with these characteristics: (1) 15 years old, 2 million lines of code; (2) PostgreSQL 9.6 database with 50 TB; (3) Deep filesystem dependency on NFS shares; (4) Uses 3rd-party COTS components that cannot be recompiled; (5) Business requires zero changes to vendor components; (6) Go-live target in 6 months. What migration strategy and services are MOST appropriate? (Select TWO)</h4>
+    <ul class="options">
+      <li class="wrong">A) Refactor to microservices using Lambda + DynamoDB (Refactor/Re-architect strategy)</li>
+      <li class="correct">B) Rehost (Lift-and-Shift) using AWS Application Migration Service (MGN) for the application servers, targeting EC2 instances with EFS for the NFS shares</li>
+      <li class="correct">C) Replatform the PostgreSQL database: use AWS DMS with CDC to migrate to Amazon Aurora PostgreSQL (same engine compatibility), with minimal downtime during cutover</li>
+      <li class="wrong">D) Repurchase the COTS components with cloud-native SaaS equivalents to reduce dependency</li>
+      <li class="wrong">E) Relocate the entire stack to AWS Outposts to avoid application changes</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B and C</p>
+      <p><strong>Why B:</strong> MGN performs lift-and-shift with zero application changes. EFS provides managed NFS that the application uses identically to on-prem NFS. COTS components run unchanged on EC2. 6-month timeline is achievable for Rehost.</p>
+      <p><strong>Why C:</strong> Aurora PostgreSQL is PostgreSQL-compatible — minimal application changes for DB connection strings. DMS with CDC allows migration with minimal downtime (CDC keeps target in sync during migration, then brief cutover). 50 TB is large but manageable with DMS + SCT (same engine, so SCT minimal changes).</p>
+      <p><strong>Why A is wrong:</strong> Refactoring 2M LOC to Lambda/DynamoDB in 6 months is unrealistic. The COTS components also cannot be recompiled, making microservices decomposition impossible within timeline.</p>
+      <p><strong>Why D is wrong:</strong> "Business requires zero changes to vendor components" directly contradicts replacing them.</p>
+      <p><strong>Why E is wrong:</strong> Outposts is for truly on-prem-requirement workloads. The company is migrating TO AWS, not keeping on-prem. Outposts would be expensive and doesn't achieve cloud benefits.</p>
+    </div>
+  </div>
+
+  <!-- Q243 -->
+  <div class="question-card">
+    <div class="qnum">Q243</div>
+    <div class="difficulty-badge professional">Professional</div>
+    <div class="domain-label">Domain 2: Complex Architecture</div>
+    <h4>A company processes financial transactions using an event-driven architecture: (1) Orders arrive via API Gateway to Lambda; (2) Each order triggers 5 downstream services (inventory, payment, shipping, notification, fraud-check); (3) ALL 5 services must succeed for the order to be committed; (4) If any service fails, the ENTIRE order must be rolled back including compensating transactions; (5) Each step must be audited. Which architecture implements this pattern with LEAST custom code?</h4>
+    <ul class="options">
+      <li class="wrong">A) API Gateway → Lambda → SQS → 5 separate Lambda consumers → DynamoDB for state tracking</li>
+      <li class="correct">B) API Gateway → Lambda → AWS Step Functions Standard Workflow (SAGA pattern with compensating transactions), with each state invoking a service Lambda, rollback states for each service, and CloudTrail for audit</li>
+      <li class="wrong">C) API Gateway → Lambda → EventBridge → 5 target Lambda functions → DynamoDB transactions</li>
+      <li class="wrong">D) API Gateway → SNS → 5 SQS queues → Lambda consumers → manual state machine in DynamoDB</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: B</p>
+      <p><strong>Why B:</strong> Step Functions Standard Workflow implements the SAGA pattern: each state is a service call. On failure, Step Functions executes compensating transaction states (rollback). Built-in state machine provides audit trail in execution history. Error handling, retry, and rollback logic all declarative in ASL — LEAST custom code. Step Functions integrations with Lambda, SNS, DynamoDB require no custom code for orchestration.</p>
+      <p><strong>Why A is wrong:</strong> 5 parallel SQS consumers with DynamoDB state tracking requires building a custom distributed saga with complex state management — HIGH custom code.</p>
+      <p><strong>Why C is wrong:</strong> EventBridge fan-out is fire-and-forget — it has no built-in rollback capability. Managing compensating transactions requires significant custom code.</p>
+      <p><strong>Why D is wrong:</strong> SNS → SQS → Lambda fan-out with manual DynamoDB state machine requires building a complete custom saga orchestrator — maximum custom code.</p>
+    </div>
+  </div>
+
+  <!-- Q244 -->
+  <div class="question-card">
+    <div class="qnum">Q244</div>
+    <div class="difficulty-badge professional">Professional</div>
+    <div class="domain-label">Domain 3: Continuous Improvement — Security</div>
+    <h4>A company's security audit found that EC2 instances in the production VPC can still reach the internet via a NAT Gateway. The security team wants: (1) Internet access for EC2 instances ONLY when an SSM Session Manager connection is active; (2) No SSH keys on any instance; (3) All sessions recorded for compliance; (4) Ability to revoke access for specific instances immediately; (5) Works across all 20 accounts in the organization. Which architecture satisfies ALL requirements?</h4>
+    <ul class="options">
+      <li class="correct">A) Remove NAT Gateways. Enable SSM Agent on all EC2 instances. Create Interface VPC Endpoints for SSM services (ssm, ssmmessages, ec2messages). Enable SSM Session Manager with session logging to S3/CloudWatch. Apply SCP denying SSH ports.</li>
+      <li class="wrong">B) Keep NAT Gateway but add a WAF rule blocking SSH traffic from the internet</li>
+      <li class="wrong">C) Use AWS Config to detect instances with SSH enabled and auto-revoke security group rules</li>
+      <li class="wrong">D) Deploy a bastion host in a public subnet with MFA-enabled login for all instance access</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A</p>
+      <p><strong>Why A:</strong> SSM Session Manager with VPC Endpoints eliminates internet access need. No SSH keys. Sessions recorded to S3/CloudWatch. Remove IAM ssm:StartSession permission to instantly revoke access. SCPs enforce no SSH ports org-wide. This is the AWS recommended zero-trust access pattern.</p>
+      <p><strong>Why B is wrong:</strong> WAF doesn't block EC2-initiated outbound internet traffic. NAT Gateway still exposes instances.</p>
+      <p><strong>Why C is wrong:</strong> Config auto-remediation is reactive — there's a window of exposure. SSM with VPC Endpoints is preventative.</p>
+      <p><strong>Why D is wrong:</strong> Bastion hosts still require SSH keys and internet exposure — contrary to requirements 1 and 2.</p>
+    </div>
+  </div>
+
+  <!-- Q245 -->
+  <div class="question-card">
+    <div class="qnum">Q245</div>
+    <div class="difficulty-badge professional">Professional</div>
+    <div class="domain-label">Domain 2: Data Architecture</div>
+    <h4>A media company processes 10 TB of video data daily. They need: real-time transcoding triggered on upload, metadata indexing, searchable content catalog, and a recommendation engine. Costs must stay under $50k/month. Which architecture achieves this?</h4>
+    <ul class="options">
+      <li class="correct">A) S3 Upload → S3 Event Notification → SQS → Lambda (metadata extraction) → DynamoDB (catalog) + OpenSearch (search). Separate pipeline: S3 → AWS Elemental MediaConvert for transcoding → S3 output. SageMaker for recommendations trained on DynamoDB Streams.</li>
+      <li class="wrong">B) EC2 fleet with FFmpeg for transcoding + RDS PostgreSQL for catalog + Elasticsearch on EC2</li>
+      <li class="wrong">C) Kinesis Data Streams → Lambda → ElastiCache for all processing</li>
+      <li class="wrong">D) EMR cluster running 24/7 for all processing with Spark</li>
+    </ul>
+    <div class="answer-block">
+      <p class="correct-label">Correct: A</p>
+      <p><strong>Why A:</strong> Managed services reduce operational overhead and cost. MediaConvert is purpose-built for video transcoding (per-minute billing). S3 Events → SQS → Lambda is serverless (no idle costs). OpenSearch enables full-text catalog search. DynamoDB scales with no overhead. SageMaker on DynamoDB Streams trains recommendations on actual usage. Total cost well under $50k/month.</p>
+      <p><strong>Why B is wrong:</strong> EC2 fleet + EC2 Elasticsearch = high operational overhead, 24/7 instance costs. Very expensive and requires manual scaling.</p>
+      <p><strong>Why C is wrong:</strong> ElastiCache is for caching, not video processing or search. Kinesis is for streaming data, not video file processing.</p>
+      <p><strong>Why D is wrong:</strong> 24/7 EMR cluster for batch video processing is expensive and over-engineered when serverless options exist.</p>
+    </div>
+  </div>
+
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-section13.html" style="color:var(--orange);text-decoration:none;">← Section 13: Exam Strategy</a>
+  <a href="aws-sap-c02-section15.html" style="color:var(--orange);text-decoration:none;">Section 15: Mock Exams →</a>
+</nav>
+</body>
+</html>
+</body>
+</html>

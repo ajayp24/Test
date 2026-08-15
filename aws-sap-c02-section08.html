@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section08</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 08 – Migration | SAP-C02</title>
+<style>
+  :root{--orange:#FF9900;--dark:#232F3E;--blue:#1A73E8;--green:#2E7D32;--red:#C62828;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1200px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  h4{color:#79c0ff;font-size:1.1em;margin:20px 0 8px;}
+  p{color:#c9d1d9;margin:10px 0;font-size:0.97em;}
+  ul,ol{color:#c9d1d9;margin:10px 0 10px 24px;}
+  li{margin:6px 0;font-size:0.95em;}
+  .info-box{background:rgba(26,115,232,0.08);border-left:4px solid var(--blue);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .warn-box{background:rgba(255,153,0,0.08);border-left:4px solid var(--orange);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .success-box{background:rgba(46,125,50,0.08);border-left:4px solid var(--green);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .exam-box{background:rgba(106,27,154,0.12);border:1px solid rgba(106,27,154,0.4);padding:20px;margin:20px 0;border-radius:8px;}
+  .exam-box h4{color:#ce93d8;margin-top:0;}
+  pre{background:#161b22;border:1px solid #30363d;padding:20px;border-radius:8px;overflow-x:auto;font-size:0.85em;color:#e6edf3;margin:16px 0;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9em;}
+  th{background:#21262d;color:var(--orange);padding:12px;text-align:left;border:1px solid #30363d;}
+  td{padding:10px 12px;border:1px solid #30363d;color:#c9d1d9;}
+  tr:nth-child(even){background:#0d1117;}
+  tr:hover{background:#161b22;}
+  .diagram{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:24px;font-family:monospace;font-size:0.82em;color:#8b949e;margin:20px 0;white-space:pre;overflow-x:auto;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0;}
+  .cheat-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;}
+  .cheat-card h5{color:var(--orange);margin-bottom:8px;}
+  .cheat-card p,.cheat-card li{font-size:0.85em;color:#8b949e;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 08</div>
+  <h1>Migration</h1>
+  <p>7 Rs Strategy · Application Migration Service · DMS · DataSync · Transfer Family · Snow Family · Enterprise Migration Case Studies</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#seven-rs">7 Rs</a>
+  <a href="#mgn">App Migration Service</a>
+  <a href="#dms">DMS</a>
+  <a href="#datasync">DataSync</a>
+  <a href="#snow">Snow Family</a>
+  <a href="#case-study">Case Study</a>
+  <a href="#exam-tips">Exam Tips</a>
+  <a href="aws-sap-c02-section09.html">Section 09 →</a>
+</nav>
+<div class="main">
+
+  <h2 id="seven-rs">1. AWS Migration Strategy — 7 Rs</h2>
+  <div class="diagram">
+THE 7 Rs OF MIGRATION
+
+1. RETIRE      - Decommission. No migration needed. ~10-20% of portfolio.
+                 "This app is no longer used."
+
+2. RETAIN      - Keep on-premises (for now). Too complex, compliance, not migrating yet.
+                 "We'll revisit in 2 years."
+
+3. REHOST      - Lift and Shift. Move to EC2 without changes.
+   (Lift & Shift) Fast, low risk. Use AWS MGN (Application Migration Service).
+                 "Move as-is to AWS EC2."
+
+4. REPLATFORM  - Lift, Tinker, Shift. Minor optimizations.
+   (Move & Improve) e.g., Oracle DB → RDS (managed). App server → Elastic Beanstalk.
+                 "Managed database but same app."
+
+5. REPURCHASE  - Drop and Shop. Move to SaaS.
+   (Drop & Shop) e.g., CRM → Salesforce. Email → MS365. HR → Workday.
+                 "Buy instead of migrate."
+
+6. REFACTOR    - Re-architect. Cloud-native redesign.
+   (Re-architect) Monolith → Microservices + Lambda. Most expensive, highest ROI.
+                 "Rebuild using cloud-native services."
+
+7. RELOCATE    - Move to cloud without changes using VMware Cloud on AWS.
+   (Hypervisor level) Same VMware environment, move VMs to AWS.
+                 "VMware vMotion to AWS VMware Cloud."
+  </div>
+
+  <table>
+    <tr><th>Strategy</th><th>Effort</th><th>Cost</th><th>Risk</th><th>Cloud Benefit</th><th>Best For</th></tr>
+    <tr><td>Retire</td><td>None</td><td>Savings</td><td>None</td><td>Elimination</td><td>Unused apps</td></tr>
+    <tr><td>Retain</td><td>None</td><td>None</td><td>None</td><td>None</td><td>Compliance-sensitive, not ready</td></tr>
+    <tr><td>Rehost</td><td>Low</td><td>Low</td><td>Low</td><td>Some (managed infra)</td><td>Legacy apps, tight timeline</td></tr>
+    <tr><td>Replatform</td><td>Medium</td><td>Medium</td><td>Low-Medium</td><td>Medium (managed services)</td><td>DB rationalization, runtime optimization</td></tr>
+    <tr><td>Repurchase</td><td>Low-Med</td><td>Varies</td><td>Low</td><td>High (SaaS features)</td><td>CRM, ERP, email</td></tr>
+    <tr><td>Refactor</td><td>High</td><td>High</td><td>High</td><td>Very High</td><td>Business-critical, cloud-first future</td></tr>
+    <tr><td>Relocate</td><td>Low</td><td>Medium</td><td>Low</td><td>Low-Medium</td><td>VMware environments</td></tr>
+  </table>
+
+  <h2 id="mgn">2. AWS Application Migration Service (MGN)</h2>
+  <p>AWS MGN (formerly CloudEndure Migration) is the primary recommended service for Rehost migrations. It performs block-level replication of servers to AWS.</p>
+
+  <div class="diagram">
+MGN MIGRATION FLOW
+
+On-Premises Server                    AWS
+┌──────────────────┐                  ┌──────────────────────────┐
+│ Source Server    │                  │ MGN Service              │
+│ ┌─────────────┐  │                  │ ┌──────────────────────┐ │
+│ │ MGN Agent   │──│──continuous──────►││ Replication Server   │ │
+│ │ (installed) │  │  block-level     │ │ (EC2, EBS volumes)   │ │
+│ └─────────────┘  │  replication     │ └──────────────────────┘ │
+└──────────────────┘                  │           │              │
+                                      │    Cutover/Launch        │
+                                      │           ▼              │
+                                      │  Target EC2 Instance     │
+                                      │  (same data, AWS infra)  │
+                                      └──────────────────────────┘
+
+Steps:
+1. Install MGN agent on source server
+2. Initial sync (full copy to staging area)
+3. Continuous replication (delta changes)
+4. Test launch (non-disruptive, test env)
+5. Cutover (stop source → launch target)
+6. Cleanup (decommission source)
+  </div>
+
+  <h4>MGN Key Features</h4>
+  <ul>
+    <li>Continuous block-level replication (RPO ~ minutes)</li>
+    <li>No-downtime cutover (minimal cutover window)</li>
+    <li>Supports: Windows/Linux, physical servers, VMware, Hyper-V, Azure, GCP</li>
+    <li>Auto-converts boot from BIOS to UEFI, changes storage drivers</li>
+    <li>Test launches before actual cutover</li>
+    <li>Pricing: Free for 2,048 hours per server</li>
+  </ul>
+
+  <h2 id="dms">3. AWS Database Migration Service (DMS)</h2>
+  <p>DMS migrates databases to AWS quickly and securely. The source database remains fully operational during migration, minimizing downtime.</p>
+
+  <div class="diagram">
+DMS ARCHITECTURE
+
+Source DB ──► DMS Replication Instance ──► Target DB
+(Oracle,       (EC2 in your VPC)           (RDS, Aurora,
+ MySQL,                                     DynamoDB,
+ SQL Server,    DMS Tasks:                  Redshift,
+ PostgreSQL,    1. Full Load:              S3)
+ MongoDB,          Copy all existing data
+ Cassandra,     2. CDC (Change Data Capture):
+ S3, etc.)         Capture ongoing changes
+
+Schema Conversion Tool (SCT):
+  Converts schema from one DB engine to another
+  Oracle → PostgreSQL, SQL Server → Aurora
+  Generates assessment report on conversion complexity
+  </div>
+
+  <h4>DMS Task Types</h4>
+  <table>
+    <tr><th>Task Type</th><th>What It Does</th><th>Use Case</th></tr>
+    <tr><td>Full Load</td><td>Copy all existing data</td><td>Initial migration, small databases</td></tr>
+    <tr><td>CDC Only</td><td>Capture ongoing changes only</td><td>Already seeded target, minimal lag</td></tr>
+    <tr><td>Full Load + CDC</td><td>Full load then switch to CDC</td><td>Live migration with minimal cutover window</td></tr>
+  </table>
+
+  <div class="warn-box">
+    <strong>Schema Conversion Tool (SCT):</strong> DMS moves data; SCT converts schema. For heterogeneous migrations (Oracle → Aurora), you need SCT to convert stored procedures, triggers, and schema. DMS does NOT convert schema.
+  </div>
+
+  <h4>DMS Use Cases</h4>
+  <ul>
+    <li>Homogeneous: MySQL → RDS MySQL (no schema conversion needed)</li>
+    <li>Heterogeneous: Oracle → Aurora PostgreSQL (SCT + DMS)</li>
+    <li>Consolidation: Multiple source DBs → single target</li>
+    <li>Continuous replication: On-prem DB → RDS (ongoing sync for hybrid)</li>
+    <li>NoSQL migration: DynamoDB, MongoDB source</li>
+    <li>Data lake ingestion: Relational DB → S3 (Parquet format)</li>
+  </ul>
+
+  <h2>4. AWS DataSync for Migration</h2>
+  <p>DataSync accelerates online data transfer to/from AWS. Up to 10x faster than standard Linux tools with built-in integrity checks.</p>
+  <ul>
+    <li><strong>Source:</strong> NFS/SMB on-premises, S3, EFS, FSx, HDFS, Azure Blob Storage, Google Cloud Storage</li>
+    <li><strong>Destination:</strong> S3, EFS, FSx (Windows, Lustre, ONTAP, OpenZFS)</li>
+    <li><strong>Agent:</strong> Deploy DataSync agent VM on-premises — connects via Direct Connect or VPN</li>
+    <li><strong>Scheduling:</strong> One-time or recurring transfers</li>
+    <li><strong>Pricing:</strong> $0.0125/GB transferred</li>
+  </ul>
+
+  <h2 id="snow">5. AWS Snow Family</h2>
+  <div class="diagram">
+SNOW FAMILY — OFFLINE DATA MIGRATION
+
+┌──────────────────────────────────────────────────────────────┐
+│  Device              │ Storage      │ Compute    │ Use Case  │
+├──────────────────────┼──────────────┼────────────┼───────────┤
+│ Snowcone             │ 8 TB HDD     │ 2 vCPU,    │ Remote/   │
+│ (smallest, portable) │ 14 TB SSD    │ 4 GB RAM   │ edge      │
+├──────────────────────┼──────────────┼────────────┼───────────┤
+│ Snowball Edge        │ 80 TB usable │ 40 vCPU,   │ 10-80 TB  │
+│ Storage Optimized    │              │ 80 GB RAM  │ migrations│
+├──────────────────────┼──────────────┼────────────┼───────────┤
+│ Snowball Edge        │ 28 TB usable │ 52 vCPU,   │ Edge ML,  │
+│ Compute Optimized    │              │ 208 GB RAM │ analytics │
+│                      │              │ + GPU opt. │           │
+├──────────────────────┼──────────────┼────────────┼───────────┤
+│ Snowmobile           │ 100 PB       │ None       │ Exabyte   │
+│ (45-ft shipping truck│              │            │ migrations│
+└──────────────────────┴──────────────┴────────────┴───────────┘
+
+Migration Speed Rule:
+  If transfer over internet/DX would take > 1 week → Use Snow
+  Example: 50 TB over 100 Mbps link = 46 days → Use Snowball
+           50 TB via Snowball Edge = ship in 1 week
+  </div>
+
+  <h4>Snow Family Decision Matrix</h4>
+  <table>
+    <tr><th>Data Size</th><th>Network Speed</th><th>Transfer Time</th><th>Recommendation</th></tr>
+    <tr><td>&lt;1 TB</td><td>100 Mbps</td><td>&lt;1 day</td><td>Direct online (DataSync/S3)</td></tr>
+    <tr><td>10 TB</td><td>1 Gbps</td><td>~1 day</td><td>DataSync over DX</td></tr>
+    <tr><td>50 TB</td><td>100 Mbps</td><td>46 days</td><td>Snowball Edge</td></tr>
+    <tr><td>1 PB</td><td>10 Gbps</td><td>~9 days</td><td>Multiple Snowball Edge devices</td></tr>
+    <tr><td>&gt;10 PB</td><td>Any</td><td>Impractical</td><td>Snowmobile</td></tr>
+  </table>
+
+  <h2 id="case-study">6. Enterprise Migration Case Studies</h2>
+
+  <h3>Case Study 1: Banking — Oracle to Aurora PostgreSQL</h3>
+  <div class="diagram">
+BANKING CORE MIGRATION
+
+Phase 1: Assessment (2 months)
+  AWS Migration Evaluator → Understand on-prem footprint
+  AWS Schema Conversion Tool → Assess Oracle → Aurora PostgreSQL
+  Identify: 12 stored procedures, 3 triggers need rewriting
+
+Phase 2: Schema Conversion (1 month)
+  SCT converts 85% automatically
+  Manual rewrite: 15% complex PL/SQL
+  Test in dev Aurora cluster
+
+Phase 3: Data Migration (2 months)
+  DMS Full Load → copy 2 TB Oracle data to Aurora
+  DMS CDC → continuous replication (lag < 5 sec)
+  Validation: Row count checks, data checksums
+
+Phase 4: Cutover
+  Saturday 2 AM maintenance window
+  Stop Oracle writes → wait DMS lag = 0
+  Switch JDBC connection string to Aurora endpoint
+  Test application → confirm success
+  Total downtime: < 30 minutes
+
+Result:
+  License cost: -$1.2M/year (Oracle → Aurora)
+  Performance: +30% query performance
+  HA: Multi-AZ automatic (was manual Oracle Data Guard)
+  </div>
+
+  <h3>Case Study 2: E-Commerce — Lift and Shift (Rehost)</h3>
+  <div class="diagram">
+REHOST MIGRATION
+
+On-Premises:
+  200 VMs running LAMP stack
+  Storage: NetApp NAS (50 TB)
+  DB: MySQL 5.7 cluster
+
+Migration Strategy:
+  Step 1: Direct Connect (1 Gbps) — establish private connectivity
+  Step 2: AWS MGN — install agent on all 200 VMs, start replication
+  Step 3: DataSync — sync 50 TB NAS data to EFS
+  Step 4: DMS — replicate MySQL → RDS MySQL (Full Load + CDC)
+  Step 5: DNS cutover via Route 53 (gradual weighted routing: 10% → 50% → 100%)
+
+Timeline: 6 weeks
+Downtime per app: < 15 minutes
+
+Immediate Wins:
+  • Infrastructure managed by AWS (patching, hardware)
+  • Cost: -35% (Reserved Instances vs on-prem hardware refresh)
+  • Elasticity: Auto Scaling for peak traffic
+  </div>
+
+  <h2 id="exam-tips">7. Exam Tips & Cheat Sheet</h2>
+  <div class="exam-box">
+    <h4>SAP-C02 Migration — Critical Points</h4>
+    <ul>
+      <li><strong>7 Rs:</strong> Rehost = lift and shift (MGN). Replatform = minor changes (RDS). Refactor = cloud-native redesign. Retire = decommission. Retain = keep on-prem. Repurchase = SaaS. Relocate = VMware on AWS.</li>
+      <li><strong>MGN vs DMS:</strong> MGN = server/VM migration (any workload). DMS = database migration specifically.</li>
+      <li><strong>DMS + SCT:</strong> Heterogeneous migration (Oracle → Aurora) needs BOTH DMS (data) and SCT (schema conversion).</li>
+      <li><strong>Snow Family:</strong> Large offline data: &lt;80 TB → Snowball Edge Storage. &gt;10 PB → Snowmobile. Need edge compute → Snowball Edge Compute Optimized.</li>
+      <li><strong>DataSync:</strong> Online bulk transfer (faster than rsync). NOT for ongoing hybrid access (use Storage Gateway for that).</li>
+      <li><strong>DMS CDC:</strong> Captures ongoing changes. Use Full Load + CDC for live migrations with minimal cutover.</li>
+      <li><strong>Migration Evaluator:</strong> Assess and build business case before migration. Understand on-prem costs.</li>
+      <li><strong>Migration Hub:</strong> Central tracking of migration status across DMS, MGN, and other migration tools.</li>
+    </ul>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h5>7 Rs Quick Reference</h5>
+      <ul>
+        <li>Rehost → MGN (lift &amp; shift)</li>
+        <li>Replatform → RDS, Beanstalk</li>
+        <li>Refactor → Lambda, containers</li>
+        <li>Repurchase → SaaS products</li>
+        <li>Relocate → VMware Cloud on AWS</li>
+        <li>Retain → keep on-prem</li>
+        <li>Retire → decommission</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Migration Tools</h5>
+      <ul>
+        <li>Server migration → MGN</li>
+        <li>DB migration → DMS</li>
+        <li>Schema conversion → SCT</li>
+        <li>Online file transfer → DataSync</li>
+        <li>Offline large scale → Snow Family</li>
+        <li>SFTP partners → Transfer Family</li>
+        <li>Ongoing hybrid → Storage Gateway</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Snow Family Selection</h5>
+      <ul>
+        <li>Remote/small: Snowcone (8-14 TB)</li>
+        <li>Standard: Snowball Edge Storage 80 TB</li>
+        <li>Edge compute: Snowball Edge Compute</li>
+        <li>Exabyte: Snowmobile (100 PB)</li>
+        <li>Rule: &gt;1 week to transfer online → Snow</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>DMS Migration Types</h5>
+      <ul>
+        <li>Full Load: initial copy</li>
+        <li>CDC only: ongoing changes</li>
+        <li>Full Load + CDC: live migration</li>
+        <li>Homogeneous: no SCT needed</li>
+        <li>Heterogeneous: DMS + SCT both needed</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-section07.html" style="color:var(--orange);text-decoration:none;">← Section 07: App Integration</a>
+  <a href="aws-sap-c02-section09.html" style="color:var(--orange);text-decoration:none;">Section 09: Observability →</a>
+</nav>
+</body>
+</html>
+
+</body>
+</html>

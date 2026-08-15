@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section12</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 12 – Advanced Architectures | SAP-C02</title>
+<style>
+  :root{--orange:#FF9900;--dark:#232F3E;--blue:#1A73E8;--green:#2E7D32;--red:#C62828;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1200px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  h4{color:#79c0ff;font-size:1.1em;margin:20px 0 8px;}
+  p{color:#c9d1d9;margin:10px 0;font-size:0.97em;}
+  ul,ol{color:#c9d1d9;margin:10px 0 10px 24px;}
+  li{margin:6px 0;font-size:0.95em;}
+  .info-box{background:rgba(26,115,232,0.08);border-left:4px solid var(--blue);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .warn-box{background:rgba(255,153,0,0.08);border-left:4px solid var(--orange);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .success-box{background:rgba(46,125,50,0.08);border-left:4px solid var(--green);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .exam-box{background:rgba(106,27,154,0.12);border:1px solid rgba(106,27,154,0.4);padding:20px;margin:20px 0;border-radius:8px;}
+  .exam-box h4{color:#ce93d8;margin-top:0;}
+  pre{background:#161b22;border:1px solid #30363d;padding:20px;border-radius:8px;overflow-x:auto;font-size:0.85em;color:#e6edf3;margin:16px 0;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9em;}
+  th{background:#21262d;color:var(--orange);padding:12px;text-align:left;border:1px solid #30363d;}
+  td{padding:10px 12px;border:1px solid #30363d;color:#c9d1d9;}
+  tr:nth-child(even){background:#0d1117;}
+  tr:hover{background:#161b22;}
+  .diagram{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:24px;font-family:monospace;font-size:0.82em;color:#8b949e;margin:20px 0;white-space:pre;overflow-x:auto;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0;}
+  .cheat-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;}
+  .cheat-card h5{color:var(--orange);margin-bottom:8px;}
+  .cheat-card p,.cheat-card li{font-size:0.85em;color:#8b949e;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 12</div>
+  <h1>Advanced SAP-C02 Architectures</h1>
+  <p>Multi-Region · Multi-Account · Landing Zones · Hybrid Cloud · SaaS Multi-Tenant · Serverless · Container · Data Lake · Analytics · Global Apps</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#multi-region">Multi-Region</a>
+  <a href="#multi-account">Multi-Account</a>
+  <a href="#saas">SaaS Multi-Tenant</a>
+  <a href="#serverless">Serverless</a>
+  <a href="#containers">Containers</a>
+  <a href="#datalake">Data Lake</a>
+  <a href="#global">Global Apps</a>
+  <a href="#exam-tips">Exam Tips</a>
+  <a href="aws-sap-c02-section13.html">Section 13 →</a>
+</nav>
+<div class="main">
+
+  <h2 id="multi-region">1. Multi-Region Architecture</h2>
+  <div class="diagram">
+GLOBAL MULTI-REGION APPLICATION ARCHITECTURE
+
+Users (global)
+     │
+     ▼
+Route 53 (Latency routing)
+     │
+     ├── us-east-1 (primary, 60% traffic)
+     │   ├── CloudFront → WAF → ALB
+     │   ├── ECS Fargate (Auto Scaling)
+     │   ├── Aurora Global Primary (R/W)
+     │   ├── DynamoDB Global Table
+     │   ├── ElastiCache Redis
+     │   └── S3 with CRR → eu-west-1
+     │
+     └── eu-west-1 (secondary, 40% EU traffic)
+         ├── CloudFront → WAF → ALB
+         ├── ECS Fargate (Auto Scaling)
+         ├── Aurora Global Secondary (Read)
+         ├── DynamoDB Global Table (local R/W)
+         ├── ElastiCache Redis
+         └── S3 replica
+
+Shared Services (us-east-1):
+  ├── IAM Identity Center (global)
+  ├── Route 53 Private Hosted Zones
+  └── Transit Gateway (hub)
+  </div>
+
+  <h3>Multi-Region Design Considerations</h3>
+  <ul>
+    <li><strong>Data consistency:</strong> DynamoDB Global Tables = multi-active, eventually consistent. Aurora Global = active-passive, consistent.</li>
+    <li><strong>Session state:</strong> Use DynamoDB or ElastiCache for distributed session (not local memory)</li>
+    <li><strong>DNS TTL:</strong> Low TTL (30-60s) for faster failover. Higher TTL reduces DNS query load.</li>
+    <li><strong>Cost:</strong> Inter-region data transfer charges apply. Design to minimize cross-region data movement.</li>
+    <li><strong>Compliance:</strong> Data sovereignty laws may restrict where data can be stored. Use SCPs to prevent data leaving approved regions.</li>
+  </ul>
+
+  <h2 id="multi-account">2. Enterprise Multi-Account Architecture</h2>
+  <div class="diagram">
+ENTERPRISE MULTI-ACCOUNT LANDING ZONE
+
+AWS Organizations
+│
+├── Root
+│   │
+│   ├── Security OU
+│   │   ├── Log Archive Account (S3, 7yr CloudTrail/Config)
+│   │   └── Security Tooling Account (GuardDuty, Security Hub, Macie)
+│   │
+│   ├── Infrastructure OU
+│   │   ├── Network Hub Account (TGW, DNS, VPN, DX)
+│   │   └── Shared Services Account (AD, Nexus, CI/CD, Tooling)
+│   │
+│   ├── Workloads OU
+│   │   ├── Production OU
+│   │   │   ├── PaymentService-Prod
+│   │   │   ├── CustomerPortal-Prod
+│   │   │   └── DataPlatform-Prod
+│   │   │
+│   │   └── NonProd OU
+│   │       ├── PaymentService-Dev
+│   │       ├── CustomerPortal-Staging
+│   │       └── DataPlatform-Dev
+│   │
+│   ├── Sandbox OU (relaxed guardrails, budget limits)
+│   │   └── Developer sandbox accounts (auto-expiring)
+│   │
+│   └── Suspended OU
+│       └── Decommissioned accounts (deny-all SCP)
+│
+Account Connectivity: Transit Gateway (shared from Network Account via RAM)
+Central IAM: IAM Identity Center (corporate IdP SAML federation)
+Central Logs: CloudTrail Organization Trail → S3 (Log Archive)
+Central Compliance: Config Aggregator, Security Hub, GuardDuty Master
+  </div>
+
+  <h2 id="saas">3. SaaS Multi-Tenant Architecture</h2>
+  <div class="diagram">
+SAAS MULTI-TENANT PATTERNS
+
+SILO MODEL (Separate stack per tenant):
+  Tenant A: VPC-A, RDS-A, ECS-A, S3-A
+  Tenant B: VPC-B, RDS-B, ECS-B, S3-B
+  Pros: Strong isolation, per-tenant customization
+  Cons: Expensive, harder to manage at scale
+
+POOL MODEL (Shared infrastructure):
+  All tenants → Single ECS cluster → Shared Aurora
+  Tenant isolation: Row-level security (tenant_id column)
+  Pros: Cost-efficient, easier updates
+  Cons: Noisy neighbor risk, shared blast radius
+
+BRIDGE MODEL (Hybrid):
+  Shared: ALB, ECS, Lambda, API Gateway, SQS
+  Isolated: Per-tenant DynamoDB tables or RDS schemas
+  Tenant routing: JWT claim → tenant_id → data isolation
+
+TYPICAL ENTERPRISE SAAS STACK:
+  Route 53 → CloudFront → API Gateway
+  → ALB → ECS Fargate (tenant-aware application)
+  → DynamoDB (tenant_id as partition key)
+  → S3 (prefix per tenant: s3://bucket/tenant-id/...)
+  → Cognito User Pools (per-tenant or pooled)
+  → KMS (per-tenant CMK for data encryption)
+  </div>
+
+  <h2 id="serverless">4. Serverless Architecture Pattern</h2>
+  <div class="diagram">
+ENTERPRISE SERVERLESS ARCHITECTURE
+
+Client
+  │
+  ▼
+CloudFront (cache static + API responses)
+  │
+  ▼
+API Gateway (REST or HTTP API)
+  │ (throttle, auth, stage variables)
+  │
+  ├── POST /orders → Lambda → DynamoDB → EventBridge
+  │                              │
+  │                         DynamoDB Streams
+  │                              │
+  │                        Lambda (real-time processing)
+  │
+  ├── GET /products → Lambda → ElastiCache (cache hit)
+  │                          → DynamoDB (cache miss)
+  │
+  └── /auth/* → Cognito (User Pool + Identity Pool)
+
+Async Processing:
+  EventBridge → SQS → Lambda (order fulfillment)
+             → SNS → (notifications)
+             → Step Functions (complex workflows)
+
+Storage:
+  S3 (static assets, user uploads)
+  DynamoDB (transactional data)
+  Aurora Serverless (complex queries)
+
+Cost: Pay per request. Zero cost when idle.
+  </div>
+
+  <h2 id="containers">5. Container Architecture Pattern</h2>
+  <div class="diagram">
+ENTERPRISE CONTAINER PLATFORM
+
+CI/CD Pipeline:
+  CodeCommit → CodeBuild (build + scan) → ECR → CodeDeploy
+
+EKS Cluster (Production):
+  ├── System Nodes (kube-system, monitoring)
+  │   ├── AWS Load Balancer Controller
+  │   ├── External DNS
+  │   ├── Cluster Autoscaler / Karpenter
+  │   └── AWS Container Insights (CloudWatch)
+  │
+  └── Application Nodes (3 AZs)
+      ├── PaymentService pods
+      ├── InventoryService pods
+      └── NotificationService pods
+
+Networking:
+  AWS VPC CNI (pods get VPC IPs)
+  ALB Ingress Controller (route to services)
+  Network Policies (pod-to-pod security)
+
+Security:
+  IRSA (IAM Roles for Service Accounts) → pod-level AWS credentials
+  AWS Secrets Manager integration
+  OPA / Kyverno (policy enforcement)
+  ECR image scanning (Inspector integration)
+
+Storage:
+  EBS (stateful apps via PersistentVolume)
+  EFS (shared ReadWriteMany volumes)
+  S3 (object storage, IRSA access)
+  </div>
+
+  <h2 id="datalake">6. Data Lake Architecture</h2>
+  <div class="diagram">
+ENTERPRISE DATA LAKE ON AWS
+
+DATA SOURCES:
+  RDS/Aurora ──► DMS ──► S3 Raw Zone
+  On-Prem ──────► DataSync/Snowball ──► S3 Raw Zone
+  Kinesis Data Streams ──► Kinesis Firehose ──► S3 Raw Zone
+  SaaS (Salesforce, etc.) ──► AppFlow ──► S3 Raw Zone
+
+S3 DATA LAKE ZONES:
+  s3://data-lake/raw/         (original, unmodified data)
+  s3://data-lake/processed/   (cleaned, normalized, Parquet)
+  s3://data-lake/curated/     (business-ready, aggregated)
+  s3://data-lake/sandbox/     (data scientist exploration)
+
+TRANSFORMATION LAYER:
+  AWS Glue (ETL, Data Catalog)
+  ├── Glue Crawlers (auto-discover schema)
+  └── Glue Jobs (PySpark transformations)
+
+QUERY LAYER:
+  Amazon Athena (serverless SQL on S3)
+  Redshift Spectrum (query S3 from Redshift)
+
+GOVERNANCE:
+  Lake Formation (fine-grained column/row access control)
+  Glue Data Catalog (central metadata)
+  Macie (PII detection in S3)
+
+CONSUMPTION:
+  QuickSight (BI dashboards)
+  SageMaker (ML model training)
+  Redshift (complex analytics)
+  </div>
+
+  <h2 id="global">7. Global Application Architecture</h2>
+  <div class="diagram">
+GLOBAL APPLICATION WITH LOW LATENCY
+
+Users Worldwide
+     │
+     ▼
+Route 53 (Latency routing — route to nearest healthy endpoint)
+     │
+     ▼
+Global Accelerator (TCP/UDP, AWS backbone routing)
+  OR CloudFront (HTTP/HTTPS, CDN caching)
+     │
+     ├── us-east-1 (North America users)
+     │
+     ├── eu-west-1 (Europe users)
+     │
+     └── ap-southeast-1 (Asia Pacific users)
+
+Each Region Contains:
+  ├── ALB → ECS Fargate
+  ├── ElastiCache Redis (local session cache)
+  ├── DynamoDB Global Table (local reads/writes)
+  └── S3 with CRR (static assets cached by CloudFront)
+
+Global Data Synchronization:
+  DynamoDB Global Tables: multi-active, <1 sec lag
+  Aurora Global Database: active-passive, <1 sec lag
+  S3 Cross-Region Replication: async, eventual consistency
+  </div>
+
+  <h2>8. Analytics Architecture</h2>
+  <div class="diagram">
+REAL-TIME + BATCH ANALYTICS ARCHITECTURE
+
+REAL-TIME PIPELINE:
+  IoT Devices → Kinesis Data Streams → Lambda → DynamoDB
+                                     → Kinesis Firehose → S3 (raw)
+                                     → Kinesis Analytics → OpenSearch
+
+BATCH PIPELINE:
+  S3 (raw) → Glue ETL → S3 (processed, Parquet)
+           → Athena (ad-hoc query)
+           → Redshift Spectrum (join with Redshift)
+
+DASHBOARD LAYER:
+  QuickSight ← Athena
+  QuickSight ← Redshift
+  Kibana/OpenSearch Dashboards ← OpenSearch
+
+ML PIPELINE:
+  S3 (curated) → SageMaker (training)
+               → Model Registry → SageMaker Inference
+               → Lambda (real-time prediction)
+  </div>
+
+  <h2 id="exam-tips">9. Exam Tips</h2>
+  <div class="exam-box">
+    <h4>SAP-C02 Advanced Architecture — Key Points</h4>
+    <ul>
+      <li><strong>Multi-Region DB:</strong> Active/Active writes → DynamoDB Global Tables. Active/Passive → Aurora Global.</li>
+      <li><strong>SaaS isolation:</strong> Silo = separate stack (expensive but isolated). Pool = shared (cheaper, noisy neighbor). Bridge = hybrid.</li>
+      <li><strong>Serverless cost:</strong> Pay per request, zero when idle. Best for event-driven, variable traffic.</li>
+      <li><strong>IRSA (IAM Roles for Service Accounts):</strong> Pod-level AWS credentials in EKS — not instance profile.</li>
+      <li><strong>Lake Formation:</strong> Column/row level security on data lake. Controls Athena and Redshift Spectrum access.</li>
+      <li><strong>Kinesis vs SQS:</strong> Kinesis = ordered streaming, replay, multiple consumers. SQS = queue, one consumer per message.</li>
+      <li><strong>AppFlow:</strong> No-code integration for SaaS to S3/Redshift (Salesforce, ServiceNow, etc.).</li>
+      <li><strong>Global Accelerator vs CloudFront:</strong> GA = TCP/UDP, static IPs. CF = HTTP/HTTPS, caching.</li>
+      <li><strong>Glue vs EMR:</strong> Glue = serverless Spark ETL (simpler). EMR = managed Hadoop/Spark cluster (more control, larger workloads).</li>
+    </ul>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h5>Architecture Patterns</h5>
+      <ul>
+        <li>Event-driven: EventBridge + SQS + Lambda</li>
+        <li>CQRS: DynamoDB writes + ElastiCache reads</li>
+        <li>SAGA: Step Functions distributed txn</li>
+        <li>Strangler Fig: gradual monolith→micro</li>
+        <li>BFF: API Gateway per client type</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Data Services Quick Ref</h5>
+      <ul>
+        <li>Streaming ingest: Kinesis</li>
+        <li>ETL: Glue</li>
+        <li>Ad-hoc SQL on S3: Athena</li>
+        <li>Data warehouse: Redshift</li>
+        <li>BI dashboards: QuickSight</li>
+        <li>ML: SageMaker</li>
+        <li>Search: OpenSearch</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Container Platform</h5>
+      <ul>
+        <li>Simple containers: ECS + Fargate</li>
+        <li>Kubernetes: EKS</li>
+        <li>Pod IAM: IRSA</li>
+        <li>Image registry: ECR</li>
+        <li>Auto-scaling: Karpenter (EKS)</li>
+        <li>Service mesh: AWS App Mesh</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>Global Delivery</h5>
+      <ul>
+        <li>HTTP content: CloudFront</li>
+        <li>TCP/UDP perf: Global Accelerator</li>
+        <li>DNS failover: Route 53 Failover</li>
+        <li>Multi-region read: Aurora Global</li>
+        <li>Multi-active write: DynamoDB Global</li>
+        <li>Static assets: S3 + CloudFront</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-section11.html" style="color:var(--orange);text-decoration:none;">← Section 11: Cost Optimization</a>
+  <a href="aws-sap-c02-section13.html" style="color:var(--orange);text-decoration:none;">Section 13: Exam Strategy →</a>
+</nav>
+</body>
+</html>
+
+</body>
+</html>

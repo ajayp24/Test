@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aws-sap-c02-section07</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body style="margin:0;padding:0">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 07 – Application Integration | SAP-C02</title>
+<style>
+  :root{--orange:#FF9900;--dark:#232F3E;--blue:#1A73E8;--green:#2E7D32;--red:#C62828;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.7;}
+  header{background:linear-gradient(135deg,#232F3E,#1a2744);padding:40px;border-bottom:4px solid var(--orange);}
+  header h1{color:var(--orange);font-size:2.4em;font-weight:800;}
+  header p{color:#8b949e;margin-top:8px;}
+  nav{background:#161b22;padding:12px 40px;border-bottom:1px solid #30363d;display:flex;gap:16px;flex-wrap:wrap;}
+  nav a{color:#8b949e;text-decoration:none;font-size:0.85em;padding:4px 12px;border-radius:6px;}
+  nav a:hover{color:var(--orange);background:rgba(255,153,0,0.1);}
+  .main{max-width:1200px;margin:0 auto;padding:40px 30px;}
+  h2{color:var(--orange);font-size:1.8em;margin:40px 0 16px;padding-bottom:8px;border-bottom:2px solid rgba(255,153,0,0.3);}
+  h3{color:#58a6ff;font-size:1.3em;margin:28px 0 12px;}
+  h4{color:#79c0ff;font-size:1.1em;margin:20px 0 8px;}
+  p{color:#c9d1d9;margin:10px 0;font-size:0.97em;}
+  ul,ol{color:#c9d1d9;margin:10px 0 10px 24px;}
+  li{margin:6px 0;font-size:0.95em;}
+  .info-box{background:rgba(26,115,232,0.08);border-left:4px solid var(--blue);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .warn-box{background:rgba(255,153,0,0.08);border-left:4px solid var(--orange);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .success-box{background:rgba(46,125,50,0.08);border-left:4px solid var(--green);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .danger-box{background:rgba(198,40,40,0.08);border-left:4px solid var(--red);padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;}
+  .exam-box{background:rgba(106,27,154,0.12);border:1px solid rgba(106,27,154,0.4);padding:20px;margin:20px 0;border-radius:8px;}
+  .exam-box h4{color:#ce93d8;margin-top:0;}
+  pre{background:#161b22;border:1px solid #30363d;padding:20px;border-radius:8px;overflow-x:auto;font-size:0.85em;color:#e6edf3;margin:16px 0;}
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.9em;}
+  th{background:#21262d;color:var(--orange);padding:12px;text-align:left;border:1px solid #30363d;}
+  td{padding:10px 12px;border:1px solid #30363d;color:#c9d1d9;}
+  tr:nth-child(even){background:#0d1117;}
+  tr:hover{background:#161b22;}
+  .diagram{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:24px;font-family:monospace;font-size:0.82em;color:#8b949e;margin:20px 0;white-space:pre;overflow-x:auto;}
+  .section-badge{display:inline-block;background:var(--orange);color:#000;font-weight:700;padding:4px 14px;border-radius:20px;font-size:0.8em;margin-bottom:16px;}
+  .cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:20px 0;}
+  .cheat-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;}
+  .cheat-card h5{color:var(--orange);margin-bottom:8px;}
+  .cheat-card p,.cheat-card li{font-size:0.85em;color:#8b949e;}
+</style>
+</head>
+<body style="margin:0;padding:0">
+<header>
+  <div class="section-badge">Section 07</div>
+  <h1>Application Integration</h1>
+  <p>SQS · SNS · EventBridge · Amazon MQ · Step Functions · AppFlow · API Gateway · AppSync · Event-Driven Architecture</p>
+</header>
+<nav>
+  <a href="aws-sap-c02-index.html">← Index</a>
+  <a href="#sqs">SQS</a>
+  <a href="#sns">SNS</a>
+  <a href="#eventbridge">EventBridge</a>
+  <a href="#mq">Amazon MQ</a>
+  <a href="#stepfunctions">Step Functions</a>
+  <a href="#apigw">API Gateway</a>
+  <a href="#patterns">Event-Driven Patterns</a>
+  <a href="#exam-tips">Exam Tips</a>
+  <a href="aws-sap-c02-section08.html">Section 08 →</a>
+</nav>
+<div class="main">
+
+  <h2 id="sqs">1. Amazon SQS</h2>
+  <p>Simple Queue Service is a fully managed message queuing service for decoupling and scaling microservices, distributed systems, and serverless applications.</p>
+
+  <div class="diagram">
+SQS ARCHITECTURE
+
+Producer ──► SQS Queue ──► Consumer (EC2, Lambda, ECS)
+                │
+                ├── Standard Queue
+                │   • At-least-once delivery
+                │   • Best-effort ordering
+                │   • Nearly unlimited TPS
+                │
+                └── FIFO Queue
+                    • Exactly-once processing
+                    • First-In-First-Out ordering
+                    • 3,000 messages/sec with batching
+                    • 300 messages/sec without batching
+
+Message Lifecycle:
+1. Producer sends message (max 256 KB)
+2. Message becomes "in flight" when consumer receives it
+3. Consumer processes → deletes message
+4. If NOT deleted within VisibilityTimeout → message reappears
+5. After maxReceiveCount failures → message goes to DLQ
+  </div>
+
+  <h4>SQS Key Settings</h4>
+  <table>
+    <tr><th>Setting</th><th>Description</th><th>Exam Note</th></tr>
+    <tr><td>Visibility Timeout</td><td>Time consumer has to process before message reappears (0s–12hr, default 30s)</td><td>Set > max processing time to avoid duplicate processing</td></tr>
+    <tr><td>Message Retention</td><td>1 min to 14 days (default 4 days)</td><td>Set max (14 days) for DR scenarios</td></tr>
+    <tr><td>Max Message Size</td><td>256 KB (use S3 Extended Client Library for larger)</td><td>Large payloads → store in S3, put S3 reference in SQS message</td></tr>
+    <tr><td>Delivery Delay</td><td>0–900 seconds (15 min) per message or queue-wide</td><td>Delay processing by set time</td></tr>
+    <tr><td>Long Polling</td><td>Wait up to 20 seconds for messages (reduces empty responses)</td><td>Use long polling to reduce cost and false empty responses</td></tr>
+    <tr><td>Dead Letter Queue (DLQ)</td><td>Queue for messages that fail processing N times</td><td>Always set DLQ for production. Use DLQ Redrive to replay.</td></tr>
+  </table>
+
+  <h4>SQS Standard vs FIFO</h4>
+  <table>
+    <tr><th>Feature</th><th>Standard</th><th>FIFO</th></tr>
+    <tr><td>Throughput</td><td>Unlimited</td><td>3,000/sec with batching, 300/sec without</td></tr>
+    <tr><td>Delivery</td><td>At-least-once (may duplicate)</td><td>Exactly-once</td></tr>
+    <tr><td>Ordering</td><td>Best-effort</td><td>Strict FIFO (within message group)</td></tr>
+    <tr><td>Queue name</td><td>Any name</td><td>Must end in .fifo</td></tr>
+    <tr><td>Lambda trigger</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Cost</td><td>$0.40/million requests</td><td>$0.50/million requests</td></tr>
+    <tr><td>Use case</td><td>High throughput, order doesn't matter</td><td>Financial transactions, order processing, command sequencing</td></tr>
+  </table>
+
+  <h2 id="sns">2. Amazon SNS</h2>
+  <p>Simple Notification Service is a pub/sub messaging service for fan-out patterns — one message to multiple subscribers.</p>
+
+  <div class="diagram">
+SNS FAN-OUT PATTERN
+
+Publisher → SNS Topic → Subscriptions
+                        ├── SQS Queue 1 (Email Service)
+                        ├── SQS Queue 2 (Order Service)
+                        ├── SQS Queue 3 (Inventory Service)
+                        ├── Lambda function (Real-time notification)
+                        ├── HTTP/HTTPS endpoint (webhook)
+                        ├── Email (direct email notification)
+                        └── SMS (mobile phone)
+
+Fan-out use case:
+  Order placed → SNS → SQS (Payment) + SQS (Warehouse) + Lambda (Notification)
+  All happen independently, decoupled, no dependencies between consumers
+  </div>
+
+  <h4>SNS Key Features</h4>
+  <ul>
+    <li><strong>Max message size:</strong> 256 KB (use S3 for larger payloads)</li>
+    <li><strong>FIFO Topics:</strong> For ordered delivery to SQS FIFO queues</li>
+    <li><strong>Message Filtering:</strong> Subscribers can filter messages by attributes — only receive relevant messages</li>
+    <li><strong>Dead Letter Queue:</strong> Can set DLQ for failed deliveries (Lambda/SQS/HTTP subscriptions)</li>
+    <li><strong>Message archiving:</strong> Not built-in (use SQS DLQ or S3 subscription for persistence)</li>
+    <li><strong>Cross-region delivery:</strong> SNS can deliver to SQS queues in different regions</li>
+  </ul>
+
+  <div class="warn-box">
+    <strong>SNS vs SQS:</strong> SNS = push (publish once, notify many). SQS = pull (consumer polls for messages). SNS does NOT store messages. For persistence, subscribe SQS to SNS (fan-out pattern).
+  </div>
+
+  <h2 id="eventbridge">3. Amazon EventBridge</h2>
+  <p>EventBridge is a serverless event bus that makes it easy to build event-driven architectures. It connects AWS services, SaaS applications, and custom applications.</p>
+
+  <div class="diagram">
+EVENTBRIDGE ARCHITECTURE
+
+Event Sources:
+  AWS Services (EC2, S3, ECS, Lambda, etc.)
+  SaaS Partners (Zendesk, Datadog, PagerDuty, Stripe)
+  Custom Applications (PutEvents API)
+               │
+               ▼
+  ┌─────────────────────────────────────────────┐
+  │           EVENT BUS                         │
+  │  Default Bus: AWS service events            │
+  │  Partner Bus: SaaS partner events           │
+  │  Custom Bus: Your app events                │
+  └──────────────────┬──────────────────────────┘
+                     │
+                  RULES (filter events)
+                  Pattern matching: service, event type, detail
+                     │
+           ┌─────────┼─────────────────┐
+           │         │                 │
+         Lambda    SQS          Step Functions
+         ECS Task  SNS          API Gateway
+         EventBridge Bus (cross-acct)
+  </div>
+
+  <h4>EventBridge vs SNS vs SQS</h4>
+  <table>
+    <tr><th>Feature</th><th>EventBridge</th><th>SNS</th><th>SQS</th></tr>
+    <tr><td>Pattern</td><td>Event-driven (any source)</td><td>Pub/Sub (push)</td><td>Queue (pull)</td></tr>
+    <tr><td>Filtering</td><td>Powerful JSON event patterns</td><td>Message attribute filters</td><td>No built-in filtering</td></tr>
+    <tr><td>SaaS integration</td><td>Yes (Zendesk, Stripe, etc.)</td><td>No</td><td>No</td></tr>
+    <tr><td>Targets</td><td>20+ AWS services</td><td>Lambda, SQS, HTTP, Email, SMS</td><td>Consumers poll</td></tr>
+    <tr><td>Archive/Replay</td><td>Yes (archive events, replay)</td><td>No</td><td>No (use retention)</td></tr>
+    <tr><td>Schema Registry</td><td>Yes (auto-discover schemas)</td><td>No</td><td>No</td></tr>
+    <tr><td>Cross-account</td><td>Yes (resource policy + bus)</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>Use case</td><td>AWS/SaaS/custom event routing</td><td>Fan-out notification</td><td>Reliable decoupled queuing</td></tr>
+  </table>
+
+  <div class="info-box">
+    <strong>EventBridge Scheduler:</strong> Separate service for creating schedules (cron/rate) without needing events — replaces CloudWatch Events for scheduled tasks.
+  </div>
+
+  <h2 id="mq">4. Amazon MQ</h2>
+  <p>Amazon MQ is a managed message broker service for Apache ActiveMQ and RabbitMQ. Use it when migrating from on-premises message brokers with AMQP, MQTT, STOMP, OpenWire, WSS protocols.</p>
+  <div class="warn-box">
+    <strong>Amazon MQ vs SQS/SNS:</strong> New cloud-native apps → SQS/SNS (simpler, more scalable, cheaper). Migrating from on-premises ActiveMQ/RabbitMQ/JMS apps → Amazon MQ (protocol compatibility, minimal code change).
+  </div>
+
+  <h2 id="stepfunctions">5. AWS Step Functions</h2>
+  <p>Step Functions is a serverless workflow orchestration service for coordinating multiple AWS services into business processes.</p>
+
+  <div class="diagram">
+STEP FUNCTIONS WORKFLOW EXAMPLE: Order Processing
+
+Order Received
+     │
+     ▼
+[Validate Order]──FAIL──► [Send Failure Notification]
+     │ SUCCESS
+     ▼
+[Charge Payment]──FAIL──► [Refund & Notify]
+     │ SUCCESS
+     ▼
+[Reserve Inventory]
+     │
+     ▼
+     ├── PARALLEL
+     │   ├── [Update ERP System]
+     │   └── [Send Confirmation Email]
+     │
+     ▼
+[Ship Order]
+     │
+     ▼
+[Order Complete]
+
+State Types:
+• Task: Call Lambda, ECS, SQS, Batch, etc.
+• Choice: Conditional branching
+• Parallel: Execute branches simultaneously
+• Map: Process each item in array
+• Wait: Pause for time or event
+• Pass: Pass input to output unchanged
+• Succeed/Fail: Terminal states
+  </div>
+
+  <h4>Standard vs Express Workflows</h4>
+  <table>
+    <tr><th>Feature</th><th>Standard Workflows</th><th>Express Workflows</th></tr>
+    <tr><td>Max duration</td><td>1 year</td><td>5 minutes</td></tr>
+    <tr><td>Execution rate</td><td>2,000/sec</td><td>100,000/sec</td></tr>
+    <tr><td>Execution semantics</td><td>Exactly-once</td><td>At-least-once (async) or at-most-once (sync)</td></tr>
+    <tr><td>Pricing</td><td>Per state transition</td><td>Per execution + duration</td></tr>
+    <tr><td>Use case</td><td>Long-running workflows, human approvals, ML pipelines</td><td>High-rate IoT processing, streaming, microservice orchestration</td></tr>
+  </table>
+
+  <h2 id="apigw">6. API Gateway</h2>
+  <p>Amazon API Gateway is a fully managed service to create, publish, maintain, monitor, and secure APIs at any scale.</p>
+
+  <h4>API Gateway Types</h4>
+  <table>
+    <tr><th>Type</th><th>Protocol</th><th>Use Case</th></tr>
+    <tr><td>REST API</td><td>HTTP/HTTPS</td><td>Traditional REST APIs, full feature set, caching, usage plans</td></tr>
+    <tr><td>HTTP API</td><td>HTTP/HTTPS</td><td>Lower latency, lower cost (up to 71%), OIDC/JWT auth, simpler</td></tr>
+    <tr><td>WebSocket API</td><td>WebSocket</td><td>Real-time two-way communication (chat, gaming, live dashboards)</td></tr>
+  </table>
+
+  <h4>API Gateway Key Features</h4>
+  <ul>
+    <li><strong>Caching:</strong> Cache responses up to 1 hour — reduces backend calls</li>
+    <li><strong>Throttling:</strong> Account-level (10,000 rps), stage-level, usage plan-level</li>
+    <li><strong>Usage Plans + API Keys:</strong> Rate limit and quota individual customers</li>
+    <li><strong>Lambda Authorizer:</strong> Custom auth logic in Lambda function (validate JWT, call database)</li>
+    <li><strong>Cognito Authorizer:</strong> Validates Cognito User Pool JWTs</li>
+    <li><strong>VPC Link:</strong> Connect API Gateway to private resources in VPC (NLB → private EC2/ECS)</li>
+    <li><strong>Stage Variables:</strong> Configuration per stage (dev, prod) — like environment variables</li>
+    <li><strong>Canary deployments:</strong> Route % of traffic to new stage version</li>
+  </ul>
+
+  <h2 id="patterns">7. Event-Driven Architecture Patterns</h2>
+  <div class="diagram">
+PATTERN 1: SAGA PATTERN (Distributed Transactions)
+
+Order Service → [Place Order] → SQS → Payment Service
+                                       │
+                                Success → SQS → Inventory Service
+                                       │
+                                Failure → SQS → Compensation (Cancel Order)
+
+Step Functions choreographs the saga workflow.
+Each service publishes success/failure events.
+Compensating transactions roll back on failure.
+
+PATTERN 2: EVENT SOURCING
+
+User Actions → EventBridge → SQS → Event Store (DynamoDB)
+                                         │
+                                    Event Bus → Multiple Projections
+                                         │    (Read models)
+                                         ├── Search Index (OpenSearch)
+                                         └── Analytics (Kinesis → Redshift)
+
+PATTERN 3: CQRS (Command Query Responsibility Segregation)
+
+Write Path: API → Lambda → DynamoDB (Command)
+                               │ Stream
+                               ▼
+Read Path:  API → Lambda → ElastiCache (Query, pre-built read models)
+  </div>
+
+  <h4>Real-World: E-Commerce Event-Driven Architecture</h4>
+  <div class="diagram">
+Customer Places Order
+        │
+        ▼
+API Gateway → Lambda (validate) → EventBridge
+                                       │
+                  ┌────────────────────┼─────────────────────┐
+                  │                    │                     │
+             SQS Queue           SQS Queue            SQS Queue
+           (Payment Svc)       (Warehouse Svc)      (Email Service)
+                  │                    │                     │
+             Lambda Fn            Lambda Fn            Lambda Fn
+          (charge card)        (reserve item)       (send email)
+                  │
+            DynamoDB → Streams → Lambda → EventBridge
+                                              │
+                                         Step Functions
+                                       (shipping workflow)
+  </div>
+
+  <h4>CLI — Create SQS Queue with DLQ</h4>
+  <pre>
+# Create DLQ first
+aws sqs create-queue \
+  --queue-name order-processing-dlq \
+  --attributes MessageRetentionPeriod=1209600
+
+DLQ_ARN=$(aws sqs get-queue-attributes \
+  --queue-url https://sqs.us-east-1.amazonaws.com/123/order-processing-dlq \
+  --attribute-names QueueArn \
+  --query 'Attributes.QueueArn' --output text)
+
+# Create main queue with DLQ
+aws sqs create-queue \
+  --queue-name order-processing \
+  --attributes '{
+    "VisibilityTimeout": "300",
+    "MessageRetentionPeriod": "86400",
+    "ReceiveMessageWaitTimeSeconds": "20",
+    "RedrivePolicy": "{\"deadLetterTargetArn\":\"'$DLQ_ARN'\",\"maxReceiveCount\":\"3\"}"
+  }'
+
+# Create EventBridge rule
+aws events put-rule \
+  --name OrderCreatedRule \
+  --event-pattern '{"source":["myapp.orders"],"detail-type":["OrderCreated"]}' \
+  --state ENABLED
+
+# Add Lambda target to rule
+aws events put-targets \
+  --rule OrderCreatedRule \
+  --targets 'Id=1,Arn=arn:aws:lambda:us-east-1:123:function:process-order'
+  </pre>
+
+  <h4>Terraform — SNS + SQS Fan-Out</h4>
+  <pre>
+resource "aws_sns_topic" "orders" {
+  name = "order-events"
+}
+
+resource "aws_sqs_queue" "payment" {
+  name                       = "payment-queue"
+  visibility_timeout_seconds  = 300
+  message_retention_seconds   = 86400
+  receive_wait_time_seconds   = 20
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.payment_dlq.arn
+    maxReceiveCount     = 3
+  })
+}
+
+resource "aws_sqs_queue" "payment_dlq" {
+  name                      = "payment-dlq"
+  message_retention_seconds = 1209600
+}
+
+resource "aws_sns_topic_subscription" "payment_sub" {
+  topic_arn = aws_sns_topic.orders.arn
+  protocol  = "sqs"
+  endpoint  = aws_sqs_queue.payment.arn
+  filter_policy = jsonencode({
+    eventType = ["OrderCreated", "OrderUpdated"]
+  })
+}
+
+# Allow SNS to send to SQS
+resource "aws_sqs_queue_policy" "payment" {
+  queue_url = aws_sqs_queue.payment.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { Service = "sns.amazonaws.com" }
+      Action    = "sqs:SendMessage"
+      Resource  = aws_sqs_queue.payment.arn
+      Condition = {
+        ArnEquals = { "aws:SourceArn" = aws_sns_topic.orders.arn }
+      }
+    }]
+  })
+}
+  </pre>
+
+  <h2 id="exam-tips">8. Exam Tips & Cheat Sheet</h2>
+  <div class="exam-box">
+    <h4>SAP-C02 Application Integration — Critical Points</h4>
+    <ul>
+      <li><strong>SQS FIFO:</strong> Exactly-once processing, ordered. Max 3,000 msg/sec. Queue name ends in .fifo.</li>
+      <li><strong>SQS Visibility Timeout:</strong> Must be longer than your processing time to avoid duplicate processing.</li>
+      <li><strong>Long polling:</strong> Set ReceiveMessageWaitTimeSeconds = 20 to reduce empty responses and cost.</li>
+      <li><strong>SNS fan-out:</strong> Send to SQS queues from one SNS topic. SQS provides durability (SNS doesn't store).</li>
+      <li><strong>EventBridge vs SNS:</strong> EventBridge for AWS service events, SaaS, complex filtering, schema registry. SNS for simple pub/sub fan-out.</li>
+      <li><strong>Amazon MQ:</strong> Only when existing on-prem JMS/AMQP/MQTT code must work unchanged.</li>
+      <li><strong>Step Functions Standard:</strong> Long-running (1 year), exactly-once, human approval tasks.</li>
+      <li><strong>Step Functions Express:</strong> High-rate (100k/sec), 5-minute max, IoT/streaming.</li>
+      <li><strong>API Gateway REST vs HTTP:</strong> HTTP API = 71% cheaper, lower latency. REST API = more features (caching, usage plans, full request transformation).</li>
+      <li><strong>API Gateway Throttling:</strong> 10,000 rps default account limit, 5,000 burst. Can request increase.</li>
+      <li><strong>VPC Link:</strong> Use when API Gateway needs to reach private resources (NLB in VPC).</li>
+    </ul>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-card">
+      <h5>Message Service Selection</h5>
+      <ul>
+        <li>Decoupling: SQS (pull model)</li>
+        <li>Fan-out/notify: SNS (push)</li>
+        <li>Complex event routing: EventBridge</li>
+        <li>JMS/AMQP legacy: Amazon MQ</li>
+        <li>Workflow orchestration: Step Functions</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>SQS Critical Settings</h5>
+      <ul>
+        <li>Standard: unlimited TPS, at-least-once</li>
+        <li>FIFO: 3000/sec, exactly-once</li>
+        <li>Visibility timeout: 0s–12hrs</li>
+        <li>Retention: 1min–14days</li>
+        <li>Long poll: up to 20 seconds</li>
+        <li>DLQ: after maxReceiveCount failures</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>EventBridge Patterns</h5>
+      <ul>
+        <li>Schedule: cron/rate expressions</li>
+        <li>Pattern: filter by event source/type</li>
+        <li>Pipe: point-to-point enrichment</li>
+        <li>Archive: store events, replay later</li>
+        <li>Cross-acct: resource-based policy</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <h5>API Gateway Auth</h5>
+      <ul>
+        <li>IAM auth: AWS SigV4</li>
+        <li>Cognito: JWT from User Pool</li>
+        <li>Lambda Authorizer: custom logic</li>
+        <li>API Key: throttling/quota only</li>
+        <li>Resource policy: IP/VPC restriction</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<nav style="padding:20px 40px;border-top:1px solid #30363d;display:flex;justify-content:space-between;">
+  <a href="aws-sap-c02-section06.html" style="color:var(--orange);text-decoration:none;">← Section 06: Databases</a>
+  <a href="aws-sap-c02-section08.html" style="color:var(--orange);text-decoration:none;">Section 08: Migration →</a>
+</nav>
+</body>
+</html>
+
+</body>
+</html>
